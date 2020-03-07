@@ -6,10 +6,19 @@
     <description>Recent content on Werifu&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 07 Mar 2020 00:47:33 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 07 Mar 2020 14:17:10 +0800</lastBuildDate>
     
 	<atom:link href="https://werifu.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hpage</title>
+      <link>https://werifu.github.io/hpage/</link>
+      <pubDate>Sat, 07 Mar 2020 14:17:10 +0800</pubDate>
+      
+      <guid>https://werifu.github.io/hpage/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>第一篇blog</title>
@@ -20,15 +29,6 @@
       <description>​	最近的话，一个是想把一些什么部署到腾讯云CVM上，然后写个针对px的爬虫，不过似乎功能需求并不高，所以后边转念想要写成做数据分析的（
 ​	本来想继续写个给班里提醒作业的bot的，好像有点忙就鸽了。
 ​	CVM可能会用作各种应用层协议的实验平台吧，最近黑皮书学习中。</description>
-    </item>
-    
-    <item>
-      <title>Test</title>
-      <link>https://werifu.github.io/post/test/</link>
-      <pubDate>Sat, 07 Mar 2020 00:12:02 +0800</pubDate>
-      
-      <guid>https://werifu.github.io/post/test/</guid>
-      <description></description>
     </item>
     
   </channel>
