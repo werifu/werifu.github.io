@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Doujins on Werifu&#39;s Blog</title>
+    <link>https://werifu.github.io/doujin/</link>
+    <description>Recent content in Doujins on Werifu&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 07 Mar 2020 14:17:10 +0800</lastBuildDate>
+    
+	<atom:link href="https://werifu.github.io/doujin/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hpage</title>
+      <link>https://werifu.github.io/doujin/hpage/</link>
+      <pubDate>Sat, 07 Mar 2020 14:17:10 +0800</pubDate>
+      
+      <guid>https://werifu.github.io/doujin/hpage/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

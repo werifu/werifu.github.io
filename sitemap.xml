@@ -3,7 +3,14 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://werifu.github.io/hpage/</loc>
+    <loc>https://werifu.github.io/doujin/</loc>
+    <lastmod>2020-03-07T14:17:10+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://werifu.github.io/doujin/hpage/</loc>
     <lastmod>2020-03-07T14:17:10+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
