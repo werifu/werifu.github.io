@@ -3,6 +3,34 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://werifu.github.io/post/</loc>
+    <lastmod>2020-04-10T12:08:21+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://werifu.github.io/</loc>
+    <lastmod>2020-04-10T12:08:21+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://werifu.github.io/post/%E6%97%A5%E8%AF%AD%E7%AC%94%E8%AE%B003/</loc>
+    <lastmod>2020-04-10T12:08:21+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://werifu.github.io/post/%E6%97%A5%E8%AF%AD%E7%AC%94%E8%AE%B00409/</loc>
+    <lastmod>2020-04-09T11:11:19+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://werifu.github.io/doujin/</loc>
     <lastmod>2020-03-07T14:17:10+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -17,15 +45,8 @@
   </url>
   
   <url>
-    <loc>https://werifu.github.io/</loc>
-    <lastmod>2020-03-07T14:17:10+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://werifu.github.io/post/</loc>
-    <lastmod>2020-03-07T00:47:33+08:00</lastmod>
+    <loc>https://werifu.github.io/doujin/th/</loc>
+    <lastmod>2020-03-07T12:52:08+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -47,6 +68,12 @@
   <url>
     <loc>https://werifu.github.io/post/we/</loc>
     <lastmod>2020-03-07T00:47:33+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://werifu.github.io/post/%E6%97%A5%E8%AF%AD%E7%9A%84%E6%B4%BB%E7%94%A8%E3%81%8B%E3%81%A4%E3%82%88%E3%81%86/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
