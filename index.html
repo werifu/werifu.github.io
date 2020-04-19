@@ -34,7 +34,7 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://werifu.github.io/" />
-<meta property="og:updated_time" content="2020-04-10T12:08:21+08:00" />
+<meta property="og:updated_time" content="2020-04-17T17:29:29+08:00" />
 <meta itemprop="name" content="Werifu&#39;s Blog">
 <meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Werifu&#39;s Blog"/>
@@ -147,6 +147,33 @@
 
       <section class="w-100 mw8">
         
+        
+          <div class="relative w-100 mb4">
+            
+<article class="bb b--black-10">
+  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
+    <div class="flex flex-column flex-row-ns">
+      
+      <div class="blah w-100">
+        <h1 class="f3 fw1 athelas mt0 lh-title">
+          <a href="https://werifu.github.io/post/%E6%8A%8A%E8%B6%8A%E5%85%B1bot%E9%83%A8%E7%BD%B2%E5%88%B0docker%E4%B8%8A/" class="color-inherit dim link">
+            把越共bot部署到docker上
+            </a>
+        </h1>
+        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
+          docker-compose version: &quot;3&quot; services: wine-coolq: image: coolq/wine-coolq:latest container_name: thbot ports: - &quot;9000:9000&quot; volumes: - &quot;/home/thbot/:/home/user/coolq/dev&quot; depends_on: - go go: image: golang:latest container_name: thbot_go depends_on: - mongo mongo: image: mongo:latest container_name: thbot_mongo ports: - &quot;27017:27017&quot; 解释下
+ version：&ldquo;3&rdquo; 表示这个compose文件的版本，必要项 services: 服务都放在services里 “-” 表示参数，一行一个参数，美观（ 后边三个服务代表三个容器  image 表示原来的镜像 ports 宿主机：容器，把容器里的某个端口映射出来 volumes 宿主目录：原目录，&quot;/home/thbot/:/home/user/coolq/dev&quot;是把容器中后者目录映射到宿主机前者目录中，我们的项目文件就放在/thbot/里 depends_on 表示这个服务依赖的对象，写服务名    这回部署没有用dockerfile，直接用compose构建
+注意事项 ​	酷q在容器中跟在win上一样，有dev文件夹，路径为~/home/user/coolq/dev，把这个dev映射到宿主机的thbot/目录中，然后靠依赖于go服务来提供golang环境，golang再依赖到mongo上实现对数据库的连接。
+ go文件里Dial(url)连接mongo应该用mongo:27017而不是localhost:27017，容器间不共用本地。docker可以自动把容器名解析为给容器分配的ip 在酷q开发模式的项目下，当前目录是/coolq/，而项目位于/coolq/dev/ 用golang的os.Getwd()得到 好像在编译插件的app.dll方面还是比较麻烦，目前采用的是在自家电脑编译完再scp把项目传到VPS上，在coolq的docker里没法编译go  参考链接  https://www.ruanyifeng.com/blog/2018/02/docker-wordpress-tutorial.html 阮一峰的docker微服务教程 https://deepzz.com/post/docker-compose-file.html 如何写docker-compose.
+        </div>
+          <a href="https://werifu.github.io/post/%E6%8A%8A%E8%B6%8A%E5%85%B1bot%E9%83%A8%E7%BD%B2%E5%88%B0docker%E4%B8%8A/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+          </div>
         
           <div class="relative w-100 mb4">
             
