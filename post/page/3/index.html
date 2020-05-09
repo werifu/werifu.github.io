@@ -133,87 +133,23 @@
           
             <div class="mb3 pa4 mid-gray overflow-hidden">
     
-      <div class="f6">
-        May 5, 2020
-      </div>
-    
     <h1 class="f3 near-black">
-      <a href="https://werifu.github.io/post/%E6%97%A5%E8%AF%AD%E7%AC%94%E8%AE%B005/" class="link black dim">
-        日语笔记05
+      <a href="https://werifu.github.io/post/%E6%97%A5%E8%AF%AD%E7%9A%84%E6%B4%BB%E7%94%A8%E3%81%8B%E3%81%A4%E3%82%88%E3%81%86/" class="link black dim">
+        
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      [toc]
-甚だしい  はなは　だしい 程度が大きく離れている様子（ようす） adj   acute： 苦痛（くつう）などが甚だしい
- 際　（再探）  一般比とき更为郑重  ~際は  非一次性事件（反复发生）   お降り（おり）の際は、お忘れ物のないよう、お気をつけください。 下车时注意不要丢东西
-  お困（こま）りの際は、いつでもご連絡ください。 有困难时请来找我
-  クレジットかードを　紛失した際は、サポートセンター　まで　ご連絡ください。 信用卡丢了的时候联系support center
- この際  趁此机会，到了这时候了   この際　はっきり　言っておく～ 趁此机会跟你说了吧~
-  この際だから　言うのだが 都到了这时候了就跟你说了
-  長男（ちょうなん）が結婚しますので、この際　家を二世帯住宅（せたいじゅうたく）に建て替えようと思います。 长子结婚时想把这两代人住的房子新建下。
- ~に際して  值xx之际（即将发生） n +　に際して ｖるに際して（不能接过去式的た形）   お別れに際して、一言（ひとこと）ご挨拶（あいさつ）を申し上げます。 至此分别之际，请让我说两句话。
-  当サイトのご利用に際して、以下のご利用条件をよくお読みください。 使用本网站前请仔细阅读以下利用条件。
-    </div>
-  </div>
-
-        </div>
-      
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          
-            <div class="mb3 pa4 mid-gray overflow-hidden">
-    
-      <div class="f6">
-        April 17, 2020
-      </div>
-    
-    <h1 class="f3 near-black">
-      <a href="https://werifu.github.io/post/%E6%8A%8A%E8%B6%8A%E5%85%B1bot%E9%83%A8%E7%BD%B2%E5%88%B0docker%E4%B8%8A/" class="link black dim">
-        把越共bot部署到docker上
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      前言 本来安排很久了…… 一直没动手，直到这周才想到要彻底地把bot放上去
-docker-compose version: &quot;3&quot; services: wine-coolq: image: coolq/wine-coolq:latest container_name: thbot ports: - &quot;9000:9000&quot; volumes: - &quot;/home/thbot/:/home/user/coolq/dev&quot; depends_on: - go go: image: golang:latest container_name: thbot_go depends_on: - mongo mongo: image: mongo:latest container_name: thbot_mongo ports: - &quot;27017:27017&quot; 解释下
- version：&ldquo;3&rdquo; 表示这个compose文件的版本，必要项 services: 服务都放在services里 “-” 表示参数，一行一个参数，美观（ 后边三个服务代表三个容器  image 表示原来的镜像 ports 宿主机：容器，把容器里的某个端口映射出来 volumes 宿主目录：原目录，&quot;/home/thbot/:/home/user/coolq/dev&quot;是把容器中后者目录映射到宿主机前者目录中，我们的项目文件就放在/thbot/里 depends_on 表示这个服务依赖的对象，写服务名    这回部署没有用dockerfile，直接用compose构建
-注意事项 ​	酷q在容器中跟在win上一样，有dev文件夹，路径为~/home/user/coolq/dev，把这个dev映射到宿主机的thbot/目录中，然后靠依赖于go服务来提供golang环境，golang再依赖到mongo上实现对数据库的连接。
- go文件里Dial(url)连接mongo应该用mongo:27017而不是localhost:27017，容器间不共用本地。docker可以自动把容器名解析为给容器分配的ip 在酷q开发模式的项目下，当前目录是/coolq/，而项目位于/coolq/dev/ 用golang的os.Getwd()得到 好像在编译插件的app.dll方面还是比较麻烦，目前采用的是在自家电脑编译完再scp把项目传到VPS上，在coolq的docker里没法编译go  参考链接  https://www.
-    </div>
-  </div>
-
-        </div>
-      
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          
-            <div class="mb3 pa4 mid-gray overflow-hidden">
-    
-      <div class="f6">
-        April 14, 2020
-      </div>
-    
-    <h1 class="f3 near-black">
-      <a href="https://werifu.github.io/post/%E6%97%A5%E8%AF%AD04/" class="link black dim">
-        日语笔记04
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      [toc]
-词汇   他（ほか）
-  縮約（しゅくやく）
-  従（したが）う　遵从（命令等）
-  言っておくけど、　话先说在前头
-  はっきり　很明显，很确定（clearly）
-  トラブル　trouble
-  迷（まよ）う　迷路
-  売り上げ（うりあげ）　销售额
-或者叫 売上
-  三日坊主（みっかぼうず）　三分钟热度
-  示（しめ）す 表示
-  稼（かせ）げる　赚到
-  放題（ほうだい）　自由
- 食べ放題	吃到饱    尋（たず）ねる　询问
-  訪（たず）ねる　拜访
-  わざわざ　特意
-  勢（いきお）い　ｎ气势
+      draft: true日语的活用(かつよう) ​	其实老早（可能几年前）就有在思索这一方面的内容了，比如说一个动词，可以通过活用来达到改变词性、时态（对于一般语言来说叫做__变位__，如英语里run-runner-running），而且一种活用形往往也对应了某一类活用形式。
+ 死ぬ（辞書形） 死んで（て形） 死んだ（た形） 死にます（ます形） 死なない（ない形） 死ね（命令形） 死ぬな（禁止形） 死ねば（假定形）
+ ​	由于在文法方面日本有多种文法的理解方式，在这里只讨论一种。我们将动词分成六个活用形： 未然形、连用形、终止形、连体形、命令形、假定型。
+​	要区分开活用与动词时态、主被动语态、自他动词等，前者指的是动词的变形方式，后者是从词汇意义上的区分，在我的认知里，后者不同的词汇应该属于当做独立的单语看待。比如主动和被动「する」「される」都属于简体（普通形），都有自己的六种活用，前者作为三类动词存在，后者则是二类动词。自/他动词「止まる」「止める」类似。
+​	说明：
+ 未然形不仅仅指否定形（即ない形），同时未发生的意志形（推量形）也归属到里边。如「～お段＋う」也算未然形。 连用表示接动词的形式，有接「ます」「て」「た」的，也就是ます形・て形・た形，三种都有不同的意思 终止形就是能够结束句子的形式，普通形都可以 连体形是能够把一个句子作为某种成分接到别的词语的变化，  动词的形容词意味 ​	首先可以想到的是用“连体形” 来起到形容词化的作用。
+ 夢見る 歯車 梦见的 齿轮
+ ​	「見る」本身就可以作为一个句子的结尾，也可以作为一个形容词性的句子（比起英语的定语从句还是要更像汉语，拿句子来当定语很简单，不用考虑接续词which/who等）。
+​	当然，既然是句子也就免不了有时态，作为过去式
+ 私が住んだ所 我住过的地方
+ 
     </div>
   </div>
 
@@ -228,8 +164,8 @@ docker-compose version: &quot;3&quot; services: wine-coolq: image: coolq/wine-co
         <a href="/post/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
     </li>
     
-    <li class="page-item disabled">
-    <a  class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    <li class="page-item">
+    <a href="/post/page/2/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
     </li>
     
     
@@ -242,7 +178,7 @@ docker-compose version: &quot;3&quot; services: wine-coolq: image: coolq/wine-co
         
     
     
-    <li class="page-item active"><a class="page-link" href="/post/">1</a></li>
+    <li class="page-item"><a class="page-link" href="/post/">1</a></li>
     
     
     
@@ -264,11 +200,11 @@ docker-compose version: &quot;3&quot; services: wine-coolq: image: coolq/wine-co
         
     
     
-    <li class="page-item"><a class="page-link" href="/post/page/3/">3</a></li>
+    <li class="page-item active"><a class="page-link" href="/post/page/3/">3</a></li>
     
     
-    <li class="page-item">
-    <a href="/post/page/2/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    <li class="page-item disabled">
+    <a  class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
     </li>
     
     <li class="page-item">
