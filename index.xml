@@ -44,10 +44,10 @@ docker-compose version: &amp;quot;3&amp;quot; services: wine-coolq: image: coolq
     
     <item>
       <title>日语笔记04</title>
-      <link>https://werifu.github.io/post/%E6%97%A5%E8%AF%AD04/</link>
+      <link>https://werifu.github.io/post/%E6%97%A5%E8%AF%AD%E7%AC%94%E8%AE%B004/</link>
       <pubDate>Tue, 14 Apr 2020 13:11:10 +0800</pubDate>
       
-      <guid>https://werifu.github.io/post/%E6%97%A5%E8%AF%AD04/</guid>
+      <guid>https://werifu.github.io/post/%E6%97%A5%E8%AF%AD%E7%AC%94%E8%AE%B004/</guid>
       <description>[toc]
 词汇   他（ほか）
   縮約（しゅくやく）
@@ -86,10 +86,10 @@ docker-compose version: &amp;quot;3&amp;quot; services: wine-coolq: image: coolq
     
     <item>
       <title>日语笔记02</title>
-      <link>https://werifu.github.io/post/%E6%97%A5%E8%AF%AD%E7%AC%94%E8%AE%B00409/</link>
+      <link>https://werifu.github.io/post/%E6%97%A5%E8%AF%AD%E7%AC%94%E8%AE%B002/</link>
       <pubDate>Thu, 09 Apr 2020 11:11:19 +0800</pubDate>
       
-      <guid>https://werifu.github.io/post/%E6%97%A5%E8%AF%AD%E7%AC%94%E8%AE%B00409/</guid>
+      <guid>https://werifu.github.io/post/%E6%97%A5%E8%AF%AD%E7%AC%94%E8%AE%B002/</guid>
       <description>[TOC]
 学习来源
 出口仁的N3语法
@@ -131,25 +131,6 @@ docker-compose version: &amp;quot;3&amp;quot; services: wine-coolq: image: coolq
       <description>​	最近的话，一个是想把一些什么部署到腾讯云CVM上，然后写个针对px的爬虫，不过似乎功能需求并不高，所以后边转念想要写成做数据分析的（
 ​	本来想继续写个给班里提醒作业的bot的，好像有点忙就鸽了。
 ​	CVM可能会用作各种应用层协议的实验平台吧，最近黑皮书学习中。</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://werifu.github.io/post/%E6%97%A5%E8%AF%AD%E7%9A%84%E6%B4%BB%E7%94%A8%E3%81%8B%E3%81%A4%E3%82%88%E3%81%86/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://werifu.github.io/post/%E6%97%A5%E8%AF%AD%E7%9A%84%E6%B4%BB%E7%94%A8%E3%81%8B%E3%81%A4%E3%82%88%E3%81%86/</guid>
-      <description>draft: true日语的活用(かつよう) ​	其实老早（可能几年前）就有在思索这一方面的内容了，比如说一个动词，可以通过活用来达到改变词性、时态（对于一般语言来说叫做__变位__，如英语里run-runner-running），而且一种活用形往往也对应了某一类活用形式。
- 死ぬ（辞書形） 死んで（て形） 死んだ（た形） 死にます（ます形） 死なない（ない形） 死ね（命令形） 死ぬな（禁止形） 死ねば（假定形）
- ​	由于在文法方面日本有多种文法的理解方式，在这里只讨论一种。我们将动词分成六个活用形： 未然形、连用形、终止形、连体形、命令形、假定型。
-​	要区分开活用与动词时态、主被动语态、自他动词等，前者指的是动词的变形方式，后者是从词汇意义上的区分，在我的认知里，后者不同的词汇应该属于当做独立的单语看待。比如主动和被动「する」「される」都属于简体（普通形），都有自己的六种活用，前者作为三类动词存在，后者则是二类动词。自/他动词「止まる」「止める」类似。
-​	说明：
- 未然形不仅仅指否定形（即ない形），同时未发生的意志形（推量形）也归属到里边。如「～お段＋う」也算未然形。 连用表示接动词的形式，有接「ます」「て」「た」的，也就是ます形・て形・た形，三种都有不同的意思 终止形就是能够结束句子的形式，普通形都可以 连体形是能够把一个句子作为某种成分接到别的词语的变化，  动词的形容词意味 ​	首先可以想到的是用“连体形” 来起到形容词化的作用。
- 夢見る 歯車 梦见的 齿轮
- ​	「見る」本身就可以作为一个句子的结尾，也可以作为一个形容词性的句子（比起英语的定语从句还是要更像汉语，拿句子来当定语很简单，不用考虑接续词which/who等）。
-​	当然，既然是句子也就免不了有时态，作为过去式
- 私が住んだ所 我住过的地方
- </description>
     </item>
     
   </channel>
