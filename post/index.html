@@ -34,7 +34,7 @@
 <meta property="og:description" content="止まるじゃないぞ⤴" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://werifu.github.io/post/" />
-<meta property="og:updated_time" content="2020-05-12T17:57:37+08:00" />
+<meta property="og:updated_time" content="2020-05-19T00:19:38+08:00" />
 <meta itemprop="name" content="Post">
 <meta itemprop="description" content="止まるじゃないぞ⤴"><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Post"/>
@@ -144,6 +144,74 @@
             <div class="mb3 pa4 mid-gray overflow-hidden">
     
       <div class="f6">
+        May 19, 2020
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="https://werifu.github.io/post/mit-6.824-2020-lab1%E8%AE%B0%E5%BD%95/" class="link black dim">
+        MIT-6.824-2020春-lab1记录
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      [toc]
+前言 大概是记录一下看6.824视频和实验的想法，不会贴太多代码（太屎了）。
+不过通过这个lab倒是也学到一些Go使用方面的技能
+分布式系统 ​	集中的处理模式早就跟不上数据量了，为了实现性能的提高，物理分散成为了必须实现的功能，多台计算机/多个线程同时进行工作的系统就叫【Distributed System】。
+​	做分布式系统需要关注的是以下几个方面：并行、容错、物理、安全
+MapReduce Map（映射）和Reduce（归纳）
+​	Map将拆分成多份的原始数据映射成__键值对(kv)__，Reduce则是将键值对进行归纳合并，得到一个结果，一个MapReduce模型应当允许多组Map任务和Reduce任务并行完成。
+写成代码是下边这样的
+map(k1,v1)--&gt; list(k2,v2) reduce(k2,list(v2))--&gt; list (v2) ​	map接受一份原始数据v1，我们需要给这份数据标上代号k1，保证任务能被有编制地完成。返回的list(k2, v2)是中间数据（intermediate），是一个__键值对的集合__，其中的k2就已经是我们想要的结果的key了。
+​	reduce接受k2和list(v2)，什么意思呢？我们知道有多个map在进行任务，同时输出一个（个）的键值对集合，所以这个（或者多个）键值对集合里，有可能会有多个以k2为key的键值对，再思考下我们这个MapReduce模型想要得到怎样的结果：我们要知道某个key在一个大数据集里对应着怎样的value（举例来说可以是某一个单词在好几篇文章里面出现的总次数），那么我们需要的就是以k2为key的 $\Sigma$value （当然有很多个k2）。现在就可以理解这个list(v2)了，我们把所有map任务的__所有__以某个k2为key的键值对抽出来，形成一个键值对集合，由于键都一样，我们可以将
+[ {k2: v2_1}, {k2: v2_2}, ... {k2: v2_xxx} ] 化简成
+{ k2: [v2_1, v2_2, ... , v2_xxx] } 然后reduce函数将上边这个对象整合成 {k2: $\Sigma$value}
+这里搬几个paper里的常用MR实例：
+  计算URL的访问频率：map函数用来处理网页请求的日志，并输出(URL,1)。reduce函数则用于将相同URL的值全部加起来，并输出(URL, 访问总次数)这样的键值对结果。
+  倒转网络链接图：map函数会在源页面中找到所有的目标URL，并输出&lt;target, source&gt;这样的键值对。reduce函数会将给定的目标URL的所有链接组合成一个列表，输出&lt;target, list(source)&gt;这样的键值对。
+  每台主机上的检索词频率：term（这里是指搜索系统里的某一项东西，这里指检索词）vector（这里指数组）将一个文档或者是一组文档中出现的最重要的单词概括为&lt;单词，频率&gt; 这样的键值对列表，对于每个输入文档，map函数会输出这样一对键值对（其中hostname是从文档中的URL里提取出来的）。Reduce函数接收给定主机的所有每一个文档的term vector。它会将这些term vector加在一起，并去除频率较低的term，然后输出一个最终键值对。
+  倒排索引：map函数会对每个文档进行解析，并输出&lt;word, 文档ID&gt;这样的键值对序列。reduce函数所接受的输入是一个给定词的所有键值对，接着它会对所有文档ID进行排序，然后输出&lt;word, list(文档ID)&gt;。所有输出键值对的集合可以形成一个简单的倒排索引。我们能简单的计算出每个单词在文档中的位置。
+  分布式排序：map函数会从每条记录中提取出一个key，然后输出&lt;key, record&gt;这样的键值对。reduce函数对这些键值对不做任何修改，直接输出。这种计算任务依赖分区机制
+    </div>
+  </div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
+        May 14, 2020
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="https://werifu.github.io/post/%E6%97%A5%E8%AF%AD%E7%AC%94%E8%AE%B007/" class="link black dim">
+        日语笔记07
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      [toc]
+~限り  かぎり 表限度   限りある資源
+  限りない宇宙
+  n+限り  期限   一夜限りの復活ライブ 限定一晚的复活直播
+ この場限り  我只在这说（你别说出去   今の話はこの場限りで忘れないてください。
+  ｎの・ｖる　限り  尽量，达到极限   命の限り戦った。
+  できる限り戦った。
+  感情+限り  表非常   幸せの限り 很幸福
+  ｖる・た・ている　限り（では）  私の知る限り、彼は絶対そんなことをするような人ではない。 据我所知，他绝不是会做这种事的人
+  ~に限る  ~是最好的   和菓子（わがし）なら　この店に限る
+  この時は寝るに限る
+  ｎに限り  仅限（强调）   三歳以下のお子様に限り、入場（じょう）料は無料です。
+    </div>
+  </div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
         May 12, 2020
       </div>
     
@@ -170,59 +238,6 @@
   友達に紹介されたことをきっかけで、僕は彼女お付き合い、結婚することになった。 因朋友介绍而相识，我和女友在一起并结婚了
 注意前边接的是名词，是动词句的话带上「こと」
  ～をこめる  込める 带着&hellip;；饱含&hellip;   感謝の気持ちを込めて、貴方にこの花を贈ります
-    </div>
-  </div>
-
-        </div>
-      
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          
-            <div class="mb3 pa4 mid-gray overflow-hidden">
-    
-      <div class="f6">
-        May 5, 2020
-      </div>
-    
-    <h1 class="f3 near-black">
-      <a href="https://werifu.github.io/post/%E6%97%A5%E8%AF%AD%E7%AC%94%E8%AE%B005/" class="link black dim">
-        日语笔记05
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      [toc]
-甚だしい  はなは　だしい 程度が大きく離れている様子（ようす） adj   acute： 苦痛（くつう）などが甚だしい
- 際　（再探）  一般比とき更为郑重  ~際は  非一次性事件（反复发生）   お降り（おり）の際は、お忘れ物のないよう、お気をつけください。 下车时注意不要丢东西
-  お困（こま）りの際は、いつでもご連絡ください。 有困难时请来找我
-  クレジットかードを　紛失した際は、サポートセンター　まで　ご連絡ください。 信用卡丢了的时候联系support center
- この際  趁此机会，到了这时候了   この際　はっきり　言っておく～ 趁此机会跟你说了吧~
-  この際だから　言うのだが 都到了这时候了就跟你说了
-  長男（ちょうなん）が結婚しますので、この際　家を二世帯住宅（せたいじゅうたく）に建て替えようと思います。 长子结婚时想把这两代人住的房子新建下。
- ~に際して  值xx之际（即将发生） n +　に際して ｖるに際して（不能接过去式的た形）   お別れに際して、一言（ひとこと）ご挨拶（あいさつ）を申し上げます。 至此分别之际，请让我说两句话。
-  当サイトのご利用に際して、以下のご利用条件をよくお読みください。 使用本网站前请仔细阅读以下利用条件。
-    </div>
-  </div>
-
-        </div>
-      
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          
-            <div class="mb3 pa4 mid-gray overflow-hidden">
-    
-      <div class="f6">
-        April 17, 2020
-      </div>
-    
-    <h1 class="f3 near-black">
-      <a href="https://werifu.github.io/post/%E6%8A%8A%E8%B6%8A%E5%85%B1bot%E9%83%A8%E7%BD%B2%E5%88%B0docker%E4%B8%8A/" class="link black dim">
-        把越共bot部署到docker上
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      前言 本来安排很久了…… 一直没动手，直到这周才想到要彻底地把bot放上去
-docker-compose version: &quot;3&quot; services: wine-coolq: image: coolq/wine-coolq:latest container_name: thbot ports: - &quot;9000:9000&quot; volumes: - &quot;/home/thbot/:/home/user/coolq/dev&quot; depends_on: - go go: image: golang:latest container_name: thbot_go depends_on: - mongo mongo: image: mongo:latest container_name: thbot_mongo ports: - &quot;27017:27017&quot; 解释下
- version：&ldquo;3&rdquo; 表示这个compose文件的版本，必要项 services: 服务都放在services里 “-” 表示参数，一行一个参数，美观（ 后边三个服务代表三个容器  image 表示原来的镜像 ports 宿主机：容器，把容器里的某个端口映射出来 volumes 宿主目录：原目录，&quot;/home/thbot/:/home/user/coolq/dev&quot;是把容器中后者目录映射到宿主机前者目录中，我们的项目文件就放在/thbot/里 depends_on 表示这个服务依赖的对象，写服务名    这回部署没有用dockerfile，直接用compose构建
-注意事项 ​	酷q在容器中跟在win上一样，有dev文件夹，路径为~/home/user/coolq/dev，把这个dev映射到宿主机的thbot/目录中，然后靠依赖于go服务来提供golang环境，golang再依赖到mongo上实现对数据库的连接。
- go文件里Dial(url)连接mongo应该用mongo:27017而不是localhost:27017，容器间不共用本地。docker可以自动把容器名解析为给容器分配的ip 在酷q开发模式的项目下，当前目录是/coolq/，而项目位于/coolq/dev/ 用golang的os.Getwd()得到 好像在编译插件的app.dll方面还是比较麻烦，目前采用的是在自家电脑编译完再scp把项目传到VPS上，在coolq的docker里没法编译go  参考链接  https://www.
     </div>
   </div>
 

@@ -6,10 +6,56 @@
     <description>Recent content on 迷途竹林</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 12 May 2020 17:57:37 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 19 May 2020 00:19:38 +0800</lastBuildDate>
     
 	<atom:link href="https://werifu.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>MIT-6.824-2020春-lab1记录</title>
+      <link>https://werifu.github.io/post/mit-6.824-2020-lab1%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Tue, 19 May 2020 00:19:38 +0800</pubDate>
+      
+      <guid>https://werifu.github.io/post/mit-6.824-2020-lab1%E8%AE%B0%E5%BD%95/</guid>
+      <description>[toc]
+前言 大概是记录一下看6.824视频和实验的想法，不会贴太多代码（太屎了）。
+不过通过这个lab倒是也学到一些Go使用方面的技能
+分布式系统 ​	集中的处理模式早就跟不上数据量了，为了实现性能的提高，物理分散成为了必须实现的功能，多台计算机/多个线程同时进行工作的系统就叫【Distributed System】。
+​	做分布式系统需要关注的是以下几个方面：并行、容错、物理、安全
+MapReduce Map（映射）和Reduce（归纳）
+​	Map将拆分成多份的原始数据映射成__键值对(kv)__，Reduce则是将键值对进行归纳合并，得到一个结果，一个MapReduce模型应当允许多组Map任务和Reduce任务并行完成。
+写成代码是下边这样的
+map(k1,v1)--&amp;gt; list(k2,v2) reduce(k2,list(v2))--&amp;gt; list (v2) ​	map接受一份原始数据v1，我们需要给这份数据标上代号k1，保证任务能被有编制地完成。返回的list(k2, v2)是中间数据（intermediate），是一个__键值对的集合__，其中的k2就已经是我们想要的结果的key了。
+​	reduce接受k2和list(v2)，什么意思呢？我们知道有多个map在进行任务，同时输出一个（个）的键值对集合，所以这个（或者多个）键值对集合里，有可能会有多个以k2为key的键值对，再思考下我们这个MapReduce模型想要得到怎样的结果：我们要知道某个key在一个大数据集里对应着怎样的value（举例来说可以是某一个单词在好几篇文章里面出现的总次数），那么我们需要的就是以k2为key的 $\Sigma$value （当然有很多个k2）。现在就可以理解这个list(v2)了，我们把所有map任务的__所有__以某个k2为key的键值对抽出来，形成一个键值对集合，由于键都一样，我们可以将
+[ {k2: v2_1}, {k2: v2_2}, ... {k2: v2_xxx} ] 化简成
+{ k2: [v2_1, v2_2, ... , v2_xxx] } 然后reduce函数将上边这个对象整合成 {k2: $\Sigma$value}
+这里搬几个paper里的常用MR实例：
+  计算URL的访问频率：map函数用来处理网页请求的日志，并输出(URL,1)。reduce函数则用于将相同URL的值全部加起来，并输出(URL, 访问总次数)这样的键值对结果。
+  倒转网络链接图：map函数会在源页面中找到所有的目标URL，并输出&amp;lt;target, source&amp;gt;这样的键值对。reduce函数会将给定的目标URL的所有链接组合成一个列表，输出&amp;lt;target, list(source)&amp;gt;这样的键值对。
+  每台主机上的检索词频率：term（这里是指搜索系统里的某一项东西，这里指检索词）vector（这里指数组）将一个文档或者是一组文档中出现的最重要的单词概括为&amp;lt;单词，频率&amp;gt; 这样的键值对列表，对于每个输入文档，map函数会输出这样一对键值对（其中hostname是从文档中的URL里提取出来的）。Reduce函数接收给定主机的所有每一个文档的term vector。它会将这些term vector加在一起，并去除频率较低的term，然后输出一个最终键值对。
+  倒排索引：map函数会对每个文档进行解析，并输出&amp;lt;word, 文档ID&amp;gt;这样的键值对序列。reduce函数所接受的输入是一个给定词的所有键值对，接着它会对所有文档ID进行排序，然后输出&amp;lt;word, list(文档ID)&amp;gt;。所有输出键值对的集合可以形成一个简单的倒排索引。我们能简单的计算出每个单词在文档中的位置。
+  分布式排序：map函数会从每条记录中提取出一个key，然后输出&amp;lt;key, record&amp;gt;这样的键值对。reduce函数对这些键值对不做任何修改，直接输出。这种计算任务依赖分区机制</description>
+    </item>
+    
+    <item>
+      <title>日语笔记07</title>
+      <link>https://werifu.github.io/post/%E6%97%A5%E8%AF%AD%E7%AC%94%E8%AE%B007/</link>
+      <pubDate>Thu, 14 May 2020 14:20:07 +0800</pubDate>
+      
+      <guid>https://werifu.github.io/post/%E6%97%A5%E8%AF%AD%E7%AC%94%E8%AE%B007/</guid>
+      <description>[toc]
+~限り  かぎり 表限度   限りある資源
+  限りない宇宙
+  n+限り  期限   一夜限りの復活ライブ 限定一晚的复活直播
+ この場限り  我只在这说（你别说出去   今の話はこの場限りで忘れないてください。
+  ｎの・ｖる　限り  尽量，达到极限   命の限り戦った。
+  できる限り戦った。
+  感情+限り  表非常   幸せの限り 很幸福
+  ｖる・た・ている　限り（では）  私の知る限り、彼は絶対そんなことをするような人ではない。 据我所知，他绝不是会做这种事的人
+  ~に限る  ~是最好的   和菓子（わがし）なら　この店に限る
+  この時は寝るに限る
+  ｎに限り  仅限（强调）   三歳以下のお子様に限り、入場（じょう）料は無料です。</description>
+    </item>
     
     <item>
       <title>日语笔记06</title>

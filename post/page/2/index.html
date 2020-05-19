@@ -34,7 +34,7 @@
 <meta property="og:description" content="止まるじゃないぞ⤴" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://werifu.github.io/post/" />
-<meta property="og:updated_time" content="2020-05-12T17:57:37+08:00" />
+<meta property="og:updated_time" content="2020-05-19T00:19:38+08:00" />
 <meta itemprop="name" content="Post">
 <meta itemprop="description" content="止まるじゃないぞ⤴"><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Post"/>
@@ -144,6 +144,59 @@
             <div class="mb3 pa4 mid-gray overflow-hidden">
     
       <div class="f6">
+        May 5, 2020
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="https://werifu.github.io/post/%E6%97%A5%E8%AF%AD%E7%AC%94%E8%AE%B005/" class="link black dim">
+        日语笔记05
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      [toc]
+甚だしい  はなは　だしい 程度が大きく離れている様子（ようす） adj   acute： 苦痛（くつう）などが甚だしい
+ 際　（再探）  一般比とき更为郑重  ~際は  非一次性事件（反复发生）   お降り（おり）の際は、お忘れ物のないよう、お気をつけください。 下车时注意不要丢东西
+  お困（こま）りの際は、いつでもご連絡ください。 有困难时请来找我
+  クレジットかードを　紛失した際は、サポートセンター　まで　ご連絡ください。 信用卡丢了的时候联系support center
+ この際  趁此机会，到了这时候了   この際　はっきり　言っておく～ 趁此机会跟你说了吧~
+  この際だから　言うのだが 都到了这时候了就跟你说了
+  長男（ちょうなん）が結婚しますので、この際　家を二世帯住宅（せたいじゅうたく）に建て替えようと思います。 长子结婚时想把这两代人住的房子新建下。
+ ~に際して  值xx之际（即将发生） n +　に際して ｖるに際して（不能接过去式的た形）   お別れに際して、一言（ひとこと）ご挨拶（あいさつ）を申し上げます。 至此分别之际，请让我说两句话。
+  当サイトのご利用に際して、以下のご利用条件をよくお読みください。 使用本网站前请仔细阅读以下利用条件。
+    </div>
+  </div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
+        April 17, 2020
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="https://werifu.github.io/post/%E6%8A%8A%E8%B6%8A%E5%85%B1bot%E9%83%A8%E7%BD%B2%E5%88%B0docker%E4%B8%8A/" class="link black dim">
+        把越共bot部署到docker上
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      前言 本来安排很久了…… 一直没动手，直到这周才想到要彻底地把bot放上去
+docker-compose version: &quot;3&quot; services: wine-coolq: image: coolq/wine-coolq:latest container_name: thbot ports: - &quot;9000:9000&quot; volumes: - &quot;/home/thbot/:/home/user/coolq/dev&quot; depends_on: - go go: image: golang:latest container_name: thbot_go depends_on: - mongo mongo: image: mongo:latest container_name: thbot_mongo ports: - &quot;27017:27017&quot; 解释下
+ version：&ldquo;3&rdquo; 表示这个compose文件的版本，必要项 services: 服务都放在services里 “-” 表示参数，一行一个参数，美观（ 后边三个服务代表三个容器  image 表示原来的镜像 ports 宿主机：容器，把容器里的某个端口映射出来 volumes 宿主目录：原目录，&quot;/home/thbot/:/home/user/coolq/dev&quot;是把容器中后者目录映射到宿主机前者目录中，我们的项目文件就放在/thbot/里 depends_on 表示这个服务依赖的对象，写服务名    这回部署没有用dockerfile，直接用compose构建
+注意事项 ​	酷q在容器中跟在win上一样，有dev文件夹，路径为~/home/user/coolq/dev，把这个dev映射到宿主机的thbot/目录中，然后靠依赖于go服务来提供golang环境，golang再依赖到mongo上实现对数据库的连接。
+ go文件里Dial(url)连接mongo应该用mongo:27017而不是localhost:27017，容器间不共用本地。docker可以自动把容器名解析为给容器分配的ip 在酷q开发模式的项目下，当前目录是/coolq/，而项目位于/coolq/dev/ 用golang的os.Getwd()得到 好像在编译插件的app.dll方面还是比较麻烦，目前采用的是在自家电脑编译完再scp把项目传到VPS上，在coolq的docker里没法编译go  参考链接  https://www.
+    </div>
+  </div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
         April 14, 2020
       </div>
     
@@ -171,64 +224,6 @@
   訪（たず）ねる　拜访
   わざわざ　特意
   勢（いきお）い　ｎ气势
-    </div>
-  </div>
-
-        </div>
-      
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          
-            <div class="mb3 pa4 mid-gray overflow-hidden">
-    
-      <div class="f6">
-        April 10, 2020
-      </div>
-    
-    <h1 class="f3 near-black">
-      <a href="https://werifu.github.io/post/%E6%97%A5%E8%AF%AD%E7%AC%94%E8%AE%B003/" class="link black dim">
-        日语笔记03
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      [TOC]
-词汇  ずら スマホ 痩（や）せる やり直（なお）す  文法 A辞書形　ことは　ない  A没必要（对别人说的） 丁宁体 ：～ことは　ありません   子供同士の些細（ささい）な　けんか　に　親（おや）が出てくることはない。 小孩之间的小争执用不着父母出面
-  冗談だよ。そんなに　怒（おこ）ることはないだろう。 只是开玩笑啦。用不着这么生气吧。
- ~最中に  Ａている　最中に　Ｂ ｎの　最中だ 正在&hellip;的时候，正当（一般指到高潮时，B是意想不到的事）   パーティーの最中に　悲しいニュースがいってきました。 party进行时受到了悲伤的消息
-  大事な商談の最中にいた　ずら電話がかかってきた。 在谈重要的生意时来了一通恶作剧电话。
-  彼は食事の最中でも、　スマホから目を離さない。 他即使正在用餐眼睛也离不开手机
- ###　～際
- ~的时候 搭配に・は      1. 時 2. 際 3. 場合     接续 普通形（な・の） ｖ普通形名词の 普通形（な・の）   时间点 √ 长时间x 长时间x、过去时间×   身份、立场 × × √     火事の　時・際・場合　は、エレベーターを使わないでください。 火灾时不要用电梯。
-    </div>
-  </div>
-
-        </div>
-      
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          
-            <div class="mb3 pa4 mid-gray overflow-hidden">
-    
-      <div class="f6">
-        April 9, 2020
-      </div>
-    
-    <h1 class="f3 near-black">
-      <a href="https://werifu.github.io/post/%E6%97%A5%E8%AF%AD%E7%AC%94%E8%AE%B002/" class="link black dim">
-        日语笔记02
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      [TOC]
-学习来源
-出口仁的N3语法
-词汇  朝寝坊（あさねぼう）	朝、起きるのが遅い人（起床晚的人） ご馳走（ごちそう）　豪勢（ごうせい）の　料理（美食） 仲直り（なかなおり）　[n] 和好  文法 Ａ普通形（な・ｎ）　から［に］は、Ｂ  既然A，那么B B表示一种决意、判断、义务   仕事を引き受けた　からには　最後まで　責任を持って　やらなければならない 既然接受了这样的工作就到负责任到最后。
-可以用「うえは」・「以上［は］」代替「からには」
-可以用「うえは」・「以上［は］」代替「からには」
-  不正行為（ふせいこうい）を見てしまった　からには　黙（だま）っている　わけには いきません 既然看到了不正当行为就不能默不作声
-  一国（いっこく）の　政治家である　からには、、、、 既然身为一国政治家
- 补充：わけにはいかない ｖ辞書形・ない形　＋　わけにはいかない
- 表示因为一般常识、社会约定限制而不能做/不得不做的事，与自身意志无关。来源   明日は会議があるから、　休むわけにはいかない 明天要开会，不能请假
- ｎ　から見て　Ｂ  从n（的立场）来看 B是一种判断、评价、推测  除了「から見て」还有「から見ると」、「から見れば」、「から見たら」，后三者是假定表现
- コストの面　から見ると　実現が難し 从开销上说要实现很难。
     </div>
   </div>
 
