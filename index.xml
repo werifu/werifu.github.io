@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>秘密</title>
+    <link>/</link>
+    <description>Recent content on 秘密</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>&amp;copy; 2020-2022 &lt;a href=&#34;https://www.github.com/werifu/&#34;&gt;Werifu&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Sat, 23 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【CMU15-445】Homework1-高级SQL-Fall2020</title>
+      <link>/posts/cmu14-445-homework1/</link>
+      <pubDate>Sat, 23 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/cmu14-445-homework1/</guid>
+      <description>介绍 CMU 2020秋的数据库作业1，任务是在sqlite3里做一些高级查询 链接在这 后面就做2021秋的去了</description>
+    </item>
+    
+    <item>
+      <title>Chapter 1</title>
+      <link>/docs/example-doc/chapter-1/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/example-doc/chapter-1/</guid>
+      <description>&lt;p&gt;This is chapter 1 of example doc.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Chapter 1</title>
+      <link>/docs/example-doc/nested-chapter/chapter-1/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/example-doc/nested-chapter/chapter-1/</guid>
+      <description>&lt;p&gt;This is chapter 1 of nested chapter.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Chapter 2</title>
+      <link>/docs/example-doc/chapter-2/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/example-doc/chapter-2/</guid>
+      <description>&lt;p&gt;This is chapter 2 of example doc.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Chapter 2</title>
+      <link>/docs/example-doc/nested-chapter/chapter-2/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/example-doc/nested-chapter/chapter-2/</guid>
+      <description>&lt;p&gt;This is chapter 2 of nested chapter.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>秘封</title>
+      <link>/doujins/%E7%A7%98%E5%B0%8120-05-30/</link>
+      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/doujins/%E7%A7%98%E5%B0%8120-05-30/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
