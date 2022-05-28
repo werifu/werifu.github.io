@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>/posts/sourcemap-js-anti-debugging/</loc>
+    <lastmod>2021-10-28T18:40:44+08:00</lastmod>
+  </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2021-10-28T18:40:44+08:00</lastmod>
+  </url><url>
+    <loc>/tags/%E5%AE%89%E5%85%A8/</loc>
+    <lastmod>2021-10-28T18:40:44+08:00</lastmod>
+  </url><url>
+    <loc>/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/</loc>
+    <lastmod>2021-10-28T18:40:44+08:00</lastmod>
+  </url><url>
+    <loc>/</loc>
+    <lastmod>2021-10-28T18:40:44+08:00</lastmod>
+  </url><url>
+    <loc>/tags/%E5%89%8D%E7%AB%AF/</loc>
+    <lastmod>2021-10-28T18:40:44+08:00</lastmod>
+  </url><url>
+    <loc>/posts/</loc>
+    <lastmod>2021-10-28T18:40:44+08:00</lastmod>
+  </url><url>
     <loc>/posts/cmu14-445-homework1/</loc>
     <lastmod>2021-10-23T00:00:00+00:00</lastmod>
   </url><url>
@@ -11,16 +32,7 @@
     <loc>/series/</loc>
     <lastmod>2021-10-23T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/tags/</loc>
-    <lastmod>2021-10-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/</loc>
-    <lastmod>2021-10-23T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    <lastmod>2021-10-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/posts/</loc>
     <lastmod>2021-10-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/docs/example-doc/chapter-1/</loc>
