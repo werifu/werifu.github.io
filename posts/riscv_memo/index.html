@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang='zh' ><meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+
+<title>计算机组成设计-软件硬件接口-RISC-V版笔记 | 秘密</title>
+
+<meta name="generator" content="Hugo Eureka 0.8.3" />
+<link rel="stylesheet" href="/css/eureka.min.css">
+<script defer src="/js/eureka.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/styles/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/highlight.min.js"
+   crossorigin></script>
+
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/js/all.min.js"
+   integrity="sha256-uNYoXefWRqv&#43;PsIF/OflNmwtKM4lStn9yrz2gVl6ymo="  crossorigin></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+   integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3&#43;Aro6EYUG4&#43;cU&#43;KJWu/X"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" 
+  integrity="sha384-g7c&#43;Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI&#43;sEnkvrMWph2EDg4"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+   integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC&#43;Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.9.2/dist/mermaid.min.js" 
+  integrity="sha256-Zmpaaj&#43;GXFsPF5WdPArSrnW3b30dovldeKsW00xBVwE="  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="rCoreCamp 2022过程里看的书的笔记">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"文章",
+      "item":"/posts/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"计算机组成设计-软件硬件接口-RISC-V版笔记",
+      "item":"/posts/riscv_memo/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/posts/riscv_memo/"
+    },
+    "headline": "计算机组成设计-软件硬件接口-RISC-V版笔记 | 秘密",
+    "image": "https://s3.bmp.ovh/imgs/2022/07/11/0313626b33fe31da.png",
+    "datePublished": "2022-07-11T01:37:38+08:00",
+    "dateModified": "2022-07-11T01:37:38+08:00",
+    "wordCount":  2049 ,
+    "author": {
+        "@type": "Person",
+        "name": ["werifu"]
+    },
+    "publisher": {
+        "@type": "Person",
+        "name": "Werifu",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "/images/icon.png"
+        }
+        },
+    "description": "rCoreCamp 2022过程里看的书的笔记"
+}
+</script><meta property="og:title" content="计算机组成设计-软件硬件接口-RISC-V版笔记 | 秘密" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="/images/icon.png">
+
+
+<meta property="og:url" content="/posts/riscv_memo/" />
+
+
+
+<meta property="og:description" content="rCoreCamp 2022过程里看的书的笔记" />
+
+
+
+<meta property="og:locale" content="zh" />
+
+
+
+
+<meta property="og:site_name" content="秘密" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2022-07-11T01:37:38&#43;08:00" />
+
+
+<meta property="article:modified_time" content="2022-07-11T01:37:38&#43;08:00" />
+
+
+
+<meta property="article:section" content="posts" />
+
+
+<meta property="article:tag" content="OS" />
+
+<meta property="article:tag" content="RiscV" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+<body class="flex flex-col min-h-screen">
+  <header class="fixed flex items-center w-full min-h-16 pl-scrollbar z-50 bg-secondary-bg shadow-sm">
+    <div class="w-full max-w-screen-xl mx-auto"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="mr-6 text-primary-text text-xl font-bold">秘密</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:flex-grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:flex-grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  mr-4">About</a>
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  mr-4">Posts</a>
+            <a href="/doujins/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  mr-4">Doujins</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col left-0 md:left-auto right-auto md:right-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">浅色</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">深色</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">自动</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+  </header>
+  <main class="flex-grow pt-16">
+    <div class="pl-scrollbar">
+      <div class="w-full max-w-screen-xl lg:px-4 xl:px-8 mx-auto">
+
+
+<div class="grid grid-cols-2 lg:grid-cols-8 gap-4 lg:pt-12">
+    <div
+        class="col-span-2  lg:col-span-6 bg-secondary-bg rounded px-6 py-8">
+        <h1 class="font-bold text-3xl text-primary-text">计算机组成设计-软件硬件接口-RISC-V版笔记</h1>
+        <div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
+    <div class="mr-6 my-2">
+        <i class="fas fa-calendar mr-1"></i>
+        <span>2022-07-11</span>
+    </div>
+    <div class="mr-6 my-2">
+        <i class="fas fa-clock mr-1"></i>
+        <span>5分钟阅读时长</span>
+    </div>
+    
+    
+
+    
+    <div class="mr-6 my-2">
+        <i class="fas fa-th-list mr-1"></i>
+        
+        <a href="/series/rcorecamp2022/" class="hover:text-eureka">rCoreCamp2022</a>
+        
+    </div>
+    
+</div>
+        
+        
+        
+        <div class="my-4">
+            <img src="https://s3.bmp.ovh/imgs/2022/07/11/0313626b33fe31da.png" class="w-full" alt="Featured Image">
+        </div>
+        
+
+        <div class="content">
+            <h2 id="chap-1-计算机抽象及相关技术">chap 1. 计算机抽象及相关技术</h2>
+<h3 id="八个伟大思想">八个伟大思想：</h3>
+<ol>
+<li>面向摩尔定律的设计<br>
+设计芯片的时候要考虑未来工艺，需要超前点</li>
+<li>使用抽象简化设计</li>
+<li>加速经常性事件</li>
+<li>通过并行提高性能</li>
+<li>通过流水线提高性能</li>
+<li>通过预测提高性能</li>
+<li>存储层次<br>
+Memory Hierarchy</li>
+<li>通过冗余提高可靠性</li>
+</ol>
+<h2 id="chap2-指令">chap2 指令</h2>
+<h3 id="rv字段">RV字段</h3>
+<h4 id="r型用于寄存器">R型（用于寄存器）</h4>
+<table>
+<thead>
+<tr>
+<th>funct7</th>
+<th>rs2</th>
+<th>rs1</th>
+<th>funct3</th>
+<th>rd</th>
+<th>opcode</th>
+<th>总共</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7位</td>
+<td>5位</td>
+<td>5位</td>
+<td>3位</td>
+<td>5位</td>
+<td>7位</td>
+<td>32位</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>opcode：指令基本操作</li>
+<li>rd：目的操作数寄存器，存放结果</li>
+<li>funct3：一个另外的操作码字段</li>
+<li>rs1：第一个源操作数寄存器</li>
+<li>rs2：第二个源操作数寄存器</li>
+<li>funct7：一个另外的操作码字段</li>
+</ul>
+<p>funct3和funct7用来表示opcode的附加字段（比如add和sub的opcode都是0110011，而add的funct7是0000000，sub的是0100000</p>
+<h4 id="i型用于带常数的算数指令和加载指令">I型（用于带常数的算数指令和加载指令）</h4>
+<table>
+<thead>
+<tr>
+<th>immediate</th>
+<th>rs1</th>
+<th>funct3</th>
+<th>rd</th>
+<th>opcode</th>
+<th>总共</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7位</td>
+<td>5位</td>
+<td>3位</td>
+<td>5位</td>
+<td>7位</td>
+<td>32位</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>immediate为补码，可以表示-2^11^ 到2^11^ - 1之间的整数，当I型格式用于加载指令时，immediate表示一个偏移量</li>
+<li>ld指令的funct3为3</li>
+</ul>
+<h4 id="s型用于store">S型（用于Store）</h4>
+<table>
+<thead>
+<tr>
+<th>immediate[11:5]</th>
+<th>rs2</th>
+<th>rs1</th>
+<th>funct3</th>
+<th>immediate[4:0]</th>
+<th>opcode</th>
+<th>总共</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7位</td>
+<td>5位</td>
+<td>5位</td>
+<td>3位</td>
+<td>5位</td>
+<td>7位</td>
+<td>32位</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>immediate设计成两个字段是因为想把rs2和rs1跟上面的处于同一位置，降低硬件复杂性，funct3和opcode也是同一位置</li>
+</ul>
+<h3 id="逻辑操作">逻辑操作</h3>
+<ul>
+<li>
+<p>RV里没有<code>!</code>的逻辑操作，可以使用xxx XOR 全FF实现</p>
+</li>
+<li>
+<p>移位操作是I型格式，因为只用到immediate的低6位字母（不能移超过63次），所以高6位被当做另外的操作码字段，即funct6</p>
+</li>
+</ul>
+<h2 id="调用约定">调用约定</h2>
+<ul>
+<li>
+<p>x10~x17：八个，用于传参/返回值</p>
+</li>
+<li>
+<p>x0：一定是常量0，如果试图更改会被直接丢弃</p>
+</li>
+<li>
+<p>x1：返回地址寄存器，用于返回到起始点</p>
+</li>
+<li>
+<p>跳转-链接指令（jal）：跳转到某个地址的同时将下一条指令的地址保存到目标寄存器rd</p>
+<ul>
+<li>jal x1, ProcedureAddress：跳转到ProcedureAddress并把返回地址写入x1</li>
+</ul>
+</li>
+<li>
+<p>RV中x2是栈指针（stack pointer/ sp）</p>
+</li>
+<li>
+<p>RV把19个寄存器分成两组：</p>
+<ul>
+<li>x5~x7以及x28~x31：临时寄存器，过程调用里不被【被调用者（callee）】保存</li>
+<li>x8~x9以及x18~x27：保存寄存器，在过程调用里必须被保存</li>
+</ul>
+</li>
+<li>
+<p>RV使用帧指针（frame pointer）来表示过程帧的第一个双字（类似x64的rbp）</p>
+</li>
+<li>
+<p>超过8个参数怎么办？跟x86的处理方式一样，额外的放stack上</p>
+</li>
+</ul>
+<p><img src="https://s3.bmp.ovh/imgs/2022/07/11/d708ebbcd91e62b6.png" alt="RV寄存器约定"></p>
+<h3 id="大立即数处理">大立即数处理</h3>
+<h4 id="lui指令load-upper-immediate">lui指令（load upper immediate）</h4>
+<p>取立即数高位，将20位常数加载到寄存器的31到12位，并把31位复制填充到最左边32位，最右边12位用0填充。</p>
+<p>这条指令允许使用两条指令创建32位常量。lui的指令格式为<strong>U型</strong>，因为其他的不支持大常量。<br>
+加载一个大常量的过程如<code>lui x19, 12到31位的数; addi x19, x19, 低12位的数</code></p>
+<h4 id="分支寻址">分支寻址</h4>
+<p>分支指令使用SB型指令，可以表示-4096到4094的分支地址，以2的倍数表示。</p>
+<h5 id="sb型">SB型</h5>
+<p>比如<code>bne x10, x11, 2000 // if x10 != x11, goto location 2000</code><br>
+表示为</p>
+<table>
+<thead>
+<tr>
+<th>imm[12]</th>
+<th>imm[10:5]</th>
+<th>rs2</th>
+<th>rs1</th>
+<th>funct3</th>
+<th>imm[4:1]</th>
+<th>imm[11]</th>
+<th>opcode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>111110</td>
+<td>01011</td>
+<td>01010</td>
+<td>001</td>
+<td>1000</td>
+<td>0</td>
+<td>1100111</td>
+</tr>
+</tbody>
+</table>
+<p>opcode=1100111是条件分支的操作码，bne的funct3是001</p>
+<h5 id="唯一使用uj型的jal指令无条件跳转-链接">唯一使用UJ型的jal指令（无条件跳转-链接）</h5>
+<p>比如<code>jal x0, 2000 // goto location 2000 = 0111 1101 0000</code></p>
+<table>
+<thead>
+<tr>
+<th>imm[20]</th>
+<th>imm[10:1]</th>
+<th>imm[11]</th>
+<th>imm[19:12]</th>
+<th>rd</th>
+<th>opcode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>11 1110 1000</td>
+<td>0</td>
+<td>0000 0000</td>
+<td>0 0000</td>
+<td>110 1111</td>
+</tr>
+</tbody>
+</table>
+<p>但是20位的地址空间太小了，另一种方法使用寄存器+偏移的方式，能够扩大到2^64^</p>
+<p><strong>使用哪个寄存器？</strong></p>
+<blockquote>
+<p>SPEC基准测试里有一半的条件分支跳到小于16距离的位置</p>
+</blockquote>
+<p>因此如果用PC来当基址，那就很理想，这种叫<strong>PC相对寻址</strong>，RV对条件分支和无条件跳转使用PC相对寻址。在RV里PC相对偏倚表示分支和目标指令之间的<strong>半字</strong>数（2 bytes），jal里20位可以编码PC±2^19^个半字/ ±1MB的距离</p>
+<h3 id="同步">同步</h3>
+<h4 id="atomic-exchange原语">atomic exchange原语</h4>
+<p><a href="https://www.bilibili.com/video/BV1ja411h7jt?spm_id_from=333.999.0.0">jyy讲过</a>，拿1去对🔐变量不断交换，交换出来0说明拿到锁了，交换出来1说明没拿到（被占用）</p>
+<h4 id="指令对">指令对</h4>
+<p>第二条指令返回一个值，表示该指令对是否被原子执行。</p>
+<p>这对指令指<strong>保留加载（load-reserved）双字</strong>的特殊加载指令（称为lr.d）和一个<strong>条件存储（sotre-conditional）双字</strong>的特殊存储指令（称为sc.d），如果加载的内容跟存储前探测到的内容不同，条件存储就会失败，不会写入内存。成功就会把另一个寄存器的值更改为0，如果失败就改成非0。<br>
+sc.d指定了三个寄存器：保存地址、指示原子操作失败成功、如果成功就把指写入内存。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/07/11/4a6c422e4e2e4d73.png" alt="双指令实现原子交换"></p>
+<p>上面的过程实现了在x20指定的内存上的原子交换，即atomic_exchange(x23, mem[x20]</p>
+<h3 id="链接">链接</h3>
+<p>三个工作步骤：</p>
+<ol>
+<li>将代码和数据模块按符号特征放入内存</li>
+<li>决定数据和指令标签的地址</li>
+<li>修正内部和外部引用</li>
+</ol>
+<p><img src="https://s3.bmp.ovh/imgs/2022/07/11/ba0954f64935cde4.png" alt="链接需求"></p>
+<h3 id="mips-vs-risc-v">MIPS vs RISC-V</h3>
+<h4 id="相同">相同</h4>
+<p><img src="https://s3.bmp.ovh/imgs/2022/07/11/5f092143e1ccc466.png" alt="相同点"></p>
+<h4 id="不同">不同</h4>
+<ul>
+<li>除了eq、neq外的条件分支。RV只提供分支指令来比较两个寄存器，而MIPS提供比较指令，把比较结果写入一个寄存器（0 or 1）</li>
+<li>MIPS只执行小于比较，存在有符号和无符号版本（slt和sltu）</li>
+<li>完整的MIPS指令系统 &raquo; RSIC-V</li>
+</ul>
+<h3 id="总结">总结</h3>
+<ul>
+<li>讲了指令系统体系结构ISA（Instruction Set Architecture）的历史</li>
+<li>RV的指令结构</li>
+<li>实现同步</li>
+<li>RV与x86、MIPS的比较</li>
+</ul>
+
+        </div>
+        
+        <div class="my-4">
+    
+    <a href="/tags/os/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 mr-2 hover:text-eureka">#OS</a>
+    
+    <a href="/tags/riscv/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 mr-2 hover:text-eureka">#RiscV</a>
+    
+</div>
+        
+        
+        
+
+
+        
+        
+        
+        
+<div class="flex flex-col md:flex-row md:justify-between -mx-2 mt-4 px-2 pt-4 border-t">
+    <div>
+        
+    </div>
+    <div class="md:text-right mt-4 md:mt-0">
+        
+        <span class="block font-bold">下一页</span>
+        <a href="/posts/sourcemap-js-anti-debugging/" class="block">SourceMap与JS反调试</a>
+        
+    </div>
+</div>
+
+        
+
+
+
+    </div>
+    
+    <div class="col-span-2">
+        
+        
+<div class="bg-secondary-bg rounded p-6">
+    <h3 class="text-lg font-semibold mb-4">系列文章</h3>
+    <div class="content">
+        
+        
+        <a href="/posts/riscv_memo/">计算机组成设计-软件硬件接口-RISC-V版笔记</a>
+        <br />
+        
+        
+    </div>
+</div>
+        
+        
+        <div class="sticky top-16 z-10 hidden lg:block px-6 py-4  bg-primary-bg ">
+    <span class="text-lg font-semibold">本页内容</span>
+</div>
+<div class="sticky-toc hidden lg:block px-6 pb-6 ">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chap-1-计算机抽象及相关技术">chap 1. 计算机抽象及相关技术</a>
+      <ul>
+        <li><a href="#八个伟大思想">八个伟大思想：</a></li>
+      </ul>
+    </li>
+    <li><a href="#chap2-指令">chap2 指令</a>
+      <ul>
+        <li><a href="#rv字段">RV字段</a>
+          <ul>
+            <li><a href="#r型用于寄存器">R型（用于寄存器）</a></li>
+            <li><a href="#i型用于带常数的算数指令和加载指令">I型（用于带常数的算数指令和加载指令）</a></li>
+            <li><a href="#s型用于store">S型（用于Store）</a></li>
+          </ul>
+        </li>
+        <li><a href="#逻辑操作">逻辑操作</a></li>
+      </ul>
+    </li>
+    <li><a href="#调用约定">调用约定</a>
+      <ul>
+        <li><a href="#大立即数处理">大立即数处理</a>
+          <ul>
+            <li><a href="#lui指令load-upper-immediate">lui指令（load upper immediate）</a></li>
+            <li><a href="#分支寻址">分支寻址</a>
+              <ul>
+                <li><a href="#sb型">SB型</a></li>
+                <li><a href="#唯一使用uj型的jal指令无条件跳转-链接">唯一使用UJ型的jal指令（无条件跳转-链接）</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#同步">同步</a>
+          <ul>
+            <li><a href="#atomic-exchange原语">atomic exchange原语</a></li>
+            <li><a href="#指令对">指令对</a></li>
+          </ul>
+        </li>
+        <li><a href="#链接">链接</a></li>
+        <li><a href="#mips-vs-risc-v">MIPS vs RISC-V</a>
+          <ul>
+            <li><a href="#相同">相同</a></li>
+            <li><a href="#不同">不同</a></li>
+          </ul>
+        </li>
+        <li><a href="#总结">总结</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        enableStickyToc();
+    });
+</script>
+        
+    </div>
+    
+
+    
+    
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+        hljs.initHighlightingOnLoad();
+    })
+</script>
+
+      </div>
+    </div>
+    
+  </main>
+  <footer class="pl-scrollbar">
+    <div class="w-full max-w-screen-xl mx-auto"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2020-2022 <a href="https://www.github.com/werifu/">Werifu</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+  </footer>
+</body>
+
+</html>
