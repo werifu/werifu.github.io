@@ -377,7 +377,7 @@ Memory Hierarchy</li>
 <p>移位操作是I型格式，因为只用到immediate的低6位字母（不能移超过63次），所以高6位被当做另外的操作码字段，即funct6</p>
 </li>
 </ul>
-<h2 id="调用约定">调用约定</h2>
+<h3 id="调用约定">调用约定</h3>
 <ul>
 <li>
 <p>x10~x17：八个，用于传参/返回值</p>
@@ -586,10 +586,7 @@ sc.d指定了三个寄存器：保存地址、指示原子操作失败成功、�
           </ul>
         </li>
         <li><a href="#逻辑操作">逻辑操作</a></li>
-      </ul>
-    </li>
-    <li><a href="#调用约定">调用约定</a>
-      <ul>
+        <li><a href="#调用约定">调用约定</a></li>
         <li><a href="#大立即数处理">大立即数处理</a>
           <ul>
             <li><a href="#lui指令load-upper-immediate">lui指令（load upper immediate）</a></li>
