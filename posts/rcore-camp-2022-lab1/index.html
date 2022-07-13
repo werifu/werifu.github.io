@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang='zh' ><meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+
+<title>rCore Camp 2022 Lab1 记录 | 秘密</title>
+
+<meta name="generator" content="Hugo Eureka 0.8.3" />
+<link rel="stylesheet" href="/css/eureka.min.css">
+<script defer src="/js/eureka.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/styles/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/highlight.min.js"
+   crossorigin></script>
+
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/js/all.min.js"
+   integrity="sha256-uNYoXefWRqv&#43;PsIF/OflNmwtKM4lStn9yrz2gVl6ymo="  crossorigin></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+   integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3&#43;Aro6EYUG4&#43;cU&#43;KJWu/X"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" 
+  integrity="sha384-g7c&#43;Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI&#43;sEnkvrMWph2EDg4"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+   integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC&#43;Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.9.2/dist/mermaid.min.js" 
+  integrity="sha256-Zmpaaj&#43;GXFsPF5WdPArSrnW3b30dovldeKsW00xBVwE="  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="lab报告及简答题">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"文章",
+      "item":"/posts/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"rCore Camp 2022 Lab1 记录",
+      "item":"/posts/rcore-camp-2022-lab1/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/posts/rcore-camp-2022-lab1/"
+    },
+    "headline": "rCore Camp 2022 Lab1 记录 | 秘密","datePublished": "2022-07-14T01:20:44+08:00",
+    "dateModified": "2022-07-14T01:20:44+08:00",
+    "wordCount":  1336 ,
+    "author": {
+        "@type": "Person",
+        "name": ["werifu"]
+    },
+    "publisher": {
+        "@type": "Person",
+        "name": "Werifu",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "/images/icon.png"
+        }
+        },
+    "description": "lab报告及简答题"
+}
+</script><meta property="og:title" content="rCore Camp 2022 Lab1 记录 | 秘密" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="/images/icon.png">
+
+
+<meta property="og:url" content="/posts/rcore-camp-2022-lab1/" />
+
+
+
+<meta property="og:description" content="lab报告及简答题" />
+
+
+
+<meta property="og:locale" content="zh" />
+
+
+
+
+<meta property="og:site_name" content="秘密" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2022-07-14T01:20:44&#43;08:00" />
+
+
+<meta property="article:modified_time" content="2022-07-14T01:20:44&#43;08:00" />
+
+
+
+<meta property="article:section" content="posts" />
+
+
+<meta property="article:tag" content="OS" />
+
+<meta property="article:tag" content="RiscV" />
+
+
+
+
+
+
+
+
+
+
+
+<meta property="og:see_also" content="/posts/riscv_memo/" />
+
+
+
+
+
+<body class="flex flex-col min-h-screen">
+  <header class="fixed flex items-center w-full min-h-16 pl-scrollbar z-50 bg-secondary-bg shadow-sm">
+    <div class="w-full max-w-screen-xl mx-auto"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="mr-6 text-primary-text text-xl font-bold">秘密</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:flex-grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:flex-grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  mr-4">About</a>
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  mr-4">Posts</a>
+            <a href="/doujins/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  mr-4">Doujins</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col left-0 md:left-auto right-auto md:right-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">浅色</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">深色</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">自动</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+  </header>
+  <main class="flex-grow pt-16">
+    <div class="pl-scrollbar">
+      <div class="w-full max-w-screen-xl lg:px-4 xl:px-8 mx-auto">
+
+
+<div class="grid grid-cols-2 lg:grid-cols-8 gap-4 lg:pt-12">
+    <div
+        class="col-span-2  lg:col-span-6 bg-secondary-bg rounded px-6 py-8">
+        <h1 class="font-bold text-3xl text-primary-text">rCore Camp 2022 Lab1 记录</h1>
+        <div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
+    <div class="mr-6 my-2">
+        <i class="fas fa-calendar mr-1"></i>
+        <span>2022-07-14</span>
+    </div>
+    <div class="mr-6 my-2">
+        <i class="fas fa-clock mr-1"></i>
+        <span>3分钟阅读时长</span>
+    </div>
+    
+    
+
+    
+    <div class="mr-6 my-2">
+        <i class="fas fa-th-list mr-1"></i>
+        
+        <a href="/series/rcorecamp2022/" class="hover:text-eureka">rCoreCamp2022</a>
+        
+    </div>
+    
+</div>
+        
+        
+        
+
+        <div class="content">
+            <h1 id="rcorecamp2022-lab1记录">rCoreCamp2022-lab1记录</h1>
+<h2 id="lab1本体">Lab1本体</h2>
+<p><a href="https://learningos.github.io/rust-based-os-comp2022/chapter3/5exercise.html">lab地址</a></p>
+<p>实现以下函数的功能</p>
+<pre><code class="language-rust">fn sys_task_info(ti: *mut TaskInfo) -&gt; isize
+struct TaskInfo {
+    status: TaskStatus,
+    syscall_times: [u32; MAX_SYSCALL_NUM],
+    time: usize
+}
+</code></pre>
+<h3 id="分解需求">分解需求</h3>
+<ol>
+<li>让 TASK_MANAGER 有获取 task 状态的能力</li>
+<li>让 TASK_MANAGER 有更新 task 状态的能力</li>
+</ol>
+<h3 id="实现">实现</h3>
+<p>其实就是对 TASK_MANAGER 管理的每个 task 维护一个 TaskInfo 的对象，每次 syscall 的时候进行记录。</p>
+<p>因此我们给 Task 的对象加入一个新的 inner 字段，维护该任务开始时间和系统调用情况。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/07/14/c6c23c1967cef82c.png" alt="Inner"></p>
+<p>之后给 TASK_MANAGER 加 set 和 get 的能力，都挺好懂的</p>
+<pre><code class="language-rust">// src/task/mod.rs
+    fn set_syscall_times(&amp;self, syscall_id: usize) {
+        let mut inner = self.inner.exclusive_access();
+        let current_id = inner.current_task;
+        inner.tasks[current_id].task_info_inner.syscall_times[syscall_id] += 1;
+    }
+
+    fn get_current_task_info(&amp;self, ti: *mut TaskInfo) {
+        let inner = self.inner.exclusive_access();
+        let current_id = inner.current_task;
+        let TaskInfoInner {syscall_times, start_time} = inner.tasks[current_id].task_info_inner;
+
+        unsafe {
+            *ti = TaskInfo {
+                status: TaskStatus::Running,
+                syscall_times,
+                time: get_time_ms() - start_time,
+            };
+        }
+    }
+</code></pre>
+<p>然后对外提供接口</p>
+<pre><code class="language-rust">pub fn record_syscall(syscall_id: usize) {
+    TASK_MANAGER.set_syscall_times(syscall_id);
+}
+
+pub fn get_task_info(ti: *mut TaskInfo) {
+    TASK_MANAGER.get_current_task_info(ti);
+}
+</code></pre>
+<p>每次调用syscall的时候记录一下就行了。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/07/14/de517ab611e9546e.png" alt="syscall前"></p>
+<h2 id="简答作业">简答作业</h2>
+<ol>
+<li>
+<p>正确进入 U 态后，程序的特征还应有：使用 S 态特权指令，访问 S 态寄存器后会报错。 请同学们可以自行测试这些内容 (运行 <a href="https://github.com/LearningOS/rust-based-os-comp2022/tree/main/user/src/bin">Rust 三个 bad 测例 (ch2b_bad_*.rs)</a> ， 注意在编译时至少需要指定 <code>LOG=ERROR</code> 才能观察到内核的报错信息) ， 描述程序出错行为，同时注意注明你使用的 sbi 及其版本。</p>
+</li>
+<li>
+<p>深入理解 <a href="https://github.com/LearningOS/rust-based-os-comp2022/blob/main/os3-ref/src/trap/trap.S">trap.S</a> 中两个函数<code> __alltraps</code>和<code>__restore</code>的作用，并回答如下问题:</p>
+<ol>
+<li>
+<p>L40：刚进入 <code>__restore</code> 时，<code>a0</code> 代表了什么值。请指出 <code>__restore</code> 的两种使用情景。</p>
+<p>在L37有一行<code>mv a0, sp</code>的指令，这是<code>addi a0, sp, 0</code>的语法糖，其实就是mov，在<code>__alltraps</code>里是给参数赋值，但是在之后a0并没有再次出现过，结合trap_handler的参数和返回值，可以认为又被返回回去了，所以a0直到<code>__restore</code>时都是taskContext。</p>
+<p><code>__restore</code>封装在<code>goto_restore</code>里，我们ctrl f全局找一下可以看到唯一引用的地方：TASK_MANAGER的初始化</p>
+<p>这个地方把每个应用的上下文（包括32个寄存器、sepc、sstatus值）存起来返回然后从supervisor返回到user</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/07/14/6a3f8e6f097a1915.png" alt="restore应用"></p>
+<p>其实所有从 supervisor =&gt; user 都可以使用<code>__restore</code>，跟<code>__alltraps</code>是反过来的，对偶使用，另一种场景想不出来……。</p>
+</li>
+<li>
+<p>L46-L51：这几行汇编代码特殊处理了哪些寄存器？这些寄存器的的值对于进入用户态有何意义？请分别解释。</p>
+<pre><code class="language-mipsasm">ld t0, 32*8(sp)
+ld t1, 33*8(sp)
+ld t2, 2*8(sp)
+csrw sstatus, t0
+csrw sepc, t1
+csrw sscratch, t2
+</code></pre>
+<ul>
+<li>
+<p>t0给了 sstatus，是 trap 发生前 cpu 特权级的信息（如S/U）</p>
+</li>
+<li>
+<p>t1给了 sepc，是 trap 发生前执行的最后一条指令的地址</p>
+</li>
+<li>
+<p>t2给了 sscratch，是原来 user stack 的 sp</p>
+</li>
+</ul>
+<p>这仨都是用来恢复状态的（在进入supervisor的时候把原来信息存在这里面了）</p>
+</li>
+<li>
+<p>L53-L59：为何跳过了 <code>x2</code> 和 <code>x4</code>？</p>
+<p>问题2和3都在<a href="https://learningos.github.io/rust-based-os-comp2022/chapter2/4trap-handling.html">特权级交换</a>这章里讲了，x2是 sp(stack pointer) ，x4 是 tp(thread pointer)</p>
+<blockquote>
+<p>跳过x2：用户栈的栈指针保存在 sscratch 中，必须通过 <code>&lt;span class=&quot;pre&quot;&gt;csrr&lt;/span&gt;</code> 指令读到通用寄存器中后才能使用，因此我们先考虑保存其它通用寄存器，腾出空间。</p>
+<p>跳过x4：非特殊情况不需要用到x4（存疑？）</p>
+</blockquote>
+</li>
+<li>
+<p>L63：该指令之后 sp 和 sscratch 中的值分别有什么意义？</p>
+<pre><code class="language-mipsasm">csrrw sp, sscratch, sp
+</code></pre>
+<p><code>csrrw r1, r2, r3</code>的意思是把 r2 写进 r1 ，把 r3 写进 r2 ，在上面就是交换 sp 和 sscratch 的意思。<br>
+sp 原来是用户栈，sscratch 原来是内核栈，交换后 sp 指向 kernel stack， sscratch 指向 user stack</p>
+</li>
+<li>
+<p><code>__restore</code>: 中发生状态切换在哪一条指令？为何该指令执行之后会进入用户态？<br>
+我猜是<code>csrw sstatus, t0</code>，sstatus代表用户状态</p>
+</li>
+<li>
+<p>L13：该指令之后，<code>sp</code> 和 <code>sscratch</code> 中的值分别有什么意义？<br>
+同4，反过来（怀疑上面L63是笔误</p>
+</li>
+<li>
+<p>从 U 态进入 S 态是哪一条指令发生的？<br>
+看不出来……因为现场没有改变 sstatus 的。</p>
+</li>
+</ol>
+</li>
+</ol>
+
+        </div>
+        
+        <div class="my-4">
+    
+    <a href="/tags/os/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 mr-2 hover:text-eureka">#OS</a>
+    
+    <a href="/tags/riscv/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 mr-2 hover:text-eureka">#RiscV</a>
+    
+</div>
+        
+        
+        
+
+
+        
+        
+        
+        
+<div class="flex flex-col md:flex-row md:justify-between -mx-2 mt-4 px-2 pt-4 border-t">
+    <div>
+        
+    </div>
+    <div class="md:text-right mt-4 md:mt-0">
+        
+        <span class="block font-bold">下一页</span>
+        <a href="/posts/riscv_memo/" class="block">计算机组成设计-软件硬件接口-RISC-V版笔记</a>
+        
+    </div>
+</div>
+
+        
+
+
+
+    </div>
+    
+    <div class="col-span-2">
+        
+        
+<div class="bg-secondary-bg rounded p-6">
+    <h3 class="text-lg font-semibold mb-4">系列文章</h3>
+    <div class="content">
+        
+        
+        <a href="/posts/rcore-camp-2022-lab1/">rCore Camp 2022 Lab1 记录</a>
+        <br />
+        
+        <a href="/posts/riscv_memo/">计算机组成设计-软件硬件接口-RISC-V版笔记</a>
+        <br />
+        
+        
+    </div>
+</div>
+        
+        
+        <div class="sticky top-16 z-10 hidden lg:block px-6 py-4  bg-primary-bg ">
+    <span class="text-lg font-semibold">本页内容</span>
+</div>
+<div class="sticky-toc hidden lg:block px-6 pb-6 ">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#lab1本体">Lab1本体</a>
+      <ul>
+        <li><a href="#分解需求">分解需求</a></li>
+        <li><a href="#实现">实现</a></li>
+      </ul>
+    </li>
+    <li><a href="#简答作业">简答作业</a></li>
+  </ul>
+</nav>
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        enableStickyToc();
+    });
+</script>
+        
+    </div>
+    
+
+    
+    
+    <div
+        class="col-span-2  lg:col-span-6 bg-secondary-bg rounded p-6">
+        <h2 class="text-lg font-semibold mb-4">相关</h2>
+        <div class="content">
+            
+            <a href="/posts/riscv_memo/">计算机组成设计-软件硬件接口-RISC-V版笔记</a>
+            <br />
+            
+        </div>
+    </div>
+    
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+        hljs.initHighlightingOnLoad();
+    })
+</script>
+
+      </div>
+    </div>
+    
+  </main>
+  <footer class="pl-scrollbar">
+    <div class="w-full max-w-screen-xl mx-auto"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2020-2022 <a href="https://www.github.com/werifu/">Werifu</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+  </footer>
+</body>
+
+</html>
