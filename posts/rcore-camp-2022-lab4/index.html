@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width">
 
 
-<title>RCore Camp 2022 Lab4 | 秘密</title>
+<title>rCore Camp 2022 Lab4 记录 | 秘密</title>
 
 <meta name="generator" content="Hugo Eureka 0.8.3" />
 <link rel="stylesheet" href="/css/eureka.min.css">
@@ -58,7 +58,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
 
 <meta name="description"
-  content="rCoreCamp2022-lab4记录 Lab4 本体 lab地址 Lab4 的难度感觉比 Lab3 高了一档，因为之前在学校或者自己学 OS 的时候都基本都没学到文件系统，所以这一张属">
+  content="实现 linkat 、 unlinkat，以及对文件系统的笔记">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -70,7 +70,7 @@
       "item":"/posts/"},{
       "@type": "ListItem",
       "position": 2 ,
-      "name":"RCore Camp 2022 Lab4",
+      "name":"rCore Camp 2022 Lab4 记录",
       "item":"/posts/rcore-camp-2022-lab4/"}]
 }
 </script>
@@ -85,7 +85,7 @@
         "@type": "WebPage",
         "@id": "/posts/rcore-camp-2022-lab4/"
     },
-    "headline": "RCore Camp 2022 Lab4 | 秘密","datePublished": "2022-07-30T00:29:54+08:00",
+    "headline": "rCore Camp 2022 Lab4 记录 | 秘密","datePublished": "2022-07-30T00:29:54+08:00",
     "dateModified": "2022-08-01T00:29:54+08:00",
     "wordCount":  1703 ,
     "author": {
@@ -100,9 +100,9 @@
             "url": "/images/icon.png"
         }
         },
-    "description": "rCoreCamp2022-lab4记录 Lab4 本体 lab地址 Lab4 的难度感觉比 Lab3 高了一档，因为之前在学校或者自己学 OS 的时候都基本都没学到文件系统，所以这一张属"
+    "description": "实现 linkat 、 unlinkat，以及对文件系统的笔记"
 }
-</script><meta property="og:title" content="RCore Camp 2022 Lab4 | 秘密" />
+</script><meta property="og:title" content="rCore Camp 2022 Lab4 记录 | 秘密" />
 <meta property="og:type" content="article" />
 
 
@@ -113,9 +113,7 @@
 
 
 
-
-<meta property="og:description" content="rCoreCamp2022-lab4记录 Lab4 本体 lab地址 Lab4 的难度感觉比 Lab3 高了一档，因为之前在学校或者自己学 OS 的时候都基本都没学到文件系统，所以这一张属" />
-
+<meta property="og:description" content="实现 linkat 、 unlinkat，以及对文件系统的笔记" />
 
 
 
@@ -248,7 +246,7 @@
 <div class="grid grid-cols-2 lg:grid-cols-8 gap-4 lg:pt-12">
     <div
         class="col-span-2  lg:col-span-6 bg-secondary-bg rounded px-6 py-8">
-        <h1 class="font-bold text-3xl text-primary-text">RCore Camp 2022 Lab4</h1>
+        <h1 class="font-bold text-3xl text-primary-text">rCore Camp 2022 Lab4 记录</h1>
         <div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
     <div class="mr-6 my-2">
         <i class="fas fa-calendar mr-1"></i>
@@ -456,7 +454,7 @@ fs.get_inode_id(self.block_id, self.block_offset)
     <div class="md:text-right mt-4 md:mt-0">
         
         <span class="block font-bold">下一页</span>
-        <a href="/posts/rcore-camp-2022-lab3/" class="block">RCore Camp 2022 Lab3</a>
+        <a href="/posts/rcore-camp-2022-lab3/" class="block">rCore Camp 2022 Lab3 记录</a>
         
     </div>
 </div>
@@ -475,13 +473,13 @@ fs.get_inode_id(self.block_id, self.block_offset)
     <div class="content">
         
         
-        <a href="/posts/rcore-camp-2022-lab4/">RCore Camp 2022 Lab4</a>
+        <a href="/posts/rcore-camp-2022-lab4/">rCore Camp 2022 Lab4 记录</a>
         <br />
         
-        <a href="/posts/rcore-camp-2022-lab3/">RCore Camp 2022 Lab3</a>
+        <a href="/posts/rcore-camp-2022-lab3/">rCore Camp 2022 Lab3 记录</a>
         <br />
         
-        <a href="/posts/rcore-camp-2022-lab2/">RCore Camp 2022 Lab2</a>
+        <a href="/posts/rcore-camp-2022-lab2/">rCore Camp 2022 Lab2 记录</a>
         <br />
         
         <a href="/posts/rcore-camp-2022-lab1/">rCore Camp 2022 Lab1 记录</a>
@@ -536,10 +534,10 @@ fs.get_inode_id(self.block_id, self.block_offset)
         <h2 class="text-lg font-semibold mb-4">相关</h2>
         <div class="content">
             
-            <a href="/posts/rcore-camp-2022-lab3/">RCore Camp 2022 Lab3</a>
+            <a href="/posts/rcore-camp-2022-lab3/">rCore Camp 2022 Lab3 记录</a>
             <br />
             
-            <a href="/posts/rcore-camp-2022-lab2/">RCore Camp 2022 Lab2</a>
+            <a href="/posts/rcore-camp-2022-lab2/">rCore Camp 2022 Lab2 记录</a>
             <br />
             
             <a href="/posts/rcore-camp-2022-lab1/">rCore Camp 2022 Lab1 记录</a>
