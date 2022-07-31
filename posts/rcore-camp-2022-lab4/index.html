@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width">
 
 
-<title>rCore Camp 2022 Lab1 记录 | 秘密</title>
+<title>RCore Camp 2022 Lab4 | 秘密</title>
 
 <meta name="generator" content="Hugo Eureka 0.8.3" />
 <link rel="stylesheet" href="/css/eureka.min.css">
@@ -58,7 +58,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
 
 <meta name="description"
-  content="lab报告及简答题">
+  content="rCoreCamp2022-lab4记录 Lab4 本体 lab地址 Lab4 的难度感觉比 Lab3 高了一档，因为之前在学校或者自己学 OS 的时候都基本都没学到文件系统，所以这一张属">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -70,8 +70,8 @@
       "item":"/posts/"},{
       "@type": "ListItem",
       "position": 2 ,
-      "name":"rCore Camp 2022 Lab1 记录",
-      "item":"/posts/rcore-camp-2022-lab1/"}]
+      "name":"RCore Camp 2022 Lab4",
+      "item":"/posts/rcore-camp-2022-lab4/"}]
 }
 </script>
 
@@ -83,11 +83,11 @@
     "@type": "Article",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "/posts/rcore-camp-2022-lab1/"
+        "@id": "/posts/rcore-camp-2022-lab4/"
     },
-    "headline": "rCore Camp 2022 Lab1 记录 | 秘密","datePublished": "2022-07-14T01:20:44+08:00",
-    "dateModified": "2022-07-14T01:20:44+08:00",
-    "wordCount":  1336 ,
+    "headline": "RCore Camp 2022 Lab4 | 秘密","datePublished": "2022-07-30T00:29:54+08:00",
+    "dateModified": "2022-08-01T00:29:54+08:00",
+    "wordCount":  1703 ,
     "author": {
         "@type": "Person",
         "name": ["werifu"]
@@ -100,20 +100,22 @@
             "url": "/images/icon.png"
         }
         },
-    "description": "lab报告及简答题"
+    "description": "rCoreCamp2022-lab4记录 Lab4 本体 lab地址 Lab4 的难度感觉比 Lab3 高了一档，因为之前在学校或者自己学 OS 的时候都基本都没学到文件系统，所以这一张属"
 }
-</script><meta property="og:title" content="rCore Camp 2022 Lab1 记录 | 秘密" />
+</script><meta property="og:title" content="RCore Camp 2022 Lab4 | 秘密" />
 <meta property="og:type" content="article" />
 
 
 <meta property="og:image" content="/images/icon.png">
 
 
-<meta property="og:url" content="/posts/rcore-camp-2022-lab1/" />
+<meta property="og:url" content="/posts/rcore-camp-2022-lab4/" />
 
 
 
-<meta property="og:description" content="lab报告及简答题" />
+
+<meta property="og:description" content="rCoreCamp2022-lab4记录 Lab4 本体 lab地址 Lab4 的难度感觉比 Lab3 高了一档，因为之前在学校或者自己学 OS 的时候都基本都没学到文件系统，所以这一张属" />
+
 
 
 
@@ -129,10 +131,10 @@
 
 
 
-<meta property="article:published_time" content="2022-07-14T01:20:44&#43;08:00" />
+<meta property="article:published_time" content="2022-07-30T00:29:54&#43;08:00" />
 
 
-<meta property="article:modified_time" content="2022-07-14T01:20:44&#43;08:00" />
+<meta property="article:modified_time" content="2022-08-01T00:29:54&#43;08:00" />
 
 
 
@@ -151,8 +153,6 @@
 
 
 
-<meta property="og:see_also" content="/posts/rcore-camp-2022-lab4/" />
-
 
 
 <meta property="og:see_also" content="/posts/rcore-camp-2022-lab3/" />
@@ -162,6 +162,8 @@
 <meta property="og:see_also" content="/posts/rcore-camp-2022-lab2/" />
 
 
+
+<meta property="og:see_also" content="/posts/rcore-camp-2022-lab1/" />
 
 
 
@@ -246,15 +248,15 @@
 <div class="grid grid-cols-2 lg:grid-cols-8 gap-4 lg:pt-12">
     <div
         class="col-span-2  lg:col-span-6 bg-secondary-bg rounded px-6 py-8">
-        <h1 class="font-bold text-3xl text-primary-text">rCore Camp 2022 Lab1 记录</h1>
+        <h1 class="font-bold text-3xl text-primary-text">RCore Camp 2022 Lab4</h1>
         <div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
     <div class="mr-6 my-2">
         <i class="fas fa-calendar mr-1"></i>
-        <span>2022-07-14</span>
+        <span>2022-07-30</span>
     </div>
     <div class="mr-6 my-2">
         <i class="fas fa-clock mr-1"></i>
-        <span>3分钟阅读时长</span>
+        <span>4分钟阅读时长</span>
     </div>
     
     
@@ -273,123 +275,157 @@
         
 
         <div class="content">
-            <h1 id="rcorecamp2022-lab1记录">rCoreCamp2022-lab1记录</h1>
-<h2 id="lab1本体">Lab1本体</h2>
-<p><a href="https://learningos.github.io/rust-based-os-comp2022/chapter3/5exercise.html">lab地址</a></p>
-<p>实现以下函数的功能</p>
-<pre><code class="language-rust">fn sys_task_info(ti: *mut TaskInfo) -&gt; isize
-struct TaskInfo {
-    status: TaskStatus,
-    syscall_times: [u32; MAX_SYSCALL_NUM],
-    time: usize
+            <h1 id="rcorecamp2022-lab4记录">rCoreCamp2022-lab4记录</h1>
+<h2 id="lab4-本体">Lab4 本体</h2>
+<p><a href="https://learningos.github.io/rust-based-os-comp2022/chapter5/4exercise.html">lab地址</a></p>
+<p>Lab4 的难度感觉比 Lab3 高了一档，因为之前在学校或者自己学 OS 的时候都基本都没学到文件系统，所以这一张属于是真的新学了。在理解上遇到了很大的障碍，代码也很难憋出来。</p>
+<h2 id="0-迁移代码">0. 迁移代码</h2>
+<p>唯一的难点是，这章使用文件系统代替了loader，因此加载用户程序的方式从 get_app_by_name 从loader里取改成了用文件系统的api 去打开文件</p>
+<p>下面的代码片段摘自 sys_spawn，使用open_file 去获取 inode 进而创建新的 task</p>
+<pre><code class="language-rust">    if let Some(inode) = open_file(path.as_str(), OpenFlags::RDONLY) {
+        let data = inode.read_all();
+        let task = current_task().unwrap();
+        let new_task = task.spawn(data.as_slice());
+        let pid = new_task.pid.0;
+        add_task(new_task);
+        pid as isize
+    }
+</code></pre>
+<h2 id="1-fstat">1. fstat</h2>
+<p>因为觉得 fstat 是最好做的所以从它最开始了</p>
+<p>获取 fstat 的核心是（ino**,** mode**,** nlink）三个数据，代表inode id，文件的模式（是文件还是目录），有几个引用，这部分实现在Inode 结构中，我们给 File trait 添加一个特征方法叫 fstat()，能够返回三个维度的数据</p>
+<p>注意 Stdin 和 Stdout 也是特殊的文件，但是懒得实现就直接在里面 panic 了。</p>
+<pre><code class="language-rust">impl File {
+	// ... read, write, readable, writable
+	fn fstat(&amp;self) -&gt; (u64, StatMode, u32);
 }
 </code></pre>
-<h3 id="分解需求">分解需求</h3>
+<p>fstat 里最难的是得到 inode id，因为 Inode 中只提供了 get_inode_id_by_name，我们将该能力分配给 fs，由efs来帮忙实现从块信息中读取 inode 的id</p>
+<pre><code class="language-rust">// impl Inode ==&gt; get_inode_id
+fs.get_inode_id(self.block_id, self.block_offset)
+</code></pre>
+<pre><code class="language-rust">impl EasyFileSystem {
+    pub fn get_inode_id(&amp;self, block_id: usize, block_offset: usize) -&gt; usize {
+        let inode_size = core::mem::size_of::&lt;DiskInode&gt;();
+        let inodes_per_block = (BLOCK_SZ / inode_size) as usize;
+        // 目标 inode 处在 inode 区第n个
+        let nth_inode_block = block_id - self.inode_area_start_block as usize;
+        // 目标 inode 所在区前有几个 inode， + 区里排第几个 inode
+        return nth_inode_block * inodes_per_block + block_offset / inode_size;
+    }
+}
+</code></pre>
+<h2 id="2-linkat">2. linkat</h2>
+<p>linkat 的功能实现在 Inode 里，代码需要模仿 Inode 中的 create 方法，实际上新建文件的过程也是创建一个硬连接</p>
+<p>具体思路就是：</p>
 <ol>
-<li>让 TASK_MANAGER 有获取 task 状态的能力</li>
-<li>让 TASK_MANAGER 有更新 task 状态的能力</li>
+<li>新旧文件名的校验</li>
+<li>在 get_block_cache 里，通过从 fs 得到的 block 位置信息，新建一个文件</li>
+<li>更新目录表，插入一个新的DirEntry</li>
 </ol>
-<h3 id="实现">实现</h3>
-<p>其实就是对 TASK_MANAGER 管理的每个 task 维护一个 TaskInfo 的对象，每次 syscall 的时候进行记录。</p>
-<p>因此我们给 Task 的对象加入一个新的 inner 字段，维护该任务开始时间和系统调用情况。</p>
-<p><img src="https://s3.bmp.ovh/imgs/2022/07/14/c6c23c1967cef82c.png" alt="Inner"></p>
-<p>之后给 TASK_MANAGER 加 set 和 get 的能力，都挺好懂的</p>
-<pre><code class="language-rust">// src/task/mod.rs
-    fn set_syscall_times(&amp;self, syscall_id: usize) {
-        let mut inner = self.inner.exclusive_access();
-        let current_id = inner.current_task;
-        inner.tasks[current_id].task_info_inner.syscall_times[syscall_id] += 1;
-    }
-
-    fn get_current_task_info(&amp;self, ti: *mut TaskInfo) {
-        let inner = self.inner.exclusive_access();
-        let current_id = inner.current_task;
-        let TaskInfoInner {syscall_times, start_time} = inner.tasks[current_id].task_info_inner;
-
-        unsafe {
-            *ti = TaskInfo {
-                status: TaskStatus::Running,
-                syscall_times,
-                time: get_time_ms() - start_time,
-            };
+<pre><code class="language-rust">    /// like `fn create`
+    pub fn linkat(&amp;self, old_name: &amp;str, new_name: &amp;str) -&gt; isize {
+        let mut fs = self.fs.lock();
+        let old_inode_id = self.read_disk_inode(|disk_inode|
+            self.find_inode_id(old_name, disk_inode)
+        );
+        // old_name should point to a valid file
+        if old_inode_id == None {
+            return -1;
         }
+        // new_name should not point to an existing file
+        if self.read_disk_inode(|disk_inode| self.find_inode_id(new_name, disk_inode)).is_some() {
+            return -1;
+        }
+        let (block_id, block_offset) = fs.get_disk_inode_pos(old_inode_id.unwrap());
+        get_block_cache(block_id as usize, Arc::clone(&amp;self.block_device))
+            .lock()
+            .modify(block_offset, |new_inode: &amp;mut DiskInode| {
+                new_inode.initialize(DiskInodeType::File)
+            });
+
+        // update dir table
+        self.modify_disk_inode(|root_inode| {
+            // add a new dir entry
+            let file_count = (root_inode.size as usize) / DIRENT_SZ;
+            let new_size = (file_count + 1) * DIRENT_SZ;
+            self.increase_size(new_size as u32, root_inode, &amp;mut fs);
+
+            // write into the new dir entry
+            let dirent = DirEntry::new(new_name, old_inode_id.unwrap());
+            root_inode.write_at(file_count * DIRENT_SZ, dirent.as_bytes(), &amp;self.block_device);
+        });
+        0
     }
 </code></pre>
-<p>然后对外提供接口</p>
-<pre><code class="language-rust">pub fn record_syscall(syscall_id: usize) {
-    TASK_MANAGER.set_syscall_times(syscall_id);
-}
+<h2 id="3-unlinkat">3. unlinkat</h2>
+<p>unlink 跟 link 还是比较像，思路是遍历根目录（使用modify_disk_inode），在 file_num 个文件里找到符合条件的文件，删除其目录项（将其赋为 DirEntry::empty()）。</p>
+<p>能这么写是因为 rCore 里的文件系统只有一层，根目录下全是文件</p>
+<pre><code class="language-rust">    /// unlink
+    pub fn unlink(&amp;self, name: &amp;str) -&gt; isize {
+        self.modify_disk_inode(|root_inode| {
+            let file_num = (root_inode.size as usize) / DIRENT_SZ;
+            // find the correct entry and modify it, else -1
+            for i in 0..file_num {
+                let mut dirent = DirEntry::empty();
+                let readn = root_inode.read_at(
+                    i * DIRENT_SZ,
+                    dirent.as_bytes_mut(),
+                    &amp;self.block_device
+                );
+                // read size should == DIRENT_SZ
+                if readn != DIRENT_SZ {
+                    continue;
+                }
 
-pub fn get_task_info(ti: *mut TaskInfo) {
-    TASK_MANAGER.get_current_task_info(ti);
-}
+                if dirent.name() == name {
+                    let dirent = DirEntry::empty();
+                    root_inode.write_at(i * DIRENT_SZ, dirent.as_bytes(), &amp;self.block_device);
+                    return 0;
+                }
+            }
+            -1
+        })
+    }
 </code></pre>
-<p>每次调用syscall的时候记录一下就行了。</p>
-<p><img src="https://s3.bmp.ovh/imgs/2022/07/14/de517ab611e9546e.png" alt="syscall前"></p>
-<h2 id="简答作业">简答作业</h2>
+<h2 id="杂项">杂项</h2>
+<h3 id="简答题">简答题</h3>
 <ol>
-<li>
-<p>正确进入 U 态后，程序的特征还应有：使用 S 态特权指令，访问 S 态寄存器后会报错。 请同学们可以自行测试这些内容 (运行 <a href="https://github.com/LearningOS/rust-based-os-comp2022/tree/main/user/src/bin">Rust 三个 bad 测例 (ch2b_bad_*.rs)</a> ， 注意在编译时至少需要指定 <code>LOG=ERROR</code> 才能观察到内核的报错信息) ， 描述程序出错行为，同时注意注明你使用的 sbi 及其版本。</p>
-</li>
-<li>
-<p>深入理解 <a href="https://github.com/LearningOS/rust-based-os-comp2022/blob/main/os3-ref/src/trap/trap.S">trap.S</a> 中两个函数<code> __alltraps</code>和<code>__restore</code>的作用，并回答如下问题:</p>
-<ol>
-<li>
-<p>L40：刚进入 <code>__restore</code> 时，<code>a0</code> 代表了什么值。请指出 <code>__restore</code> 的两种使用情景。</p>
-<p>在L37有一行<code>mv a0, sp</code>的指令，这是<code>addi a0, sp, 0</code>的语法糖，其实就是mov，在<code>__alltraps</code>里是给参数赋值，但是在之后a0并没有再次出现过，结合trap_handler的参数和返回值，可以认为又被返回回去了，所以a0直到<code>__restore</code>时都是taskContext。</p>
-<p><code>__restore</code>封装在<code>goto_restore</code>里，我们ctrl f全局找一下可以看到唯一引用的地方：TASK_MANAGER的初始化</p>
-<p>这个地方把每个应用的上下文（包括32个寄存器、sepc、sstatus值）存起来返回然后从supervisor返回到user</p>
-<p><img src="https://s3.bmp.ovh/imgs/2022/07/14/6a3f8e6f097a1915.png" alt="restore应用"></p>
-<p>其实所有从 supervisor =&gt; user 都可以使用<code>__restore</code>，跟<code>__alltraps</code>是反过来的，对偶使用，另一种场景想不出来……。</p>
-</li>
-<li>
-<p>L46-L51：这几行汇编代码特殊处理了哪些寄存器？这些寄存器的的值对于进入用户态有何意义？请分别解释。</p>
-<pre><code class="language-mipsasm">ld t0, 32*8(sp)
-ld t1, 33*8(sp)
-ld t2, 2*8(sp)
-csrw sstatus, t0
-csrw sepc, t1
-csrw sscratch, t2
-</code></pre>
+<li>在我们的easy-fs中，root inode起着什么作用？如果root inode中的内容损坏了，会发生什么？</li>
+</ol>
+<p><strong>Answer</strong>: ROOT_INODE 代表根目录所对应的 Inode，也是整个文件系统（文件树）的起点，我们管理其他的文件都是在根目录下玩完成的，如果它坏了，那么整个文件系统就无法正常管理文件</p>
+<h2 id="文件系统笔记">文件系统笔记</h2>
+<h3 id="一个磁盘文件系统的组织结构">一个磁盘文件系统的组织结构</h3>
+<p>这一章的 MVP slide 我觉得是下图，一个 fs 分成了下面五块</p>
 <ul>
-<li>
-<p>t0给了 sstatus，是 trap 发生前 cpu 特权级的信息（如S/U）</p>
-</li>
-<li>
-<p>t1给了 sepc，是 trap 发生前执行的最后一条指令的地址</p>
-</li>
-<li>
-<p>t2给了 sscratch，是原来 user stack 的 sp</p>
-</li>
+<li>Super Block：记录了后边几个分别占了多少块（磁盘的单位使用块来表示，类似内存的页帧）</li>
+<li>Inode Bitmap：记录 Inodes 块的使用情况，一个位可以表示一个 Inode 的使用与否，在分配 Inode 时起到重要作用</li>
+<li>Data Bitmap：跟上一块差不多，记录的是数据块的使用情况</li>
+<li>Inodes：是DiskInode（存储于磁盘上的文件管理单元）在内存里的形态，一个Inode代表管理了一个文件，通过访问 Inode 可以访问到数据，而其实这些数据就缓存在 Data Blocks 里，但是上层的抽象不需要感知到 DataBlock</li>
+<li>Data Blocks：真实的数据，通过 Inode 能够找到</li>
 </ul>
-<p>这仨都是用来恢复状态的（在进入supervisor的时候把原来信息存在这里面了）</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/08/01/8b27861e801c27fd.png" alt="fs 视图"></p>
+<p>下图则代表了目录项，就是上图的右上表，实现从文件名到文件Inode的映射（当然如果是目录，则映射到其下的一堆目录项）</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/08/01/bf32bbeb4f78156d.png" alt="目录项"></p>
+<h2 id="感想">感想</h2>
+<ol>
+<li>
+<p>文件系统对我来说过于陌生，所以在这花了非常多的时间，整整一周，到现在也不是彻底理解了这套系统，多亏了助教<a href="https://github.com/xushanpu123/xsp-daily-work/blob/master/%E6%9A%91%E6%9C%9Frcore%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0/chapter%206%EF%BC%9A%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.md">xushanpu 的笔记</a>，用自上而下的视角去理解代码结构感觉比 camp 文档里的更好理解。</p>
 </li>
 <li>
-<p>L53-L59：为何跳过了 <code>x2</code> 和 <code>x4</code>？</p>
-<p>问题2和3都在<a href="https://learningos.github.io/rust-based-os-comp2022/chapter2/4trap-handling.html">特权级交换</a>这章里讲了，x2是 sp(stack pointer) ，x4 是 tp(thread pointer)</p>
-<blockquote>
-<p>跳过x2：用户栈的栈指针保存在 sscratch 中，必须通过 <code>&lt;span class=&quot;pre&quot;&gt;csrr&lt;/span&gt;</code> 指令读到通用寄存器中后才能使用，因此我们先考虑保存其它通用寄存器，腾出空间。</p>
-<p>跳过x4：非特殊情况不需要用到x4（存疑？）</p>
-</blockquote>
+<p>对文件系统的理解主要就是第一张图那个视图</p>
+<ol>
+<li>
+<p>左上是用户视角，文件系统就是一棵文件树</p>
 </li>
 <li>
-<p>L63：该指令之后 sp 和 sscratch 中的值分别有什么意义？</p>
-<pre><code class="language-mipsasm">csrrw sp, sscratch, sp
-</code></pre>
-<p><code>csrrw r1, r2, r3</code>的意思是把 r2 写进 r1 ，把 r3 写进 r2 ，在上面就是交换 sp 和 sscratch 的意思。<br>
-sp 原来是用户栈，sscratch 原来是内核栈，交换后 sp 指向 kernel stack， sscratch 指向 user stack</p>
+<p>右上是 OS 视角，一个文件是一个 Inode，中间是文件名到 Inode idx 的映射</p>
 </li>
 <li>
-<p><code>__restore</code>: 中发生状态切换在哪一条指令？为何该指令执行之后会进入用户态？<br>
-我猜是<code>csrw sstatus, t0</code>，sstatus代表用户状态</p>
-</li>
-<li>
-<p>L13：该指令之后，<code>sp</code> 和 <code>sscratch</code> 中的值分别有什么意义？<br>
-同4，反过来（怀疑上面L63是笔误</p>
-</li>
-<li>
-<p>从 U 态进入 S 态是哪一条指令发生的？<br>
-看不出来……因为现场没有改变 sstatus 的。</p>
+<p>下面的结构是磁盘视角，一个fs分区就是这样的结构</p>
+<ul>
+<li>如果我们把一个磁盘分区，那么每个分区都是独立的 fs，因此都会有平行的那个结构</li>
+</ul>
 </li>
 </ol>
 </li>
@@ -416,14 +452,11 @@ sp 原来是用户栈，sscratch 原来是内核栈，交换后 sp 指向 kernel
 <div class="flex flex-col md:flex-row md:justify-between -mx-2 mt-4 px-2 pt-4 border-t">
     <div>
         
-        <span class="block font-bold">上一页</span>
-        <a href="/posts/rcore-camp-2022-lab2/" class="block">RCore Camp 2022 Lab2</a>
-        
     </div>
     <div class="md:text-right mt-4 md:mt-0">
         
         <span class="block font-bold">下一页</span>
-        <a href="/posts/riscv_memo/" class="block">计算机组成设计-软件硬件接口-RISC-V版笔记</a>
+        <a href="/posts/rcore-camp-2022-lab3/" class="block">RCore Camp 2022 Lab3</a>
         
     </div>
 </div>
@@ -468,13 +501,22 @@ sp 原来是用户栈，sscratch 原来是内核栈，交换后 sp 指向 kernel
 <div class="sticky-toc hidden lg:block px-6 pb-6 ">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#lab1本体">Lab1本体</a>
+    <li><a href="#lab4-本体">Lab4 本体</a></li>
+    <li><a href="#0-迁移代码">0. 迁移代码</a></li>
+    <li><a href="#1-fstat">1. fstat</a></li>
+    <li><a href="#2-linkat">2. linkat</a></li>
+    <li><a href="#3-unlinkat">3. unlinkat</a></li>
+    <li><a href="#杂项">杂项</a>
       <ul>
-        <li><a href="#分解需求">分解需求</a></li>
-        <li><a href="#实现">实现</a></li>
+        <li><a href="#简答题">简答题</a></li>
       </ul>
     </li>
-    <li><a href="#简答作业">简答作业</a></li>
+    <li><a href="#文件系统笔记">文件系统笔记</a>
+      <ul>
+        <li><a href="#一个磁盘文件系统的组织结构">一个磁盘文件系统的组织结构</a></li>
+      </ul>
+    </li>
+    <li><a href="#感想">感想</a></li>
   </ul>
 </nav>
 </div>
@@ -493,6 +535,15 @@ sp 原来是用户栈，sscratch 原来是内核栈，交换后 sp 指向 kernel
         class="col-span-2  lg:col-span-6 bg-secondary-bg rounded p-6">
         <h2 class="text-lg font-semibold mb-4">相关</h2>
         <div class="content">
+            
+            <a href="/posts/rcore-camp-2022-lab3/">RCore Camp 2022 Lab3</a>
+            <br />
+            
+            <a href="/posts/rcore-camp-2022-lab2/">RCore Camp 2022 Lab2</a>
+            <br />
+            
+            <a href="/posts/rcore-camp-2022-lab1/">rCore Camp 2022 Lab1 记录</a>
+            <br />
             
             <a href="/posts/riscv_memo/">计算机组成设计-软件硬件接口-RISC-V版笔记</a>
             <br />

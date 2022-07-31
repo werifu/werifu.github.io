@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width">
 
 
-<title>rCore Camp 2022 Lab1 记录 | 秘密</title>
+<title>RCore Camp 2022 Lab3 | 秘密</title>
 
 <meta name="generator" content="Hugo Eureka 0.8.3" />
 <link rel="stylesheet" href="/css/eureka.min.css">
@@ -58,7 +58,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
 
 <meta name="description"
-  content="lab报告及简答题">
+  content="rCoreCamp2022-lab3记录 Lab3 本体 lab 地址 0. 迁移通过以前的测试 get_time： 原本我给 TCB 加了一个 inner，这部分在第五章里官方加了这个结">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -70,8 +70,8 @@
       "item":"/posts/"},{
       "@type": "ListItem",
       "position": 2 ,
-      "name":"rCore Camp 2022 Lab1 记录",
-      "item":"/posts/rcore-camp-2022-lab1/"}]
+      "name":"RCore Camp 2022 Lab3",
+      "item":"/posts/rcore-camp-2022-lab3/"}]
 }
 </script>
 
@@ -83,11 +83,11 @@
     "@type": "Article",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "/posts/rcore-camp-2022-lab1/"
+        "@id": "/posts/rcore-camp-2022-lab3/"
     },
-    "headline": "rCore Camp 2022 Lab1 记录 | 秘密","datePublished": "2022-07-14T01:20:44+08:00",
-    "dateModified": "2022-07-14T01:20:44+08:00",
-    "wordCount":  1336 ,
+    "headline": "RCore Camp 2022 Lab3 | 秘密","datePublished": "2022-07-23T00:29:54+08:00",
+    "dateModified": "2022-08-01T00:29:54+08:00",
+    "wordCount":  1625 ,
     "author": {
         "@type": "Person",
         "name": ["werifu"]
@@ -100,20 +100,22 @@
             "url": "/images/icon.png"
         }
         },
-    "description": "lab报告及简答题"
+    "description": "rCoreCamp2022-lab3记录 Lab3 本体 lab 地址 0. 迁移通过以前的测试 get_time： 原本我给 TCB 加了一个 inner，这部分在第五章里官方加了这个结"
 }
-</script><meta property="og:title" content="rCore Camp 2022 Lab1 记录 | 秘密" />
+</script><meta property="og:title" content="RCore Camp 2022 Lab3 | 秘密" />
 <meta property="og:type" content="article" />
 
 
 <meta property="og:image" content="/images/icon.png">
 
 
-<meta property="og:url" content="/posts/rcore-camp-2022-lab1/" />
+<meta property="og:url" content="/posts/rcore-camp-2022-lab3/" />
 
 
 
-<meta property="og:description" content="lab报告及简答题" />
+
+<meta property="og:description" content="rCoreCamp2022-lab3记录 Lab3 本体 lab 地址 0. 迁移通过以前的测试 get_time： 原本我给 TCB 加了一个 inner，这部分在第五章里官方加了这个结" />
+
 
 
 
@@ -129,10 +131,10 @@
 
 
 
-<meta property="article:published_time" content="2022-07-14T01:20:44&#43;08:00" />
+<meta property="article:published_time" content="2022-07-23T00:29:54&#43;08:00" />
 
 
-<meta property="article:modified_time" content="2022-07-14T01:20:44&#43;08:00" />
+<meta property="article:modified_time" content="2022-08-01T00:29:54&#43;08:00" />
 
 
 
@@ -155,13 +157,13 @@
 
 
 
-<meta property="og:see_also" content="/posts/rcore-camp-2022-lab3/" />
-
 
 
 <meta property="og:see_also" content="/posts/rcore-camp-2022-lab2/" />
 
 
+
+<meta property="og:see_also" content="/posts/rcore-camp-2022-lab1/" />
 
 
 
@@ -246,15 +248,15 @@
 <div class="grid grid-cols-2 lg:grid-cols-8 gap-4 lg:pt-12">
     <div
         class="col-span-2  lg:col-span-6 bg-secondary-bg rounded px-6 py-8">
-        <h1 class="font-bold text-3xl text-primary-text">rCore Camp 2022 Lab1 记录</h1>
+        <h1 class="font-bold text-3xl text-primary-text">RCore Camp 2022 Lab3</h1>
         <div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
     <div class="mr-6 my-2">
         <i class="fas fa-calendar mr-1"></i>
-        <span>2022-07-14</span>
+        <span>2022-07-23</span>
     </div>
     <div class="mr-6 my-2">
         <i class="fas fa-clock mr-1"></i>
-        <span>3分钟阅读时长</span>
+        <span>4分钟阅读时长</span>
     </div>
     
     
@@ -273,126 +275,125 @@
         
 
         <div class="content">
-            <h1 id="rcorecamp2022-lab1记录">rCoreCamp2022-lab1记录</h1>
-<h2 id="lab1本体">Lab1本体</h2>
-<p><a href="https://learningos.github.io/rust-based-os-comp2022/chapter3/5exercise.html">lab地址</a></p>
-<p>实现以下函数的功能</p>
-<pre><code class="language-rust">fn sys_task_info(ti: *mut TaskInfo) -&gt; isize
-struct TaskInfo {
-    status: TaskStatus,
-    syscall_times: [u32; MAX_SYSCALL_NUM],
-    time: usize
-}
-</code></pre>
-<h3 id="分解需求">分解需求</h3>
+            <h1 id="rcorecamp2022-lab3记录">rCoreCamp2022-lab3记录</h1>
+<h2 id="lab3-本体">Lab3 本体</h2>
+<p><a href="https://learningos.github.io/rust-based-os-comp2022/chapter5/4exercise.html">lab 地址</a></p>
+<h3 id="0-迁移通过以前的测试">0. 迁移通过以前的测试</h3>
 <ol>
-<li>让 TASK_MANAGER 有获取 task 状态的能力</li>
-<li>让 TASK_MANAGER 有更新 task 状态的能力</li>
+<li>get_time： 原本我给 TCB 加了一个 inner，这部分在第五章里官方加了这个结构，因此需要把 syscall_times 和 start_time 给迁移进去</li>
+<li>get_task_info： 和 get_time 同理，不过需要注意的是代码更改了逻辑，原本由 TASK_MANAGER 负责管理的任务调度和任务执行部分，分成了 manager 和 processor 的工作，前者负责管理任务调度，后者负责操控当前任务 + 当前任务的切换，这二者都迁移进了 Processor 里</li>
+<li>mmap &amp; munmap：没什么变化，就是直接搬运</li>
 </ol>
-<h3 id="实现">实现</h3>
-<p>其实就是对 TASK_MANAGER 管理的每个 task 维护一个 TaskInfo 的对象，每次 syscall 的时候进行记录。</p>
-<p>因此我们给 Task 的对象加入一个新的 inner 字段，维护该任务开始时间和系统调用情况。</p>
-<p><img src="https://s3.bmp.ovh/imgs/2022/07/14/c6c23c1967cef82c.png" alt="Inner"></p>
-<p>之后给 TASK_MANAGER 加 set 和 get 的能力，都挺好懂的</p>
-<pre><code class="language-rust">// src/task/mod.rs
-    fn set_syscall_times(&amp;self, syscall_id: usize) {
-        let mut inner = self.inner.exclusive_access();
-        let current_id = inner.current_task;
-        inner.tasks[current_id].task_info_inner.syscall_times[syscall_id] += 1;
+<h3 id="1-实现-spawn">1. 实现 spawn</h3>
+<pre><code class="language-rust">fn sys_spawn(path: *const u8) -&gt; isize
+</code></pre>
+<p>平时我们会使用 fork() + exec() 来实现创建一个新的进程，但为什么要先复制状态机再重置状态机（状态机的理论见绿导师的南大 OS 课）？当然可以直接创建一个新的状态！</p>
+<p>man page 提供了 <a href="https://man7.org/linux/man-pages/man3/posix_spawn.3.html">spawn 相关的说明</a></p>
+<p>实现不太难，就是在 fork 和 exec 上偷偷而已，具体代码就不放了</p>
+<pre><code class="language-rust">impl TaskControlBlock {
+    /// Spawn a new process without fork + exec
+    pub fn spawn(self: &amp;Arc&lt;TaskControlBlock&gt;, elf_data: &amp;[u8]) -&gt; Arc&lt;TaskControlBlock&gt; {
+	// 1. 解析 elf 文件，得到 memory_set, user_sp, entry_point, 从 memory_set 里算出物理 trap_cx_ppn
+	// 2. 新建 TCB，数据是新的（类似 exec 里的逻辑）
+	// 3. 将新的 TCB 挂到当前 TCB 的 children 里
+	// 4. 修改新的 TCB 的 trap_cx 的值
     }
+}
+</code></pre>
+<h3 id="2-实现-stride">2. 实现 stride</h3>
+<p>stride 意思是步伐，计算方式是 <code>stride = BIG_STRIDE / priority</code>，每次执行一个任务要 <code>pass += stride</code>，然后在调度时选择 pass 最小的执行。因为 priority 当了分母，所以越高的优先级的 stride 越小，每次就越早被调度。</p>
+<p>比如 priority = 5 的进程和 priority = 10 的进程，每次优先级为5的增加的 stride 是 10 的两倍，所以在相同时间里，次数大约会是优先级 10 的一半。</p>
+<p>下面的实现参考了助教 xushanpu123 的笔记， 维护一个 pass 单调递增的队列，每次从头取就行了。<br>
+另外一种做法是队列不一定单调，但是每次取时靠遍历来找最小值</p>
+<pre><code class="language-rust">impl TaskManager {
+    pub fn add(&amp;mut self, task: Arc&lt;TaskControlBlock&gt;) {
+        // insert the new task into a proper position
+        let inner = task.inner_exclusive_access();
+        let pass = inner.pass;
+        // let prio = inner.priority;
+        // drop the ownership of inner
+        drop(inner);
 
-    fn get_current_task_info(&amp;self, ti: *mut TaskInfo) {
-        let inner = self.inner.exclusive_access();
-        let current_id = inner.current_task;
-        let TaskInfoInner {syscall_times, start_time} = inner.tasks[current_id].task_info_inner;
-
-        unsafe {
-            *ti = TaskInfo {
-                status: TaskStatus::Running,
-                syscall_times,
-                time: get_time_ms() - start_time,
-            };
+        let len = self.ready_queue.len();
+        for idx in 0..len {
+            let queue_task = self.ready_queue.get_mut(idx).unwrap();
+            let pass1 = queue_task.inner_exclusive_access().pass;
+            // keep the queue head owns the smallest pass
+            if pass &lt; pass1 {
+                // println!(&quot;new task priority: {}, pass: {}, inserted before idx {}&quot;, prio, pass, idx);
+                self.ready_queue.insert(idx, task);
+                return
+            }
         }
+        self.ready_queue.push_back(task);
     }
+}
 </code></pre>
-<p>然后对外提供接口</p>
-<pre><code class="language-rust">pub fn record_syscall(syscall_id: usize) {
-    TASK_MANAGER.set_syscall_times(syscall_id);
+<h3 id="踩坑">踩坑</h3>
+<ol>
+<li>
+<p>会有 <code>already borrowed: BorrowMutError</code> 的 panic 报错，是在测试结束后调用最后一个 exit 时发生的</p>
+<ul>
+<li>定位：在函数前面加 <code>#[trace_caller]</code> 就能显示文件+行数</li>
+<li>原因：在测试的时候，initproc 会被替换成各章的 ch_usertest ,所以是不会像普通的运行那样进入 initproc 然后运行 shell 的， usertest 退出的时候所有权会被借走，但是后面又借回来了导致错误（其实就是在 exit_current_and_run_next_task 里，将要退出的和下一个任务是同一个，而我们需要同时可变借用这两个）</li>
+<li>解决方案：在拿到 current 后判断 pid，如果是 0（表示初进程）就调用 sbi 里的 shutdown() 直接关机</li>
+</ul>
+</li>
+<li>
+<p>stride test 过不了，调度不符合公平性</p>
+<ul>
+<li>没找到原因，调度的过程应该是没错的，打印出来的统计数据没有错</li>
+<li>解决：给 ci-user 里的 ch5_stridex 加了println!，使得执行速度大幅降低，然后居然就正常了…</li>
+</ul>
+</li>
+</ol>
+<br />
+<blockquote>
+<p>2022.07.26更新：<br>
+已经找到原因，是分时程序切换那里做的设置定时时钟中断出问题了，是sbi的故障，夏令营仓库在commit 70ae28ab2280f3e57d14b7a631e7508fe5b4bbaf 后就修复了，在sbi.rs中调用 ecall 前执行 <strong>&ldquo;li x16, 0&rdquo;</strong></p>
+</blockquote>
+<h2 id="杂项">杂项</h2>
+<h3 id="问答题">问答题</h3>
+<p>stride 算法深入</p>
+<p>stride 算法原理非常简单，但是有一个比较大的问题。例如两个 stride = 10 的进程，使用 8bit 无符号整形储存 pass， p1.pass = 255, p2.pass = 250，在 p2 执行一个时间片后，理论上下一次应该 p1 执行。</p>
+<ul>
+<li>实际情况是轮到 p1 执行吗？为什么？</li>
+</ul>
+<p><strong>Answer</strong>: 并不，因为整型溢出了导致p2.pass更小</p>
+<p>我们之前要求进程优先级 &gt;= 2 其实就是为了解决这个问题。可以证明， <strong>在不考虑溢出的情况下</strong> , 在进程优先级全部 &gt;= 2 的情况下，如果严格按照算法执行，那么 PASS_MAX – PASS_MIN &lt;= BigStride / 2。</p>
+<ul>
+<li>为什么？尝试简单说明（不要求严格证明）。</li>
+</ul>
+<p><strong>Answer</strong>: （没搞懂）</p>
+<ul>
+<li>已知以上结论， <strong>考虑溢出的情况下</strong> ，可以为 pass 设计特别的比较器，让 BinaryHeap<Pass> 的 pop 方法能返回真正最小的 Pass。补全下列代码中的 <code>partial_cmp</code> 函数，假设两个 Pass 永远不会相等。</li>
+</ul>
+<pre><code class="language-rust">use core::cmp::Ordering;
+
+struct Pass(u64);
+
+impl PartialOrdforPass{
+	fn partial_cmp(&amp;self, other: &amp;Self)-&gt; Option&lt;Ordering&gt;{
+		// 口胡的代码
+	}
 }
 
-pub fn get_task_info(ti: *mut TaskInfo) {
-    TASK_MANAGER.get_current_task_info(ti);
+impl PartialEqforPass{
+	fn eq(&amp;self, other: &amp;Self)-&gt; bool {
+		false
+	}
 }
-</code></pre>
-<p>每次调用syscall的时候记录一下就行了。</p>
-<p><img src="https://s3.bmp.ovh/imgs/2022/07/14/de517ab611e9546e.png" alt="syscall前"></p>
-<h2 id="简答作业">简答作业</h2>
-<ol>
-<li>
-<p>正确进入 U 态后，程序的特征还应有：使用 S 态特权指令，访问 S 态寄存器后会报错。 请同学们可以自行测试这些内容 (运行 <a href="https://github.com/LearningOS/rust-based-os-comp2022/tree/main/user/src/bin">Rust 三个 bad 测例 (ch2b_bad_*.rs)</a> ， 注意在编译时至少需要指定 <code>LOG=ERROR</code> 才能观察到内核的报错信息) ， 描述程序出错行为，同时注意注明你使用的 sbi 及其版本。</p>
-</li>
-<li>
-<p>深入理解 <a href="https://github.com/LearningOS/rust-based-os-comp2022/blob/main/os3-ref/src/trap/trap.S">trap.S</a> 中两个函数<code> __alltraps</code>和<code>__restore</code>的作用，并回答如下问题:</p>
-<ol>
-<li>
-<p>L40：刚进入 <code>__restore</code> 时，<code>a0</code> 代表了什么值。请指出 <code>__restore</code> 的两种使用情景。</p>
-<p>在L37有一行<code>mv a0, sp</code>的指令，这是<code>addi a0, sp, 0</code>的语法糖，其实就是mov，在<code>__alltraps</code>里是给参数赋值，但是在之后a0并没有再次出现过，结合trap_handler的参数和返回值，可以认为又被返回回去了，所以a0直到<code>__restore</code>时都是taskContext。</p>
-<p><code>__restore</code>封装在<code>goto_restore</code>里，我们ctrl f全局找一下可以看到唯一引用的地方：TASK_MANAGER的初始化</p>
-<p>这个地方把每个应用的上下文（包括32个寄存器、sepc、sstatus值）存起来返回然后从supervisor返回到user</p>
-<p><img src="https://s3.bmp.ovh/imgs/2022/07/14/6a3f8e6f097a1915.png" alt="restore应用"></p>
-<p>其实所有从 supervisor =&gt; user 都可以使用<code>__restore</code>，跟<code>__alltraps</code>是反过来的，对偶使用，另一种场景想不出来……。</p>
-</li>
-<li>
-<p>L46-L51：这几行汇编代码特殊处理了哪些寄存器？这些寄存器的的值对于进入用户态有何意义？请分别解释。</p>
-<pre><code class="language-mipsasm">ld t0, 32*8(sp)
-ld t1, 33*8(sp)
-ld t2, 2*8(sp)
-csrw sstatus, t0
-csrw sepc, t1
-csrw sscratch, t2
 </code></pre>
 <ul>
-<li>
-<p>t0给了 sstatus，是 trap 发生前 cpu 特权级的信息（如S/U）</p>
-</li>
-<li>
-<p>t1给了 sepc，是 trap 发生前执行的最后一条指令的地址</p>
-</li>
-<li>
-<p>t2给了 sscratch，是原来 user stack 的 sp</p>
-</li>
+<li>TIPS: 使用 8 bits 存储 pass, BigStride = 255, 则: (125 &lt; 255) == false, (129 &lt; 255) == true</li>
 </ul>
-<p>这仨都是用来恢复状态的（在进入supervisor的时候把原来信息存在这里面了）</p>
-</li>
-<li>
-<p>L53-L59：为何跳过了 <code>x2</code> 和 <code>x4</code>？</p>
-<p>问题2和3都在<a href="https://learningos.github.io/rust-based-os-comp2022/chapter2/4trap-handling.html">特权级交换</a>这章里讲了，x2是 sp(stack pointer) ，x4 是 tp(thread pointer)</p>
-<blockquote>
-<p>跳过x2：用户栈的栈指针保存在 sscratch 中，必须通过 <code>&lt;span class=&quot;pre&quot;&gt;csrr&lt;/span&gt;</code> 指令读到通用寄存器中后才能使用，因此我们先考虑保存其它通用寄存器，腾出空间。</p>
-<p>跳过x4：非特殊情况不需要用到x4（存疑？）</p>
-</blockquote>
-</li>
-<li>
-<p>L63：该指令之后 sp 和 sscratch 中的值分别有什么意义？</p>
-<pre><code class="language-mipsasm">csrrw sp, sscratch, sp
-</code></pre>
-<p><code>csrrw r1, r2, r3</code>的意思是把 r2 写进 r1 ，把 r3 写进 r2 ，在上面就是交换 sp 和 sscratch 的意思。<br>
-sp 原来是用户栈，sscratch 原来是内核栈，交换后 sp 指向 kernel stack， sscratch 指向 user stack</p>
-</li>
-<li>
-<p><code>__restore</code>: 中发生状态切换在哪一条指令？为何该指令执行之后会进入用户态？<br>
-我猜是<code>csrw sstatus, t0</code>，sstatus代表用户状态</p>
-</li>
-<li>
-<p>L13：该指令之后，<code>sp</code> 和 <code>sscratch</code> 中的值分别有什么意义？<br>
-同4，反过来（怀疑上面L63是笔误</p>
-</li>
-<li>
-<p>从 U 态进入 S 态是哪一条指令发生的？<br>
-看不出来……因为现场没有改变 sstatus 的。</p>
-</li>
-</ol>
-</li>
+<h2 id="第五章-进程管理笔记">第五章-进程管理笔记</h2>
+<p>[WIP]</p>
+<h2 id="感想">感想</h2>
+<ol>
+<li>感觉这章的 lab 任务不太难，spawn 其实就是把 fork 和 exec 缝合一下，不难实现</li>
+<li>stride 算法的原理也很简单，但是实现了最基本的公平性调度，对我来说感觉还是挺新奇的</li>
+<li>因为 sbi 的 bug 而导致卡了几天，很难受，幸好微信群有人解答，再次感受到了有人陪你一起写 lab 的重要性，一个人捣鼓的话遇到这种情况很可能要放弃了。感谢群友</li>
 </ol>
 
         </div>
@@ -417,13 +418,13 @@ sp 原来是用户栈，sscratch 原来是内核栈，交换后 sp 指向 kernel
     <div>
         
         <span class="block font-bold">上一页</span>
-        <a href="/posts/rcore-camp-2022-lab2/" class="block">RCore Camp 2022 Lab2</a>
+        <a href="/posts/rcore-camp-2022-lab4/" class="block">RCore Camp 2022 Lab4</a>
         
     </div>
     <div class="md:text-right mt-4 md:mt-0">
         
         <span class="block font-bold">下一页</span>
-        <a href="/posts/riscv_memo/" class="block">计算机组成设计-软件硬件接口-RISC-V版笔记</a>
+        <a href="/posts/rcore-camp-2022-lab2/" class="block">RCore Camp 2022 Lab2</a>
         
     </div>
 </div>
@@ -468,13 +469,21 @@ sp 原来是用户栈，sscratch 原来是内核栈，交换后 sp 指向 kernel
 <div class="sticky-toc hidden lg:block px-6 pb-6 ">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#lab1本体">Lab1本体</a>
+    <li><a href="#lab3-本体">Lab3 本体</a>
       <ul>
-        <li><a href="#分解需求">分解需求</a></li>
-        <li><a href="#实现">实现</a></li>
+        <li><a href="#0-迁移通过以前的测试">0. 迁移通过以前的测试</a></li>
+        <li><a href="#1-实现-spawn">1. 实现 spawn</a></li>
+        <li><a href="#2-实现-stride">2. 实现 stride</a></li>
+        <li><a href="#踩坑">踩坑</a></li>
       </ul>
     </li>
-    <li><a href="#简答作业">简答作业</a></li>
+    <li><a href="#杂项">杂项</a>
+      <ul>
+        <li><a href="#问答题">问答题</a></li>
+      </ul>
+    </li>
+    <li><a href="#第五章-进程管理笔记">第五章-进程管理笔记</a></li>
+    <li><a href="#感想">感想</a></li>
   </ul>
 </nav>
 </div>
@@ -493,6 +502,12 @@ sp 原来是用户栈，sscratch 原来是内核栈，交换后 sp 指向 kernel
         class="col-span-2  lg:col-span-6 bg-secondary-bg rounded p-6">
         <h2 class="text-lg font-semibold mb-4">相关</h2>
         <div class="content">
+            
+            <a href="/posts/rcore-camp-2022-lab2/">RCore Camp 2022 Lab2</a>
+            <br />
+            
+            <a href="/posts/rcore-camp-2022-lab1/">rCore Camp 2022 Lab1 记录</a>
+            <br />
             
             <a href="/posts/riscv_memo/">计算机组成设计-软件硬件接口-RISC-V版笔记</a>
             <br />

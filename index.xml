@@ -8,7 +8,34 @@
     <language>zh</language>
     <copyright>&amp;copy; 2020-2022 &lt;a href=&#34;https://www.github.com/werifu/&#34;&gt;Werifu&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Thu, 14 Jul 2022 01:20:44 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 30 Jul 2022 00:29:54 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RCore Camp 2022 Lab4</title>
+      <link>/posts/rcore-camp-2022-lab4/</link>
+      <pubDate>Sat, 30 Jul 2022 00:29:54 +0800</pubDate>
+      
+      <guid>/posts/rcore-camp-2022-lab4/</guid>
+      <description>rCoreCamp2022-lab4记录 Lab4 本体 lab地址 Lab4 的难度感觉比 Lab3 高了一档，因为之前在学校或者自己学 OS 的时候都基本都没学到文件系统，所以这一张属</description>
+    </item>
+    
+    <item>
+      <title>RCore Camp 2022 Lab3</title>
+      <link>/posts/rcore-camp-2022-lab3/</link>
+      <pubDate>Sat, 23 Jul 2022 00:29:54 +0800</pubDate>
+      
+      <guid>/posts/rcore-camp-2022-lab3/</guid>
+      <description>rCoreCamp2022-lab3记录 Lab3 本体 lab 地址 0. 迁移通过以前的测试 get_time： 原本我给 TCB 加了一个 inner，这部分在第五章里官方加了这个结</description>
+    </item>
+    
+    <item>
+      <title>RCore Camp 2022 Lab2</title>
+      <link>/posts/rcore-camp-2022-lab2/</link>
+      <pubDate>Mon, 18 Jul 2022 00:29:54 +0800</pubDate>
+      
+      <guid>/posts/rcore-camp-2022-lab2/</guid>
+      <description>rCoreCamp2022-lab2记录 Lab2 本体 lab地址 1. 重写 sys_get_time 之前 sys_get_time 失效的原因是现在增加了虚拟内存的设定，而获取时间靠的是参数传入指针来赋值，这样 ts</description>
+    </item>
+    
     <item>
       <title>rCore Camp 2022 Lab1 记录</title>
       <link>/posts/rcore-camp-2022-lab1/</link>
@@ -34,15 +61,6 @@
       
       <guid>/posts/sourcemap-js-anti-debugging/</guid>
       <description>这篇文是2021秋的一次联创web组内分享 SourceMap是什么 发送到前端的代码往往不是写的时候的样子 为了方便调试，在SourceMap文件中规定了</description>
-    </item>
-    
-    <item>
-      <title>【CMU15-445】Homework1-高级SQL-Fall2020</title>
-      <link>/posts/cmu14-445-homework1/</link>
-      <pubDate>Sat, 23 Oct 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/cmu14-445-homework1/</guid>
-      <description>介绍 CMU 2020秋的数据库作业1，任务是在sqlite3里做一些高级查询 链接在这 后面就做2021秋的去了</description>
     </item>
     
     <item>
