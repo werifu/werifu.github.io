@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang='zh' ><meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+
+<title>rCore Camp 2022 Lab4 记录 | 秘密</title>
+
+<meta name="generator" content="Hugo Eureka 0.8.3" />
+<link rel="stylesheet" href="//localhost:1313/css/eureka.min.css">
+<script defer src="//localhost:1313/js/eureka.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/styles/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/highlight.min.js"
+   crossorigin></script>
+
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/js/all.min.js"
+   integrity="sha256-uNYoXefWRqv&#43;PsIF/OflNmwtKM4lStn9yrz2gVl6ymo="  crossorigin></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+   integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3&#43;Aro6EYUG4&#43;cU&#43;KJWu/X"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" 
+  integrity="sha384-g7c&#43;Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI&#43;sEnkvrMWph2EDg4"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+   integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC&#43;Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.9.2/dist/mermaid.min.js" 
+  integrity="sha256-Zmpaaj&#43;GXFsPF5WdPArSrnW3b30dovldeKsW00xBVwE="  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="//localhost:1313/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="//localhost:1313/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="实现 linkat 、 unlinkat，以及对文件系统的笔记">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"文章",
+      "item":"//localhost:1313/posts/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"rCore Camp 2022 Lab4 记录",
+      "item":"//localhost:1313/posts/rcore-camp-2022-lab4/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "//localhost:1313/posts/rcore-camp-2022-lab4/"
+    },
+    "headline": "rCore Camp 2022 Lab4 记录 | 秘密","datePublished": "2022-07-30T00:29:54+08:00",
+    "dateModified": "2022-08-01T00:29:54+08:00",
+    "wordCount":  1703 ,
+    "author": {
+        "@type": "Person",
+        "name": ["werifu"]
+    },
+    "publisher": {
+        "@type": "Person",
+        "name": "Werifu",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "//localhost:1313/images/icon.png"
+        }
+        },
+    "description": "实现 linkat 、 unlinkat，以及对文件系统的笔记"
+}
+</script><meta property="og:title" content="rCore Camp 2022 Lab4 记录 | 秘密" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="//localhost:1313/images/icon.png">
+
+
+<meta property="og:url" content="//localhost:1313/posts/rcore-camp-2022-lab4/" />
+
+
+
+<meta property="og:description" content="实现 linkat 、 unlinkat，以及对文件系统的笔记" />
+
+
+
+<meta property="og:locale" content="zh" />
+
+
+
+
+<meta property="og:site_name" content="秘密" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2022-07-30T00:29:54&#43;08:00" />
+
+
+<meta property="article:modified_time" content="2022-08-01T00:29:54&#43;08:00" />
+
+
+
+<meta property="article:section" content="posts" />
+
+
+<meta property="article:tag" content="OS" />
+
+<meta property="article:tag" content="RiscV" />
+
+
+
+
+
+
+
+
+
+
+
+<meta property="og:see_also" content="//localhost:1313/posts/rcore-camp-2022-lab3/" />
+
+
+
+<meta property="og:see_also" content="//localhost:1313/posts/rcore-camp-2022-lab2/" />
+
+
+
+<meta property="og:see_also" content="//localhost:1313/posts/rcore-camp-2022-lab1/" />
+
+
+
+<meta property="og:see_also" content="//localhost:1313/posts/riscv_memo/" />
+
+
+
+
+
+<body class="flex flex-col min-h-screen">
+  <header class="fixed flex items-center w-full min-h-16 pl-scrollbar z-50 bg-secondary-bg shadow-sm">
+    <div class="w-full max-w-screen-xl mx-auto"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="mr-6 text-primary-text text-xl font-bold">秘密</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:flex-grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:flex-grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  mr-4">About</a>
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  mr-4">Posts</a>
+            <a href="/doujins/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  mr-4">Doujins</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col left-0 md:left-auto right-auto md:right-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">浅色</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">深色</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">自动</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+  </header>
+  <main class="flex-grow pt-16">
+    <div class="pl-scrollbar">
+      <div class="w-full max-w-screen-xl lg:px-4 xl:px-8 mx-auto">
+
+
+<div class="grid grid-cols-2 lg:grid-cols-8 gap-4 lg:pt-12">
+    <div
+        class="col-span-2  lg:col-span-6 bg-secondary-bg rounded px-6 py-8">
+        <h1 class="font-bold text-3xl text-primary-text">rCore Camp 2022 Lab4 记录</h1>
+        <div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
+    <div class="mr-6 my-2">
+        <i class="fas fa-calendar mr-1"></i>
+        <span>2022-07-30</span>
+    </div>
+    <div class="mr-6 my-2">
+        <i class="fas fa-clock mr-1"></i>
+        <span>4分钟阅读时长</span>
+    </div>
+    
+    
+
+    
+    <div class="mr-6 my-2">
+        <i class="fas fa-th-list mr-1"></i>
+        
+        <a href="//localhost:1313/series/rcorecamp2022/" class="hover:text-eureka">rCoreCamp2022</a>
+        
+    </div>
+    
+</div>
+        
+        
+        
+
+        <div class="content">
+            <h1 id="rcorecamp2022-lab4记录">rCoreCamp2022-lab4记录</h1>
+<h2 id="lab4-本体">Lab4 本体</h2>
+<p><a href="https://learningos.github.io/rust-based-os-comp2022/chapter5/4exercise.html">lab地址</a></p>
+<p>Lab4 的难度感觉比 Lab3 高了一档，因为之前在学校或者自己学 OS 的时候都基本都没学到文件系统，所以这一张属于是真的新学了。在理解上遇到了很大的障碍，代码也很难憋出来。</p>
+<h2 id="0-迁移代码">0. 迁移代码</h2>
+<p>唯一的难点是，这章使用文件系统代替了loader，因此加载用户程序的方式从 get_app_by_name 从loader里取改成了用文件系统的api 去打开文件</p>
+<p>下面的代码片段摘自 sys_spawn，使用open_file 去获取 inode 进而创建新的 task</p>
+<pre><code class="language-rust">    if let Some(inode) = open_file(path.as_str(), OpenFlags::RDONLY) {
+        let data = inode.read_all();
+        let task = current_task().unwrap();
+        let new_task = task.spawn(data.as_slice());
+        let pid = new_task.pid.0;
+        add_task(new_task);
+        pid as isize
+    }
+</code></pre>
+<h2 id="1-fstat">1. fstat</h2>
+<p>因为觉得 fstat 是最好做的所以从它最开始了</p>
+<p>获取 fstat 的核心是（ino**,** mode**,** nlink）三个数据，代表inode id，文件的模式（是文件还是目录），有几个引用，这部分实现在Inode 结构中，我们给 File trait 添加一个特征方法叫 fstat()，能够返回三个维度的数据</p>
+<p>注意 Stdin 和 Stdout 也是特殊的文件，但是懒得实现就直接在里面 panic 了。</p>
+<pre><code class="language-rust">impl File {
+	// ... read, write, readable, writable
+	fn fstat(&amp;self) -&gt; (u64, StatMode, u32);
+}
+</code></pre>
+<p>fstat 里最难的是得到 inode id，因为 Inode 中只提供了 get_inode_id_by_name，我们将该能力分配给 fs，由efs来帮忙实现从块信息中读取 inode 的id</p>
+<pre><code class="language-rust">// impl Inode ==&gt; get_inode_id
+fs.get_inode_id(self.block_id, self.block_offset)
+</code></pre>
+<pre><code class="language-rust">impl EasyFileSystem {
+    pub fn get_inode_id(&amp;self, block_id: usize, block_offset: usize) -&gt; usize {
+        let inode_size = core::mem::size_of::&lt;DiskInode&gt;();
+        let inodes_per_block = (BLOCK_SZ / inode_size) as usize;
+        // 目标 inode 处在 inode 区第n个
+        let nth_inode_block = block_id - self.inode_area_start_block as usize;
+        // 目标 inode 所在区前有几个 inode， + 区里排第几个 inode
+        return nth_inode_block * inodes_per_block + block_offset / inode_size;
+    }
+}
+</code></pre>
+<h2 id="2-linkat">2. linkat</h2>
+<p>linkat 的功能实现在 Inode 里，代码需要模仿 Inode 中的 create 方法，实际上新建文件的过程也是创建一个硬连接</p>
+<p>具体思路就是：</p>
+<ol>
+<li>新旧文件名的校验</li>
+<li>在 get_block_cache 里，通过从 fs 得到的 block 位置信息，新建一个文件</li>
+<li>更新目录表，插入一个新的DirEntry</li>
+</ol>
+<pre><code class="language-rust">    /// like `fn create`
+    pub fn linkat(&amp;self, old_name: &amp;str, new_name: &amp;str) -&gt; isize {
+        let mut fs = self.fs.lock();
+        let old_inode_id = self.read_disk_inode(|disk_inode|
+            self.find_inode_id(old_name, disk_inode)
+        );
+        // old_name should point to a valid file
+        if old_inode_id == None {
+            return -1;
+        }
+        // new_name should not point to an existing file
+        if self.read_disk_inode(|disk_inode| self.find_inode_id(new_name, disk_inode)).is_some() {
+            return -1;
+        }
+        let (block_id, block_offset) = fs.get_disk_inode_pos(old_inode_id.unwrap());
+        get_block_cache(block_id as usize, Arc::clone(&amp;self.block_device))
+            .lock()
+            .modify(block_offset, |new_inode: &amp;mut DiskInode| {
+                new_inode.initialize(DiskInodeType::File)
+            });
+
+        // update dir table
+        self.modify_disk_inode(|root_inode| {
+            // add a new dir entry
+            let file_count = (root_inode.size as usize) / DIRENT_SZ;
+            let new_size = (file_count + 1) * DIRENT_SZ;
+            self.increase_size(new_size as u32, root_inode, &amp;mut fs);
+
+            // write into the new dir entry
+            let dirent = DirEntry::new(new_name, old_inode_id.unwrap());
+            root_inode.write_at(file_count * DIRENT_SZ, dirent.as_bytes(), &amp;self.block_device);
+        });
+        0
+    }
+</code></pre>
+<h2 id="3-unlinkat">3. unlinkat</h2>
+<p>unlink 跟 link 还是比较像，思路是遍历根目录（使用modify_disk_inode），在 file_num 个文件里找到符合条件的文件，删除其目录项（将其赋为 DirEntry::empty()）。</p>
+<p>能这么写是因为 rCore 里的文件系统只有一层，根目录下全是文件</p>
+<pre><code class="language-rust">    /// unlink
+    pub fn unlink(&amp;self, name: &amp;str) -&gt; isize {
+        self.modify_disk_inode(|root_inode| {
+            let file_num = (root_inode.size as usize) / DIRENT_SZ;
+            // find the correct entry and modify it, else -1
+            for i in 0..file_num {
+                let mut dirent = DirEntry::empty();
+                let readn = root_inode.read_at(
+                    i * DIRENT_SZ,
+                    dirent.as_bytes_mut(),
+                    &amp;self.block_device
+                );
+                // read size should == DIRENT_SZ
+                if readn != DIRENT_SZ {
+                    continue;
+                }
+
+                if dirent.name() == name {
+                    let dirent = DirEntry::empty();
+                    root_inode.write_at(i * DIRENT_SZ, dirent.as_bytes(), &amp;self.block_device);
+                    return 0;
+                }
+            }
+            -1
+        })
+    }
+</code></pre>
+<h2 id="杂项">杂项</h2>
+<h3 id="简答题">简答题</h3>
+<ol>
+<li>在我们的easy-fs中，root inode起着什么作用？如果root inode中的内容损坏了，会发生什么？</li>
+</ol>
+<p><strong>Answer</strong>: ROOT_INODE 代表根目录所对应的 Inode，也是整个文件系统（文件树）的起点，我们管理其他的文件都是在根目录下玩完成的，如果它坏了，那么整个文件系统就无法正常管理文件</p>
+<h2 id="文件系统笔记">文件系统笔记</h2>
+<h3 id="一个磁盘文件系统的组织结构">一个磁盘文件系统的组织结构</h3>
+<p>这一章的 MVP slide 我觉得是下图，一个 fs 分成了下面五块</p>
+<ul>
+<li>Super Block：记录了后边几个分别占了多少块（磁盘的单位使用块来表示，类似内存的页帧）</li>
+<li>Inode Bitmap：记录 Inodes 块的使用情况，一个位可以表示一个 Inode 的使用与否，在分配 Inode 时起到重要作用</li>
+<li>Data Bitmap：跟上一块差不多，记录的是数据块的使用情况</li>
+<li>Inodes：是DiskInode（存储于磁盘上的文件管理单元）在内存里的形态，一个Inode代表管理了一个文件，通过访问 Inode 可以访问到数据，而其实这些数据就缓存在 Data Blocks 里，但是上层的抽象不需要感知到 DataBlock</li>
+<li>Data Blocks：真实的数据，通过 Inode 能够找到</li>
+</ul>
+<p><img src="https://s3.bmp.ovh/imgs/2022/08/01/8b27861e801c27fd.png" alt="fs 视图"></p>
+<p>下图则代表了目录项，就是上图的右上表，实现从文件名到文件Inode的映射（当然如果是目录，则映射到其下的一堆目录项）</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/08/01/bf32bbeb4f78156d.png" alt="目录项"></p>
+<h2 id="感想">感想</h2>
+<ol>
+<li>
+<p>文件系统对我来说过于陌生，所以在这花了非常多的时间，整整一周，到现在也不是彻底理解了这套系统，多亏了助教<a href="https://github.com/xushanpu123/xsp-daily-work/blob/master/%E6%9A%91%E6%9C%9Frcore%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0/chapter%206%EF%BC%9A%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.md">xushanpu 的笔记</a>，用自上而下的视角去理解代码结构感觉比 camp 文档里的更好理解。</p>
+</li>
+<li>
+<p>对文件系统的理解主要就是第一张图那个视图</p>
+<ol>
+<li>
+<p>左上是用户视角，文件系统就是一棵文件树</p>
+</li>
+<li>
+<p>右上是 OS 视角，一个文件是一个 Inode，中间是文件名到 Inode idx 的映射</p>
+</li>
+<li>
+<p>下面的结构是磁盘视角，一个fs分区就是这样的结构</p>
+<ul>
+<li>如果我们把一个磁盘分区，那么每个分区都是独立的 fs，因此都会有平行的那个结构</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+
+        </div>
+        
+        <div class="my-4">
+    
+    <a href="//localhost:1313/tags/os/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 mr-2 hover:text-eureka">#OS</a>
+    
+    <a href="//localhost:1313/tags/riscv/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 mr-2 hover:text-eureka">#RiscV</a>
+    
+</div>
+        
+        
+        
+
+
+        
+        
+        
+        
+<div class="flex flex-col md:flex-row md:justify-between -mx-2 mt-4 px-2 pt-4 border-t">
+    <div>
+        
+    </div>
+    <div class="md:text-right mt-4 md:mt-0">
+        
+        <span class="block font-bold">下一页</span>
+        <a href="//localhost:1313/posts/rcore-camp-2022-lab3/" class="block">rCore Camp 2022 Lab3 记录</a>
+        
+    </div>
+</div>
+
+        
+
+
+
+    </div>
+    
+    <div class="col-span-2">
+        
+        
+<div class="bg-secondary-bg rounded p-6">
+    <h3 class="text-lg font-semibold mb-4">系列文章</h3>
+    <div class="content">
+        
+        
+        <a href="//localhost:1313/posts/rcore-camp-2022-lab4/">rCore Camp 2022 Lab4 记录</a>
+        <br />
+        
+        <a href="//localhost:1313/posts/rcore-camp-2022-lab3/">rCore Camp 2022 Lab3 记录</a>
+        <br />
+        
+        <a href="//localhost:1313/posts/rcore-camp-2022-lab2/">rCore Camp 2022 Lab2 记录</a>
+        <br />
+        
+        <a href="//localhost:1313/posts/rcore-camp-2022-lab1/">rCore Camp 2022 Lab1 记录</a>
+        <br />
+        
+        <a href="//localhost:1313/posts/riscv_memo/">计算机组成设计-软件硬件接口-RISC-V版笔记</a>
+        <br />
+        
+        
+    </div>
+</div>
+        
+        
+        <div class="sticky top-16 z-10 hidden lg:block px-6 py-4  bg-primary-bg ">
+    <span class="text-lg font-semibold">本页内容</span>
+</div>
+<div class="sticky-toc hidden lg:block px-6 pb-6 ">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#lab4-本体">Lab4 本体</a></li>
+    <li><a href="#0-迁移代码">0. 迁移代码</a></li>
+    <li><a href="#1-fstat">1. fstat</a></li>
+    <li><a href="#2-linkat">2. linkat</a></li>
+    <li><a href="#3-unlinkat">3. unlinkat</a></li>
+    <li><a href="#杂项">杂项</a>
+      <ul>
+        <li><a href="#简答题">简答题</a></li>
+      </ul>
+    </li>
+    <li><a href="#文件系统笔记">文件系统笔记</a>
+      <ul>
+        <li><a href="#一个磁盘文件系统的组织结构">一个磁盘文件系统的组织结构</a></li>
+      </ul>
+    </li>
+    <li><a href="#感想">感想</a></li>
+  </ul>
+</nav>
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        enableStickyToc();
+    });
+</script>
+        
+    </div>
+    
+
+    
+    
+    <div
+        class="col-span-2  lg:col-span-6 bg-secondary-bg rounded p-6">
+        <h2 class="text-lg font-semibold mb-4">相关</h2>
+        <div class="content">
+            
+            <a href="//localhost:1313/posts/rcore-camp-2022-lab3/">rCore Camp 2022 Lab3 记录</a>
+            <br />
+            
+            <a href="//localhost:1313/posts/rcore-camp-2022-lab2/">rCore Camp 2022 Lab2 记录</a>
+            <br />
+            
+            <a href="//localhost:1313/posts/rcore-camp-2022-lab1/">rCore Camp 2022 Lab1 记录</a>
+            <br />
+            
+            <a href="//localhost:1313/posts/riscv_memo/">计算机组成设计-软件硬件接口-RISC-V版笔记</a>
+            <br />
+            
+        </div>
+    </div>
+    
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+        hljs.initHighlightingOnLoad();
+    })
+</script>
+
+      </div>
+    </div>
+    
+  </main>
+  <footer class="pl-scrollbar">
+    <div class="w-full max-w-screen-xl mx-auto"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2020-2022 <a href="https://www.github.com/werifu/">Werifu</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+  </footer>
+<script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script></body>
+
+</html>

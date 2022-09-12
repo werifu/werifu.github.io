@@ -8,7 +8,25 @@
     <language>zh</language>
     <copyright>&amp;copy; 2020-2022 &lt;a href=&#34;https://www.github.com/werifu/&#34;&gt;Werifu&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Sat, 30 Jul 2022 00:29:54 +0800</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 12 Sep 2022 18:02:35 +0800</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rust</title>
+      <link>/tags/rust/</link>
+      <pubDate>Mon, 12 Sep 2022 18:02:35 +0800</pubDate>
+      
+      <guid>/tags/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TypeScript</title>
+      <link>/tags/typescript/</link>
+      <pubDate>Mon, 12 Sep 2022 18:02:35 +0800</pubDate>
+      
+      <guid>/tags/typescript/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>OS</title>
       <link>/tags/os/</link>

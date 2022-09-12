@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang='zh' ><meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+
+<title>rCore Camp 2022 Lab3 记录 | 秘密</title>
+
+<meta name="generator" content="Hugo Eureka 0.8.3" />
+<link rel="stylesheet" href="//localhost:1313/css/eureka.min.css">
+<script defer src="//localhost:1313/js/eureka.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/styles/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/highlight.min.js"
+   crossorigin></script>
+
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/js/all.min.js"
+   integrity="sha256-uNYoXefWRqv&#43;PsIF/OflNmwtKM4lStn9yrz2gVl6ymo="  crossorigin></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+   integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3&#43;Aro6EYUG4&#43;cU&#43;KJWu/X"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" 
+  integrity="sha384-g7c&#43;Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI&#43;sEnkvrMWph2EDg4"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+   integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC&#43;Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.9.2/dist/mermaid.min.js" 
+  integrity="sha256-Zmpaaj&#43;GXFsPF5WdPArSrnW3b30dovldeKsW00xBVwE="  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="//localhost:1313/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="//localhost:1313/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="实现 spawn 、 stride 算法进程调度，以及进程管理的笔记">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"文章",
+      "item":"//localhost:1313/posts/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"rCore Camp 2022 Lab3 记录",
+      "item":"//localhost:1313/posts/rcore-camp-2022-lab3/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "//localhost:1313/posts/rcore-camp-2022-lab3/"
+    },
+    "headline": "rCore Camp 2022 Lab3 记录 | 秘密","datePublished": "2022-07-23T00:29:54+08:00",
+    "dateModified": "2022-08-01T00:29:54+08:00",
+    "wordCount":  1625 ,
+    "author": {
+        "@type": "Person",
+        "name": ["werifu"]
+    },
+    "publisher": {
+        "@type": "Person",
+        "name": "Werifu",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "//localhost:1313/images/icon.png"
+        }
+        },
+    "description": "实现 spawn 、 stride 算法进程调度，以及进程管理的笔记"
+}
+</script><meta property="og:title" content="rCore Camp 2022 Lab3 记录 | 秘密" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="//localhost:1313/images/icon.png">
+
+
+<meta property="og:url" content="//localhost:1313/posts/rcore-camp-2022-lab3/" />
+
+
+
+<meta property="og:description" content="实现 spawn 、 stride 算法进程调度，以及进程管理的笔记" />
+
+
+
+<meta property="og:locale" content="zh" />
+
+
+
+
+<meta property="og:site_name" content="秘密" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2022-07-23T00:29:54&#43;08:00" />
+
+
+<meta property="article:modified_time" content="2022-08-01T00:29:54&#43;08:00" />
+
+
+
+<meta property="article:section" content="posts" />
+
+
+<meta property="article:tag" content="OS" />
+
+<meta property="article:tag" content="RiscV" />
+
+
+
+
+
+
+
+
+
+<meta property="og:see_also" content="//localhost:1313/posts/rcore-camp-2022-lab4/" />
+
+
+
+
+
+<meta property="og:see_also" content="//localhost:1313/posts/rcore-camp-2022-lab2/" />
+
+
+
+<meta property="og:see_also" content="//localhost:1313/posts/rcore-camp-2022-lab1/" />
+
+
+
+<meta property="og:see_also" content="//localhost:1313/posts/riscv_memo/" />
+
+
+
+
+
+<body class="flex flex-col min-h-screen">
+  <header class="fixed flex items-center w-full min-h-16 pl-scrollbar z-50 bg-secondary-bg shadow-sm">
+    <div class="w-full max-w-screen-xl mx-auto"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="mr-6 text-primary-text text-xl font-bold">秘密</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:flex-grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:flex-grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  mr-4">About</a>
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  mr-4">Posts</a>
+            <a href="/doujins/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  mr-4">Doujins</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col left-0 md:left-auto right-auto md:right-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">浅色</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">深色</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">自动</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+  </header>
+  <main class="flex-grow pt-16">
+    <div class="pl-scrollbar">
+      <div class="w-full max-w-screen-xl lg:px-4 xl:px-8 mx-auto">
+
+
+<div class="grid grid-cols-2 lg:grid-cols-8 gap-4 lg:pt-12">
+    <div
+        class="col-span-2  lg:col-span-6 bg-secondary-bg rounded px-6 py-8">
+        <h1 class="font-bold text-3xl text-primary-text">rCore Camp 2022 Lab3 记录</h1>
+        <div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
+    <div class="mr-6 my-2">
+        <i class="fas fa-calendar mr-1"></i>
+        <span>2022-07-23</span>
+    </div>
+    <div class="mr-6 my-2">
+        <i class="fas fa-clock mr-1"></i>
+        <span>4分钟阅读时长</span>
+    </div>
+    
+    
+
+    
+    <div class="mr-6 my-2">
+        <i class="fas fa-th-list mr-1"></i>
+        
+        <a href="//localhost:1313/series/rcorecamp2022/" class="hover:text-eureka">rCoreCamp2022</a>
+        
+    </div>
+    
+</div>
+        
+        
+        
+
+        <div class="content">
+            <h1 id="rcorecamp2022-lab3记录">rCoreCamp2022-lab3记录</h1>
+<h2 id="lab3-本体">Lab3 本体</h2>
+<p><a href="https://learningos.github.io/rust-based-os-comp2022/chapter5/4exercise.html">lab 地址</a></p>
+<h3 id="0-迁移通过以前的测试">0. 迁移通过以前的测试</h3>
+<ol>
+<li>get_time： 原本我给 TCB 加了一个 inner，这部分在第五章里官方加了这个结构，因此需要把 syscall_times 和 start_time 给迁移进去</li>
+<li>get_task_info： 和 get_time 同理，不过需要注意的是代码更改了逻辑，原本由 TASK_MANAGER 负责管理的任务调度和任务执行部分，分成了 manager 和 processor 的工作，前者负责管理任务调度，后者负责操控当前任务 + 当前任务的切换，这二者都迁移进了 Processor 里</li>
+<li>mmap &amp; munmap：没什么变化，就是直接搬运</li>
+</ol>
+<h3 id="1-实现-spawn">1. 实现 spawn</h3>
+<pre><code class="language-rust">fn sys_spawn(path: *const u8) -&gt; isize
+</code></pre>
+<p>平时我们会使用 fork() + exec() 来实现创建一个新的进程，但为什么要先复制状态机再重置状态机（状态机的理论见绿导师的南大 OS 课）？当然可以直接创建一个新的状态！</p>
+<p>man page 提供了 <a href="https://man7.org/linux/man-pages/man3/posix_spawn.3.html">spawn 相关的说明</a></p>
+<p>实现不太难，就是在 fork 和 exec 上偷偷而已，具体代码就不放了</p>
+<pre><code class="language-rust">impl TaskControlBlock {
+    /// Spawn a new process without fork + exec
+    pub fn spawn(self: &amp;Arc&lt;TaskControlBlock&gt;, elf_data: &amp;[u8]) -&gt; Arc&lt;TaskControlBlock&gt; {
+	// 1. 解析 elf 文件，得到 memory_set, user_sp, entry_point, 从 memory_set 里算出物理 trap_cx_ppn
+	// 2. 新建 TCB，数据是新的（类似 exec 里的逻辑）
+	// 3. 将新的 TCB 挂到当前 TCB 的 children 里
+	// 4. 修改新的 TCB 的 trap_cx 的值
+    }
+}
+</code></pre>
+<h3 id="2-实现-stride">2. 实现 stride</h3>
+<p>stride 意思是步伐，计算方式是 <code>stride = BIG_STRIDE / priority</code>，每次执行一个任务要 <code>pass += stride</code>，然后在调度时选择 pass 最小的执行。因为 priority 当了分母，所以越高的优先级的 stride 越小，每次就越早被调度。</p>
+<p>比如 priority = 5 的进程和 priority = 10 的进程，每次优先级为5的增加的 stride 是 10 的两倍，所以在相同时间里，次数大约会是优先级 10 的一半。</p>
+<p>下面的实现参考了助教 xushanpu123 的笔记， 维护一个 pass 单调递增的队列，每次从头取就行了。<br>
+另外一种做法是队列不一定单调，但是每次取时靠遍历来找最小值</p>
+<pre><code class="language-rust">impl TaskManager {
+    pub fn add(&amp;mut self, task: Arc&lt;TaskControlBlock&gt;) {
+        // insert the new task into a proper position
+        let inner = task.inner_exclusive_access();
+        let pass = inner.pass;
+        // let prio = inner.priority;
+        // drop the ownership of inner
+        drop(inner);
+
+        let len = self.ready_queue.len();
+        for idx in 0..len {
+            let queue_task = self.ready_queue.get_mut(idx).unwrap();
+            let pass1 = queue_task.inner_exclusive_access().pass;
+            // keep the queue head owns the smallest pass
+            if pass &lt; pass1 {
+                // println!(&quot;new task priority: {}, pass: {}, inserted before idx {}&quot;, prio, pass, idx);
+                self.ready_queue.insert(idx, task);
+                return
+            }
+        }
+        self.ready_queue.push_back(task);
+    }
+}
+</code></pre>
+<h3 id="踩坑">踩坑</h3>
+<ol>
+<li>
+<p>会有 <code>already borrowed: BorrowMutError</code> 的 panic 报错，是在测试结束后调用最后一个 exit 时发生的</p>
+<ul>
+<li>定位：在函数前面加 <code>#[trace_caller]</code> 就能显示文件+行数</li>
+<li>原因：在测试的时候，initproc 会被替换成各章的 ch_usertest ,所以是不会像普通的运行那样进入 initproc 然后运行 shell 的， usertest 退出的时候所有权会被借走，但是后面又借回来了导致错误（其实就是在 exit_current_and_run_next_task 里，将要退出的和下一个任务是同一个，而我们需要同时可变借用这两个）</li>
+<li>解决方案：在拿到 current 后判断 pid，如果是 0（表示初进程）就调用 sbi 里的 shutdown() 直接关机</li>
+</ul>
+</li>
+<li>
+<p>stride test 过不了，调度不符合公平性</p>
+<ul>
+<li>没找到原因，调度的过程应该是没错的，打印出来的统计数据没有错</li>
+<li>解决：给 ci-user 里的 ch5_stridex 加了println!，使得执行速度大幅降低，然后居然就正常了…</li>
+</ul>
+</li>
+</ol>
+<br />
+<blockquote>
+<p>2022.07.26更新：<br>
+已经找到原因，是分时程序切换那里做的设置定时时钟中断出问题了，是sbi的故障，夏令营仓库在commit 70ae28ab2280f3e57d14b7a631e7508fe5b4bbaf 后就修复了，在sbi.rs中调用 ecall 前执行 <strong>&ldquo;li x16, 0&rdquo;</strong></p>
+</blockquote>
+<h2 id="杂项">杂项</h2>
+<h3 id="问答题">问答题</h3>
+<p>stride 算法深入</p>
+<p>stride 算法原理非常简单，但是有一个比较大的问题。例如两个 stride = 10 的进程，使用 8bit 无符号整形储存 pass， p1.pass = 255, p2.pass = 250，在 p2 执行一个时间片后，理论上下一次应该 p1 执行。</p>
+<ul>
+<li>实际情况是轮到 p1 执行吗？为什么？</li>
+</ul>
+<p><strong>Answer</strong>: 并不，因为整型溢出了导致p2.pass更小</p>
+<p>我们之前要求进程优先级 &gt;= 2 其实就是为了解决这个问题。可以证明， <strong>在不考虑溢出的情况下</strong> , 在进程优先级全部 &gt;= 2 的情况下，如果严格按照算法执行，那么 PASS_MAX – PASS_MIN &lt;= BigStride / 2。</p>
+<ul>
+<li>为什么？尝试简单说明（不要求严格证明）。</li>
+</ul>
+<p><strong>Answer</strong>: （没搞懂）</p>
+<ul>
+<li>已知以上结论， <strong>考虑溢出的情况下</strong> ，可以为 pass 设计特别的比较器，让 BinaryHeap<Pass> 的 pop 方法能返回真正最小的 Pass。补全下列代码中的 <code>partial_cmp</code> 函数，假设两个 Pass 永远不会相等。</li>
+</ul>
+<pre><code class="language-rust">use core::cmp::Ordering;
+
+struct Pass(u64);
+
+impl PartialOrdforPass{
+	fn partial_cmp(&amp;self, other: &amp;Self)-&gt; Option&lt;Ordering&gt;{
+		// 口胡的代码
+	}
+}
+
+impl PartialEqforPass{
+	fn eq(&amp;self, other: &amp;Self)-&gt; bool {
+		false
+	}
+}
+</code></pre>
+<ul>
+<li>TIPS: 使用 8 bits 存储 pass, BigStride = 255, 则: (125 &lt; 255) == false, (129 &lt; 255) == true</li>
+</ul>
+<h2 id="第五章-进程管理笔记">第五章-进程管理笔记</h2>
+<p>[WIP]</p>
+<h2 id="感想">感想</h2>
+<ol>
+<li>感觉这章的 lab 任务不太难，spawn 其实就是把 fork 和 exec 缝合一下，不难实现</li>
+<li>stride 算法的原理也很简单，但是实现了最基本的公平性调度，对我来说感觉还是挺新奇的</li>
+<li>因为 sbi 的 bug 而导致卡了几天，很难受，幸好微信群有人解答，再次感受到了有人陪你一起写 lab 的重要性，一个人捣鼓的话遇到这种情况很可能要放弃了。感谢群友</li>
+</ol>
+
+        </div>
+        
+        <div class="my-4">
+    
+    <a href="//localhost:1313/tags/os/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 mr-2 hover:text-eureka">#OS</a>
+    
+    <a href="//localhost:1313/tags/riscv/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 mr-2 hover:text-eureka">#RiscV</a>
+    
+</div>
+        
+        
+        
+
+
+        
+        
+        
+        
+<div class="flex flex-col md:flex-row md:justify-between -mx-2 mt-4 px-2 pt-4 border-t">
+    <div>
+        
+        <span class="block font-bold">上一页</span>
+        <a href="//localhost:1313/posts/rcore-camp-2022-lab4/" class="block">rCore Camp 2022 Lab4 记录</a>
+        
+    </div>
+    <div class="md:text-right mt-4 md:mt-0">
+        
+        <span class="block font-bold">下一页</span>
+        <a href="//localhost:1313/posts/rcore-camp-2022-lab2/" class="block">rCore Camp 2022 Lab2 记录</a>
+        
+    </div>
+</div>
+
+        
+
+
+
+    </div>
+    
+    <div class="col-span-2">
+        
+        
+<div class="bg-secondary-bg rounded p-6">
+    <h3 class="text-lg font-semibold mb-4">系列文章</h3>
+    <div class="content">
+        
+        
+        <a href="//localhost:1313/posts/rcore-camp-2022-lab4/">rCore Camp 2022 Lab4 记录</a>
+        <br />
+        
+        <a href="//localhost:1313/posts/rcore-camp-2022-lab3/">rCore Camp 2022 Lab3 记录</a>
+        <br />
+        
+        <a href="//localhost:1313/posts/rcore-camp-2022-lab2/">rCore Camp 2022 Lab2 记录</a>
+        <br />
+        
+        <a href="//localhost:1313/posts/rcore-camp-2022-lab1/">rCore Camp 2022 Lab1 记录</a>
+        <br />
+        
+        <a href="//localhost:1313/posts/riscv_memo/">计算机组成设计-软件硬件接口-RISC-V版笔记</a>
+        <br />
+        
+        
+    </div>
+</div>
+        
+        
+        <div class="sticky top-16 z-10 hidden lg:block px-6 py-4  bg-primary-bg ">
+    <span class="text-lg font-semibold">本页内容</span>
+</div>
+<div class="sticky-toc hidden lg:block px-6 pb-6 ">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#lab3-本体">Lab3 本体</a>
+      <ul>
+        <li><a href="#0-迁移通过以前的测试">0. 迁移通过以前的测试</a></li>
+        <li><a href="#1-实现-spawn">1. 实现 spawn</a></li>
+        <li><a href="#2-实现-stride">2. 实现 stride</a></li>
+        <li><a href="#踩坑">踩坑</a></li>
+      </ul>
+    </li>
+    <li><a href="#杂项">杂项</a>
+      <ul>
+        <li><a href="#问答题">问答题</a></li>
+      </ul>
+    </li>
+    <li><a href="#第五章-进程管理笔记">第五章-进程管理笔记</a></li>
+    <li><a href="#感想">感想</a></li>
+  </ul>
+</nav>
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        enableStickyToc();
+    });
+</script>
+        
+    </div>
+    
+
+    
+    
+    <div
+        class="col-span-2  lg:col-span-6 bg-secondary-bg rounded p-6">
+        <h2 class="text-lg font-semibold mb-4">相关</h2>
+        <div class="content">
+            
+            <a href="//localhost:1313/posts/rcore-camp-2022-lab2/">rCore Camp 2022 Lab2 记录</a>
+            <br />
+            
+            <a href="//localhost:1313/posts/rcore-camp-2022-lab1/">rCore Camp 2022 Lab1 记录</a>
+            <br />
+            
+            <a href="//localhost:1313/posts/riscv_memo/">计算机组成设计-软件硬件接口-RISC-V版笔记</a>
+            <br />
+            
+        </div>
+    </div>
+    
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+        hljs.initHighlightingOnLoad();
+    })
+</script>
+
+      </div>
+    </div>
+    
+  </main>
+  <footer class="pl-scrollbar">
+    <div class="w-full max-w-screen-xl mx-auto"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2020-2022 <a href="https://www.github.com/werifu/">Werifu</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+  </footer>
+<script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script></body>
+
+</html>

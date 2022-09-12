@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>/tags/rust/</loc>
+    <lastmod>2022-09-12T18:02:35+08:00</lastmod>
+  </url><url>
+    <loc>/posts/rusty-typescript-pattern-matching/</loc>
+    <lastmod>2022-09-12T18:02:35+08:00</lastmod>
+  </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2022-09-12T18:02:35+08:00</lastmod>
+  </url><url>
+    <loc>/tags/typescript/</loc>
+    <lastmod>2022-09-12T18:02:35+08:00</lastmod>
+  </url><url>
+    <loc>/</loc>
+    <lastmod>2022-09-12T18:02:35+08:00</lastmod>
+  </url><url>
+    <loc>/posts/</loc>
+    <lastmod>2022-09-12T18:02:35+08:00</lastmod>
+  </url><url>
     <loc>/tags/os/</loc>
     <lastmod>2022-08-01T00:29:54+08:00</lastmod>
   </url><url>
@@ -15,15 +33,6 @@
     <lastmod>2022-08-01T00:29:54+08:00</lastmod>
   </url><url>
     <loc>/series/</loc>
-    <lastmod>2022-08-01T00:29:54+08:00</lastmod>
-  </url><url>
-    <loc>/tags/</loc>
-    <lastmod>2022-08-01T00:29:54+08:00</lastmod>
-  </url><url>
-    <loc>/</loc>
-    <lastmod>2022-08-01T00:29:54+08:00</lastmod>
-  </url><url>
-    <loc>/posts/</loc>
     <lastmod>2022-08-01T00:29:54+08:00</lastmod>
   </url><url>
     <loc>/posts/rcore-camp-2022-lab3/</loc>

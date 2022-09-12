@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang='zh' ><meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+
+<title>Rusty Typescript -- Pattern Matching | 秘密</title>
+
+<meta name="generator" content="Hugo Eureka 0.8.3" />
+<link rel="stylesheet" href="/css/eureka.min.css">
+<script defer src="/js/eureka.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/styles/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/highlight.min.js"
+   crossorigin></script>
+
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/js/all.min.js"
+   integrity="sha256-uNYoXefWRqv&#43;PsIF/OflNmwtKM4lStn9yrz2gVl6ymo="  crossorigin></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+   integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3&#43;Aro6EYUG4&#43;cU&#43;KJWu/X"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" 
+  integrity="sha384-g7c&#43;Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI&#43;sEnkvrMWph2EDg4"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"
+   integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC&#43;Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.9.2/dist/mermaid.min.js" 
+  integrity="sha256-Zmpaaj&#43;GXFsPF5WdPArSrnW3b30dovldeKsW00xBVwE="  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="如何用 ts 实现 rust 的 Option、Result、match 特性">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"文章",
+      "item":"/posts/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"Rusty Typescript -- Pattern Matching",
+      "item":"/posts/rusty-typescript-pattern-matching/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/posts/rusty-typescript-pattern-matching/"
+    },
+    "headline": "Rusty Typescript -- Pattern Matching | 秘密","datePublished": "2022-09-12T18:02:35+08:00",
+    "dateModified": "2022-09-12T18:02:35+08:00",
+    "wordCount":  8064 ,
+    "author": {
+        "@type": "Person",
+        "name": ["werifu"]
+    },
+    "publisher": {
+        "@type": "Person",
+        "name": "Werifu",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "/images/icon.png"
+        }
+        },
+    "description": "如何用 ts 实现 rust 的 Option、Result、match 特性"
+}
+</script><meta property="og:title" content="Rusty Typescript -- Pattern Matching | 秘密" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="/images/icon.png">
+
+
+<meta property="og:url" content="/posts/rusty-typescript-pattern-matching/" />
+
+
+
+<meta property="og:description" content="如何用 ts 实现 rust 的 Option、Result、match 特性" />
+
+
+
+<meta property="og:locale" content="zh" />
+
+
+
+
+<meta property="og:site_name" content="秘密" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2022-09-12T18:02:35&#43;08:00" />
+
+
+<meta property="article:modified_time" content="2022-09-12T18:02:35&#43;08:00" />
+
+
+
+<meta property="article:section" content="posts" />
+
+
+<meta property="article:tag" content="TypeScript" />
+
+<meta property="article:tag" content="Rust" />
+
+
+
+
+
+<body class="flex flex-col min-h-screen">
+  <header class="fixed flex items-center w-full min-h-16 pl-scrollbar z-50 bg-secondary-bg shadow-sm">
+    <div class="w-full max-w-screen-xl mx-auto"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="mr-6 text-primary-text text-xl font-bold">秘密</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:flex-grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:flex-grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  mr-4">About</a>
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  mr-4">Posts</a>
+            <a href="/doujins/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  mr-4">Doujins</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col left-0 md:left-auto right-auto md:right-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">浅色</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">深色</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">自动</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+  </header>
+  <main class="flex-grow pt-16">
+    <div class="pl-scrollbar">
+      <div class="w-full max-w-screen-xl lg:px-4 xl:px-8 mx-auto">
+
+
+<div class="grid grid-cols-2 lg:grid-cols-8 gap-4 lg:pt-12">
+    <div
+        class="col-span-2  lg:col-span-6 bg-secondary-bg rounded px-6 py-8">
+        <h1 class="font-bold text-3xl text-primary-text">Rusty Typescript -- Pattern Matching</h1>
+        <div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
+    <div class="mr-6 my-2">
+        <i class="fas fa-calendar mr-1"></i>
+        <span>2022-09-12</span>
+    </div>
+    <div class="mr-6 my-2">
+        <i class="fas fa-clock mr-1"></i>
+        <span>17分钟阅读时长</span>
+    </div>
+    
+    
+
+    
+</div>
+        
+        
+        
+
+        <div class="content">
+            <p>本文章内容：使用 TypeScript 实现 Rust 的部分模式匹配特性（match、Option、Result）</p>
+<p>标题可以理解为《 Rust 味的 TypeScript 》</p>
+<blockquote>
+<p>阅读须知：</p>
+<ol>
+<li>无需 Rust 基础知识，也与 Rust 最难的内存安全模型无关</li>
+<li>包含对模式匹配的理解</li>
+<li>包含一种实现的开源代码讲解</li>
+<li>少量类型体操</li>
+</ol>
+</blockquote>
+<h2 id="模式匹配-pattern-matching">模式匹配 (Pattern Matching)</h2>
+<h3 id="是什么">是什么</h3>
+<ul>
+<li>函数式编程里的概念</li>
+</ul>
+<blockquote>
+<p>模式匹配是检查给定记号序列中，是否存在某种模式的组成部分的行为。——维基</p>
+<p>pattern matching is the act of checking a given sequence of tokens for the presence of the constituents of some pattern. —— Wikipedia</p>
+</blockquote>
+<p>模式可以理解为【规律】。定义听起来很抽象，举一点例子之后是很容易理解这个名字的。</p>
+<ul>
+<li>switch、RegExp 是一种模式匹配</li>
+</ul>
+<pre><code class="language-rust">fn main() {
+    let x = 1;
+    match x {
+        1 =&gt; println!(&quot;one&quot;),
+        2 =&gt; println!(&quot;two&quot;),
+        _ =&gt; println!(&quot;anything&quot;),
+    }
+}
+</code></pre>
+<p>最简单的使用就像一个 switch，但是除了能匹配出值，也能匹配出位置、甚至名字。</p>
+<p>对后面这句是不是有点想法？</p>
+<pre><code class="language-js">const { a, b } = { a: 1, b: 2 };
+// a should be 1; b should be 2.
+
+const [ a, _, ...c ] = [ 1, 2, 3, 4, 5 ];
+// a should be 1; c should be [3,4,5].
+</code></pre>
+<p>其实js里的解构赋值就是一种模式匹配，除了【条件执行】以外，还有【提取】出想要的数据的功能。回过头看正则表达式，就能很容易理解这个概念，既可以test去测试是否匹配，又可以exec去捕获匹配到的数据。</p>
+<blockquote>
+<p>In contrast to pattern recognition, the match usually has to be exact: &ldquo;either it will or will not be a match.&quot;—— Wikipedia</p>
+</blockquote>
+<p>在维基里还指出了模式匹配与模式识别（Pattern Recognition）的一个区别，就是前者一般来说是精确 的，要么会被匹配，要么不会被匹配（对于一个分支来说），不会有置信度多少的匹配情况。</p>
+<h3 id="好处在哪">好处在哪</h3>
+<h4 id="符合人类思考方式的设计">符合人类思考方式的设计</h4>
+<ul>
+<li>使用 if 并不是我们的第一思考方式</li>
+</ul>
+<p>比如我们现在想要计算某一个规则二维图形的周长，这个图形可能是矩形、圆形或者三角形，那么我们写代码的时候可能会这样写：</p>
+<pre><code class="language-rust">let c;
+if (shape == Rectangle) {
+    let len, wide = shape.len, shape.wide;
+    c = (len + wide) * 2;
+} else if (shape == Circle) {
+    let r = shape.r;
+    c = pi * r * 2;
+} else if (shape == Triangle) {
+    let {side1, side2, side3} = shape;
+    c = side1 + side2 + side3;
+}
+</code></pre>
+<p>这种代码与我们的思考方式有相悖的地方：</p>
+<ol>
+<li>我们辨识一个二维图形的时候并不是用排除法的，我们可以一眼看出来这是什么图形，不需要一步步排除</li>
+<li>这种代码需要先假设一个周长未知（即变量c）的图形，之后再进行填充，风险就是可能直到最后的 else if 都没匹配上，这样 c 就成了一个未初始化的值（Uninitialized variable），众所周知这种情况常常导致 bug / undefined behavior</li>
+</ol>
+<p>因此，我们希望有一种更加阳间的写法：</p>
+<pre><code class="language-rust">let c = match shape {
+  Rectangle {len, wide} =&gt; (len+wide)*2,
+  Circle {r} =&gt; pi * r * 2,
+  Triangle {side1, side2, side3} =&gt; side1 + side2 + side3,
+};
+</code></pre>
+<p>即使是没学过match语法的人应该也能看懂这样的写法，语义上可以理解为：</p>
+<p>我们想计算c，需要对它的类型进行一次匹配，而且我们可以看出是三种类型中的一种，然后我们将从对应的类型里提取出需要的参数并进行计算（看成一个解构赋值）。</p>
+<p>这里是否解决了上述可能导致ub的问题？答案是在编译器的帮助下，是可以的。在类型安全的规则下，我们应当知道shape的取值范围，如果有第四种图形，那么应当在某个地方（比如类型声明）上有所体现，如果不能匹配出结果，那么这条match表达式将不知道返回什么数据，应该抛出错误。</p>
+<p>虽然感觉例子有点小刻意，但我觉得对理解模式匹配的好处很有帮助。</p>
+<h4 id="条件执行与提取的兼得">【条件执行】与【提取】的兼得</h4>
+<ul>
+<li>If 只能做到条件筛选，却不好做赋值</li>
+</ul>
+<blockquote>
+<p>当然也可以用 if (a = 114514) 这样的混沌写法，但是在实践上一般是拒绝这种写法的，因为这并不是“有条件”地赋值，早已不被提倡</p>
+</blockquote>
+<p>在上面的例子中，我们在每个判断后加上一行赋值（不加也行，但是你的成员调用将会很啰嗦），实际上是不太有额外信息量的语句，<em>我相信优雅流畅的代码应如自然语言一样好读</em></p>
+<blockquote>
+<p>在 Rust 里确实有带条件的赋值，请自行学习 if let 语法</p>
+</blockquote>
+<h4 id="从语句到表达式-的转变">从语句到表达式 的转变</h4>
+<ul>
+<li>表达式提供了更灵活的写法</li>
+</ul>
+<p>注意甄别语句和表达式（statement vs expression）</p>
+<p>接触过编译原理的话应该能记住区别，忘记了也不要紧，简单概括就是：</p>
+<ol>
+<li>语句是一个过程</li>
+<li>表达式是一个值</li>
+</ol>
+<p>比如箭头函数() =&gt; 1，我们偶尔打顺手在1后多了个分号的时候，编译器往往会尝试纠正你，因为1;是语句，而不是表达式。
+再比如我们写 jsx：</p>
+<pre><code class="language-jsx">// valid
+&lt;div&gt;{ condition ? 'true': 'false' }&lt;/div&gt;
+// invalid
+&lt;div&gt; { if (condition) {'true';} else { 'false'; } } &lt;/div&gt;
+</code></pre>
+<p>我想上面两段想表达的是同一个语义：如果条件成立，那么渲染 <code>&lt;div&gt;true&lt;/div&gt;</code> ，否则渲染 <code>&lt;div&gt;false&lt;/div&gt;</code></p>
+<p>但是显然下面的是非法的，因为它是一个 if 语句，而不是表达式，不具有值。</p>
+<p>从上面举过的图形周长的例子里，我们在match后可以直接赋值给c，因此match是一个表达式而不是值</p>
+<p>这也是跟switch的一个区别，因为switch也是一个语句而不是表达式。</p>
+<p>表达式有比语句更灵活的特点，因为expression是statement的组成，当表达式不赋值给变量的时候我们也可以当做一个只包含一个expression的statement，这种设计有助于更优雅地编程。</p>
+<h3 id="性能有提升吗">性能有提升吗？</h3>
+<p>实际上模式匹配带来的是抽象层面的升华，计算机总归无法像人类一样思考，因此在性能方面并不是其优势，底层实现就是一堆 if else。</p>
+<p>可以参考这个回答：How is match implemented in a language like Rust?</p>
+<p>其中的回答给了这个例子：</p>
+<pre><code class="language-rust">enum Result {
+  SingleResult(i32),
+  TwoResults(i32, i32),
+  Error
+}
+
+match someResult {
+  Result::SingleResult(res) =&gt; f(res),
+  Result::TwoResults(res1, res2) =&gt; g(res1, res2),
+  Result::Error =&gt; error()
+}
+</code></pre>
+<p>上面的 enum 是 Rust 里的枚举值，与大多语言不一样的是，Rust 的枚举值里是可以携带额外的信息的（可以是结构、数组、元组、基本类型等等）</p>
+<p>其实现后的C代码大概如下</p>
+<pre><code class="language-c">struct Result {
+  enum {
+    SingleResult, TwoResults, Error
+  } tag;
+  union {
+    struct {
+      int arg1;
+    } singleResult;
+    struct {
+      int arg1;
+      int arg2;
+    } twoResults;
+  } value;
+};
+
+switch(someResult.tag) {
+  case SingleResult: {
+    int res = someResult.value.singleResult.arg1;
+    f(res);
+    break;
+  }
+  case TwoResults: {
+    int res1 = someResult.value.twoResults.arg1;
+    int res2 = someResult.value.twoResults.arg2;
+    g(res1, res2);
+    break;
+  }
+  case Error: {
+    error();
+    break;
+  }
+}
+</code></pre>
+<p>上面的union在TypeScript里有更为优雅的表达（缺点是没把SingleResult与{arg1: number}绑定起来）：</p>
+<pre><code class="language-typescript">interface Result {
+    tag: enum ResultTag { SingleResult, TwoResults, Error },
+    value: {arg1: number} | {arg1: number, arg2: number},
+}
+</code></pre>
+<p>这个涉及代数数据类型（Algebraic Data Type），指可以进行代数运算的类型（比如 |，&amp; 等），不是讲述重点，请自己查阅资料 <a href="https://en.wikipedia.org/wiki/Algebraic_data_type">Algebraic_data_type——wiki</a></p>
+<h2 id="rust-的-optiont-resultt-e-与-match">Rust 的 Option<T>, Result&lt;T, E&gt; 与 match</h2>
+<h3 id="optiont">Option<T></h3>
+<pre><code class="language-rust">enum Option&lt;T&gt; {
+    None,
+    Some(T),
+}
+</code></pre>
+<p>尖括号很容易看出来是泛型的意思，而 Some(T) 代表一个 Some 中可以携带一个T类型的值，比如 Option<i32> 这个枚举类型包括了 None 或者 Some(i32) 两种枚举值，而 Some(114514) 就是一个Option<i32>类型。</p>
+<p>重新思考一下上面说的携带不同类型值的 enum 的底层实现，就是那个 union，就能理解“携带值的枚举值”这件事。</p>
+<p>一个 Option 类型的值代表其处于有值（Some）跟没值（None）的叠加态，对其进行观察（匹配）将坍塌到其中一个状态 XD</p>
+<p>如果解析出来这个值是Some，那么我们将可以类型安全地 访问到其里面的值。（意味着编译器可以帮助你规范行为，也可以帮你做好语法提示，访问里面的值一定是类型安全的，即不会在类型上翻车）</p>
+<h3 id="resultt-e">Result&lt;T, E&gt;</h3>
+<pre><code class="language-rust">enum Result&lt;T, E&gt; {
+    Ok(T),
+    Err(E),
+ }
+</code></pre>
+<p>我认为上面讲过 Option 后，理解 Result 应该也很简单，一个 Result 类型的值处于成功与失败的叠加态，如果成功，就能类型安全地访问其中的 T 类型但无法访问 E 类型的值（union 只能同时存在一个对吧），如果失败，我们能安全地访问错误里的 E 类型，此时又无法访问 T 类型的值。</p>
+<p>很明显这个可以用在错误处理的领域，我觉得会很容易联想到大道至简的 go</p>
+<pre><code class="language-go">res, err := function()
+if err != nil {
+    // handle the error
+}
+use(res)
+</code></pre>
+<p>偶尔能见到 gopher 管自己叫 if err != nil 工程师，因为一个可能发生错误的函数往往是这么返回数据的，通过校验是否有 err 来判断成功与否，这种处理方式的缺陷除了写起来很啰嗦外，还有一个缺陷，就是处理可能不到位。</p>
+<pre><code class="language-go">res, err := function()
+if err != nil {
+    fmt.println(&quot;some error|&quot;, err)
+    // forget to return!
+}
+// use an invalid res!
+use(res)
+</code></pre>
+<p>实际上，这种错误处理全凭自觉，我们将正确处理的结果与错误处理的失败原因一起返回，只能通过程序员自觉去处理这种关系，但偶尔可能在处理 err 后，忘记 return 了，而且也没对 res 进行再处理，导致执行流继续进行下去，访问了不该访问的res（此时无法知道是什么值），将会产生 ub。</p>
+<p>而 Result 是解决这个问题的利器，因为处于成功状态的结果无法访问失败状态的类型，而失败的结果无法访问成功时的数据，即使代码还没开始跑，你也知道肯定不会出错。</p>
+<p>常用的错误处理还有try catch系列，依然需要靠自觉，常有忘记在throwable的函数外加try，导致无法正常捕获到错误（Uncaught error）的事发生（比如对内层函数不了解的话就无法知道是否throwable，虽然常有兜底的最外层try，但是在抛出错误后却会中断执行流，无法返回到某个想回去的地方，灵活性比较低，而且写起来缩进确实不怎么好看。</p>
+<blockquote>
+<p>🤔Promise对象与上面提到的 Option、Result 源自同样的设计思想，先占坑，在运行时再确定这个坑里应当填入啥，不同的结果状态之间是隔离的，从而做到【编译期确定的】类型安全，同时也方便更直观的链式调用，在函数式编程中，这种概念叫 Monad（单子）。
+<a href="https://zh.wikipedia.org/wiki/%E5%8D%95%E5%AD%90_(%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B)#%E8%AF%AD%E6%B3%95%E7%B3%96do%E8%A1%A8%E7%A4%BA%E6%B3%95">wiki-Monad</a></p>
+</blockquote>
+<h3 id="match">match</h3>
+<p>模式是 Rust 中特殊的语法，它用来匹配类型中的结构，无论类型是简单还是复杂。结合使用模式和 match 表达式以及其他结构可以提供更多对程序控制流的支配权。模式由如下一些内容组合而成：</p>
+<ul>
+<li>字面值</li>
+<li>解构的数组、枚举、结构体或者元组</li>
+<li>变量</li>
+<li>通配符</li>
+<li>占位符
+通过以下代码来理解：</li>
+</ul>
+<pre><code class="language-rust">enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32),
+}
+
+fn main() {
+    let msg = Message::ChangeColor(0, 160, 255);
+    match msg {
+        Message::Quit =&gt; {
+            println!(&quot;The Quit variant has no data to destructure.&quot;)
+        }
+        Message::Move =&gt; {
+            println!(
+                &quot;Move in the x direction {} and in the y direction {}&quot;,
+                x, y
+            );
+        }
+        Message::Write(text) =&gt; println!(&quot;Text message: {}&quot;, text),
+        Message::ChangeColor(r, g, b) =&gt; println!(
+            &quot;Change the color to red {}, green {}, and blue {}&quot;,
+            r, g, b
+        ),
+    }
+}
+</code></pre>
+<p>代码来自 <a href="https://kaisery.github.io/trpl-zh-cn/ch18-00-patterns.html">模式与模式匹配 - Rust 程序设计语言 简体中文版</a></p>
+<p>其实就是匹配成功后还能捕获其中的值。</p>
+<h2 id="optiont-in-ts">Option<T> in TS</h2>
+<p>前面讲了非常非常多的铺垫，终于到正题了，如何在 TS 里实现上面讲了一大通的这些特征？
+下面的内容是对一个开源实现 oxide.ts 的源码解读 <a href="https://github.com/traverse1984/oxide.ts">仓库地址</a>，源码测试、文档全覆盖，堪称优雅的仓库，也很推荐阅读。</p>
+<pre><code class="language-ts">// src/common.ts
+export const SymbolT = Symbol('T');
+export const SymbolVal = Symbol('Val');
+
+// src/option.ts
+export type Some&lt;T&gt; = OptionType&lt;T&gt; &amp; { [SymbolT]: true };
+export type None = OptionType&lt;never&gt; &amp; { [SymbolT]: false };
+class OptionType&lt;T&gt; {
+   readonly [SymbolT]: boolean;
+   readonly [SymbolVal]: T;
+
+   constructor(val: T, some: boolean) {
+      this[SymbolT] = some;
+      this[SymbolVal] = val;
+   }
+}
+</code></pre>
+<p>Option 的核心是实现一个 OptionType<T>，而 Some<T> 与 None 均源自 OptionType。</p>
+<p>SymbolT 和 SymbolVal 是两个 Symbol 类型的值，意味着 OptionType 里其他的键不会与这俩发生冲突（js的类型因为使用字符串作成员名的缘故常有冲突发生的情况，比如 obj[&rsquo;toString&rsquo;] 就与某个内置方法冲突了）</p>
+<p>有了 Some<T> 和 None 类型，如何创建一个这个类型的值？通过构造函数就行了</p>
+<pre><code class="language-ts">export const None = Object.freeze(
+   new OptionType&lt;never&gt;(undefined as never, false)
+) as None;
+
+/// 使用 Some()
+export function Some&lt;T&gt;(val: T): Some&lt;T&gt; {
+   return new OptionType(val, true) as Some&lt;T&gt;;
+}
+</code></pre>
+<p>Tips: 变量名跟类型名是不冲突的，意味着下面的代码成立。</p>
+<pre><code class="language-ts">type a = number;
+function a(): a {
+   return 1;
+}
+</code></pre>
+<p>Object.freeze 的作用是创建一个无法增删改字段的对象</p>
+<p>我们通过下面的方式分别创建变量</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/09/12/4b434da806866e36.png" alt=""></p>
+<p>分别打印a, b，可以得到以下结果</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/09/12/6f77ad5dce7924d8.png" alt=""></p>
+<p>基于Symbol(Val)和Symbol(T)这两个字段，我们可以构造出许多有用的方法，为了找一个无法静态编译期确定的例子（即运行后才知道成不成功），我先构造一个 Rusty （有 Rust 风格的）的处理函数在这。</p>
+<pre><code class="language-ts">function rustyParseInt(str: string): Option&lt;number&gt; {
+  const res = parseInt(str);
+  if (isNaN(res)) {
+    return None;
+  }
+  return Some(res);
+}
+</code></pre>
+<p>上述函数是对 parseInt的包装，原生 parseInt 在解析失败时会返回一个 NaN，我们将NaN改成None，解析成功则返回Some</p>
+<p>看下面的方法：</p>
+<pre><code class="language-ts">/// Option必须是一个Some，否则抛出错误（在rust里是panic）
+expect(this: Option&lt;T&gt;, msg: string): T {
+   if (this[SymbolT]) {
+      return this[SymbolVal];
+   } else {
+      throw new Error(msg);
+   }
+}
+
+// example.ts
+const a: number = rustyParseInt('would_fail').expect('fail_reason');
+</code></pre>
+<p>expect可以视为对【某个Option的实例应是Some】的断言，并返回其中的类型，如果不是Some将抛出错误。</p>
+<p>运行example.ts后将会抛出理由为fail_reason的错误</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/09/12/776e341a4281694e.png" alt=""></p>
+<p>由expect，又可以包装出多种方法</p>
+<pre><code class="language-ts">unwrap(this: Option&lt;T&gt;): T;
+unwrapOr(this: Option&lt;T&gt;, def: T): T;
+unwrapOrElse(this: Option&lt;T&gt;, f: () =&gt; T): T;
+</code></pre>
+<h3 id="对原有-api-的安全封装">对原有 API 的安全封装</h3>
+<p>该库提供了 safe 函数，用于安全地 捕获一个同步/异步函数的结果为Option<T>，而不会抛出错误或者引发reject。</p>
+<p>下面截图即safe的实现代码，vscode能在then里做出正确的类型推断。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/09/12/46bb13f5b5e1e01e.png" alt=""></p>
+<p>乍一看上面有三个safe，JS/TS 并不支持函数重载（Function Override），这是 TS 的 Function Overload 的特性，详见文档 functions overload。</p>
+<p>意思是，上面两个safe是实际使用时的应当约束的函数类型，最下面的safe是对上面两种签名的兼容性实现。</p>
+<pre><code class="language-ts">function makeDate(timestamp: number): Date;
+function makeDate(m: number, d: number, y: number): Date;
+function makeDate(mOrTimestamp: number, d?: number, y?: number): Date {
+  if (d !== undefined &amp;&amp; y !== undefined) {
+    return new Date(y, mOrTimestamp, d);
+  } else {
+    return new Date(mOrTimestamp);
+  }
+}
+const d1 = makeDate(12345678);
+const d2 = makeDate(5, 5, 5);
+const d3 = makeDate(1, 3);
+// No overload expects 2 arguments, but overloads do exist that expect either 1 or 3 arguments.
+</code></pre>
+<p>上面是官方的例子，看一下就懂了，d1, d2 都可以被正常编译，d3 则通过不了类型检查，尽管符合第三个makeDate的函数签名。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/09/12/46bb13f5b5e1e01e.png" alt=""></p>
+<p>回到上面 safe 的实现（与前面是同一张图，方便观看），第一个签名接受的是一个同步函数及该函数的参数，通过 PromiseLike 来约束是否异步函数，是则要求返回值为never类型，代表一个不会返回的函数（一定会throw，或是无限循环），既然无法返回也就不会需要safe包装返回值。</p>
+<p>一个 PromiseLike 接口要求实现 then(onfulfilled, onerjected)，具体看TS的官方文档 <a href="https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_es5_d_.promiselike.html">PromiseLike 接口文档</a></p>
+<p>第二个签名接受一个 Promise 对象作为参数，其实就是异步函数执行后的返回值。返回一个 Promise&lt;Option<T>&gt;的结果，注意一个Option&lt;Promise<T>&gt;的类型是没有实用意义的，因为不管resolve还是reject，都会得到一个Some结果，所以一个实用的包装应当是 Promise&lt;Some<T>&gt;与Promise<None>，对应了resolve与reject的结果。</p>
+<p>实现上很简单，把 throw、reject 包装成 None, 把 resolve 和正常执行包装为 Some 即可。</p>
+<h3 id="其他的方法">其他的方法</h3>
+<p>Option 提供了一些其他的方法，实现都很简单，意义也清楚所以不详细介绍。</p>
+<pre><code class="language-ts">isNone()
+isSome()
+map&lt;U&gt;(this: Option&lt;T&gt;, f: (val: T) =&gt; U): Option&lt;U&gt;
+</code></pre>
+<h2 id="resultt-e-in-ts">Result&lt;T, E&gt; in TS</h2>
+<p>Result 跟 Option 的实现就没有太大差别了，除了 Result 在失败时可以携带错误信息</p>
+<pre><code class="language-ts">export type Ok&lt;T&gt; = ResultType&lt;T, never&gt;;
+export type Err&lt;E&gt; = ResultType&lt;never, E&gt;;
+export class ResultType&lt;T, E&gt; {
+   readonly [SymbolT]: boolean;
+   readonly [SymbolVal]: T | E;
+
+   constructor(val: T | E, ok: boolean) {
+      this[SymbolVal] = val;
+      this[SymbolT] = ok;
+   }
+}
+</code></pre>
+<p>Ok 与 Err 的构造方式也很简单</p>
+<pre><code class="language-ts">export function Ok&lt;T&gt;(val: T): Ok&lt;T&gt; {
+   return new ResultType&lt;T, never&gt;(val, true);
+}
+export function Err&lt;E&gt;(val: E): Err&lt;E&gt; {
+   return new ResultType&lt;never, E&gt;(val, false);
+}
+</code></pre>
+<h2 id="match-in-ts">match in TS</h2>
+<p>oxide.ts 对 match 的实现应该是最好玩的地方，在看如何实现之前，先看实现了怎样的功能</p>
+<pre><code class="language-ts">// mapped matching
+const num = Option(10);
+const res = match(num, {
+   Some: (n) =&gt; n + 1,
+   _: () =&gt; 0,
+});
+assert.equal(res, 11);
+
+// chained matching
+function matchArr(arr: number[]): string {
+   return match(arr, [
+      [[1], &quot;1&quot;],
+      [[2, (x) =&gt; x &gt; 10], &quot;2, &gt; 10&quot;],
+      [[_, 6, 9, _], (a) =&gt; a.join(&quot;, &quot;)],
+      () =&gt; &quot;other&quot;,
+   ]);
+}
+assert.equal(matchArr([1, 2, 3]), &quot;1&quot;);
+assert.equal(matchArr([2, 12, 6]), &quot;2, &gt; 10&quot;);
+assert.equal(matchArr([2, 4, 6]), &quot;other&quot;);
+assert.equal(matchArr([3, 6, 9]), &quot;other&quot;);
+assert.equal(matchArr([3, 6, 9, 12]), &quot;3, 6, 9, 12&quot;);
+</code></pre>
+<ol>
+<li>Mapped matching 实现了对 Option / Result 的匹配，</li>
+<li>Chained matching 实现了更加灵活、定制化的匹配，可以匹配具体的值、也可以使用规则去匹配</li>
+</ol>
+<h3 id="实现">实现</h3>
+<p>Match 的相关实现长下面这样：</p>
+<pre><code class="language-ts">export const Default: any = () =&gt; {
+   throw new Error(&quot;Match failed (exhausted)&quot;);
+};
+export function match&lt;T, U&gt;(
+   val: T,
+   pattern: MappedBranches&lt;T, U&gt; | ChainedBranches&lt;T, U&gt;
+): U {
+   return matchDispatch(val, pattern, Default);
+}
+
+function matchDispatch&lt;T, U&gt;(
+   val: T,
+   pattern: ChainedBranches&lt;T, U&gt; | MappedBranches&lt;T, U&gt;,
+   defaultBranch: DefaultBranch&lt;U&gt;
+): U {
+   if (Array.isArray(pattern)) {
+      return matchChained(val, pattern, defaultBranch);
+   } else if (isObjectLike(pattern)) {
+      return matchMapped(val, pattern, defaultBranch);
+   }
+
+   throwInvalidPattern();
+}
+</code></pre>
+<p>match接收待匹配的值跟分支的模式作为参数，然后调用 matchDispatch。</p>
+<p>分支有mapped和chained两种，通过 isArray 和 isObjectLike 区分，然后分别进入 mapped 和 chained 的处理逻辑。</p>
+<h4 id="mapped">mapped</h4>
+<p>matchMapped 只支持对 Option 和 Result 进行匹配，然后对 pattern 中的项进行匹配。</p>
+<pre><code class="language-ts">function matchMapped&lt;T, U&gt;(
+   val: T,
+   pattern: OptionMapped&lt;any, U&gt; &amp; ResultMapped&lt;any, any, U&gt;,
+   defaultBranch: DefaultBranch&lt;U&gt;
+): U {
+   if (Option.is(val)) {
+      if (val[SymbolT]) {
+         if (pattern.Some) {
+            if (typeof pattern.Some === &quot;function&quot;) {
+               // 对于 Some 类型，如果其匹配后跟的是 function，说明是对值的任意匹配
+               return pattern.Some(val[SymbolVal]);
+            } else {
+               // 不是function，说明可能有更进一步的匹配（具体的值、位置等等），则再次调用dispatch对值进行更细化的匹配，注意的是第三个参数defaultBranch，如果Some中提供了默认分支，那么进入，否则不进入该分支而是使用外层的默认分支（即最外层的 _: () =&gt; something）
+               return matchDispatch(
+                  val[SymbolVal],
+                  pattern.Some,
+                  typeof pattern._ === &quot;function&quot; ? pattern._ : defaultBranch
+               );
+            }
+         }
+      } else if (typeof pattern.None === &quot;function&quot;) {
+         // 对None匹配的处理
+         return pattern.None();
+      }
+   } else if (Result.is(val)) {
+      // 对Result分支的处理，跟Option基本相同
+      const Branch = val[SymbolT] ? pattern.Ok : pattern.Err;
+      if (Branch) {
+         if (typeof Branch === &quot;function&quot;) {
+            return Branch(val[SymbolVal]);
+         } else {
+            // 既没在Option中匹配到也没在Result里匹配到，进入默认分支，如果提供了 _ 的匹配就执行自定义的默认分支，否则进入参数的defaultBranch
+            // 最上面的 defaultBranch 传入了一个会抛出异常的函数Default，即代表没有分支能处理val，这是不可接受的
+            return matchDispatch(
+               val[SymbolVal],
+               Branch,
+               typeof pattern._ === &quot;function&quot; ? pattern._ : defaultBranch
+            );
+         }
+      }
+   } else {
+      throwInvalidPattern();
+   }
+
+   return typeof pattern._ === &quot;function&quot; ? pattern._() : defaultBranch();
+}
+</code></pre>
+<h4 id="chained">chained</h4>
+<p>Chained mapping 支持更加灵活的模式匹配，下面展示部分匹配的方式</p>
+<pre><code class="language-ts">const res = match(input, [
+   [1, &quot;number&quot;], // 匹配准确的值
+   [testObj, &quot;object&quot;], // 匹配准确的对象（浅，同一个对象才能匹配上）
+   [&quot;test&quot;, (val) =&gt; `string ${val}`], // 匹配准确的值，并使用函数作为Result，以捕获到 match 的 input 值
+   [(val) =&gt; val === true, &quot;true&quot;], // 提供 filter 作为匹配条件
+   [(val) =&gt; (val as number) &gt; 5, (val) =&gt; `num ${val}`], // 提供 filter 为匹配条件，并使用函数作为 Result 捕获 input
+   [Fn(returnTrue), &quot;fn true&quot;], // 匹配一个函数 returnTrue，使用 Fn() 包装以跟 filter 区分开
+   [Fn(returnFalse), &quot;fn false&quot;], // 匹配一个函数 returnFalse，使用 Fn() 包装以跟 filter 区分开
+   () =&gt; &quot;default&quot;, // 默认匹配，如果没法匹配到上述项将执行
+]);
+</code></pre>
+<pre><code class="language-ts">type ChainedBranches&lt;T, U&gt; =
+   | Branch&lt;T, U&gt;[]
+   | [...Branch&lt;T, U&gt;[], DefaultBranch&lt;U&gt;];
+
+function matchChained&lt;T, U&gt;(
+   val: T,
+   pattern: ChainedBranches&lt;T, U&gt;,
+   defaultBranch: DefaultBranch&lt;U&gt;
+): U {
+   // 遍历 chianed branches，得到每个分支
+   for (const branch of pattern) {
+      // 分支允许接受函数作为分支，限定为经过 `Fn&lt;U&gt;` wrap 过的函数以及默认的分支 () =&gt; U
+      if (typeof branch === &quot;function&quot;) {
+         return (branch as Fn&lt;U&gt;)[FnVal] ? (branch as Fn&lt;U&gt;)[FnVal] : branch();
+      } else {
+         const [cond, result] = branch;
+         // 每个分支分为条件与结果，使用 matches 判断是否匹配上了，在匹配上的情况下：
+         if (matches(cond, val, true)) {
+            if (typeof result === &quot;function&quot;) {
+               // 如果结果是 `Fn&lt;U&gt;` wrap 过的则返回函数本身
+               // 结果是普通函数就执行匹配结果
+               return (result as Fn&lt;U&gt;)[FnVal]
+                  ? (result as Fn&lt;U&gt;)[FnVal]
+                  : (result as (val: T) =&gt; U)(val);
+            } else {
+               // 非函数就返回数值
+               return result;
+            }
+         }
+      }
+   }
+   // 都不是则执行默认分支
+   return defaultBranch();
+}
+</code></pre>
+<p>下面介绍下 <code>Fn&lt;U&gt;</code> 是做什么的：</p>
+<pre><code class="language-ts">export const FnVal = Symbol(&quot;FnVal&quot;);
+export function Fn&lt;T extends (...args: any) =&gt; any&gt;(fn: T): () =&gt; T {
+   const val: any = () =&gt; throwFnCalled();
+   (val as any)[FnVal] = fn;
+   return val;
+}
+export type Fn&lt;T&gt; = { (): never; [FnVal]: T };
+</code></pre>
+<p>Fn 是类型也是函数，作为类型的时候表示一个无法被执行（即返回never，在实现里，一定会throw 一个错误的函数），但是存储了函数（通过 FnVal 这个 Symbol 类型来索引）的对象。</p>
+<p>Fn 的作用是将函数包装成一个可以被匹配、可以作为匹配结果的对象，而不是在匹配成功时执行、或是作为 filter 存在，如下：</p>
+<pre><code class="language-ts">// 使用 Fn 作为分支，匹配成功将返回函数
+match(Some(1), [
+   [Some(1), Fn(()=&gt;&quot;1&quot;)],
+   Fn(()=&gt;'default'),
+])()
+</code></pre>
+<p>下面介绍返回是否匹配条件的 matches 的实现：</p>
+<p>不过先看看什么样可以算一个合理的条件：</p>
+<pre><code class="language-ts">type Branch&lt;T, U&gt; = [BranchCondition&lt;T&gt;, BranchResult&lt;T, U&gt;];
+
+type BranchCondition&lt;T&gt; =
+   | Mapped&lt;T, boolean&gt;
+   | (T extends { [T]: boolean } ? MonadCondition&lt;T&gt; : Condition&lt;T&gt;);
+
+type Condition&lt;T&gt; = T extends object
+   ? { [K in keyof T]?: BranchCondition&lt;T[K]&gt; }
+   : T;
+
+type MonadCondition&lt;T&gt; = T extends Option&lt;infer U&gt;
+   ? Some&lt;MonadCondition&lt;U&gt;&gt; | None
+   : T extends Result&lt;infer U, infer E&gt;
+   ? Ok&lt;MonadCondition&lt;U&gt;&gt; | Err&lt;MonadCondition&lt;E&gt;&gt;
+   : Wide&lt;T&gt;;
+
+type MonadMapped&lt;T, U&gt; =
+   | Mapped&lt;T, U&gt;
+   | ChainedBranches&lt;T, U&gt;
+   | MappedBranches&lt;T, U&gt;;
+ 
+type Mapped&lt;T, U&gt; = (val: T) =&gt; U;
+type Wide&lt;T&gt; = T extends [...infer U] ? U[number][] : Partial&lt;T&gt;;
+</code></pre>
+<p>我们知道一个分支分成条件和结果，看 BranchCondition 即分支条件，可以是以下的情况</p>
+<ul>
+<li>Mapped，表示被准确匹配的值，比如 Some(1) 这样的</li>
+<li>根据是否有 [T] 成员来区分是否 Option/Result，注意这个 T 并不是类型，而是那个 Symbol 变量
+<ul>
+<li>有 [T] 的说明是 Option 或者 Result，进入 MonadCondition
+<ul>
+<li>分别通过匹配 Option 和 Result 来确定类型</li>
+<li>都不是则进入 Wide
+<ul>
+<li>如果是数组就是对数组的匹配</li>
+<li>如果不是数组就是对 T 部分字段的匹配</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>没有 [T] 进入普通的条件 Condition，通过变量是否对象来分类
+<ul>
+<li>是对象的话，那么类型需要进行筛选一下，只选出需要的字段及其类型，每个字段都是一个独立的分支条件（BranchCondition）</li>
+<li>不是对象的话就直接匹配该值的类型即可
+Monad（单子）是前面介绍过的一个概念，简单说代表一个占坑的变量，可以是几种状态的叠加</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>下面则是返回是否匹配条件的 matches 函数：</p>
+<pre><code class="language-ts">function matches&lt;T&gt;(
+   cond: BranchCondition&lt;T&gt;,
+   val: T,
+   evaluate: boolean
+): boolean {
+   if (cond === Default || cond === val) {
+      // 如果直接匹配上了或者是默认分支则直接返回true
+      return true;
+   }
+   if (typeof cond === &quot;function&quot;) {
+      // 如果是被包装后的函数就判断是不是该函数，
+      // 否则，只有在 evaluate 为 true （代表要判断其值）时执行条件函数
+      return (cond as Fn&lt;T&gt;)[FnVal]
+         ? (cond as Fn&lt;T&gt;)[FnVal] === val
+         : evaluate &amp;&amp; (cond as (val: T) =&gt; boolean)(val);
+   }
+   // 如果是对象
+   if (isObjectLike(cond)) {
+      if (T in cond) {
+         // 如果 val 是条件的一部分，再深入判断（再次调用matches，字段级匹配）
+         return (
+            (cond as any).isLike(val) &amp;&amp;
+            matches((cond as any)[Val], (val as any)[Val], false)
+         );
+      }
+      if (isObjectLike(val) &amp;&amp; Array.isArray(cond) === Array.isArray(val)) {
+         // 对数组匹配，元素级匹配
+         for (const key of Object.keys(cond)) {
+            if (
+               !(key in val) ||
+               !matches((cond as any)[key], (val as any)[key], evaluate)
+            ) {
+               return false;
+            }
+         }
+         return true;
+      }
+   }
+   return false;
+}
+</code></pre>
+<h4 id="小结">小结</h4>
+<ul>
+<li>通过把类型一层一层抽象，实现类型安全的匹配</li>
+<li>Chained 的匹配提供了比 mapped 更灵活的使用方式</li>
+</ul>
+<h2 id="题外">题外</h2>
+<h3 id="为什么只广泛在函数式编程流行">为什么只广泛在函数式编程流行</h3>
+<p>参考 <a href="https://www.quora.com/Why-is-pattern-matching-prevalent-only-in-functional-programming-languages">Why-is-pattern-matching-prevalent-only-in-functional-programming-languages</a></p>
+<ul>
+<li>模式匹配实际上和一个强大的类型系统有很强的关系，那就是代数数据类型（Algebraic Data Type），在前面简单提到过，比如 | 为传统的 union 类型提供了更强大的表达能力，&amp; 也比复杂的继承更好写。</li>
+<li>因为 C 没有</li>
+<li>在一些比较新的语言里（比如 TypeScript 和 Rust）强大的类型系统就为模式匹配提供了土壤。</li>
+</ul>
+<p>现在的 OO 语言也在一些比较微观的层面上引入了一些函数式编程的概念，来提高程序的表达能力，比如 Python3.10 就引入了 match，C# 也引入了match。</p>
+<h3 id="ecmascript-里的进展">ECMAScript 里的进展</h3>
+<p><a href="https://github.com/tc39/proposal-pattern-matching">GitHub - tc39/proposal-pattern-matching: Pattern matching syntax for ECMAScript</a></p>
+<p>还在 Proposal 阶段，提了好多年了似乎没什么进展，不过 star 还是很多的</p>
+<p>提案中提供了类似以下的匹配方式：</p>
+<pre><code class="language-js">match (res) {
+  when ({ status: 200, body, ...rest }): handleData(body, rest)
+  when ({ status, destination: url }) if (300 &lt;= status &amp;&amp; status &lt; 400):
+    handleRedirect(url)
+  when ({ status: 500 }) if (!this.hasRetried): do {
+    retry(req);
+    this.hasRetried = true;
+  }
+  default: throwSomething();
+}
+</code></pre>
+<p>实际上感觉不如前面实现的那种那种好看</p>
+<h2 id="总结">总结</h2>
+<ol>
+<li>介绍了模式匹配的实现与好处：
+<ol>
+<li>符合思考方式</li>
+<li>条件与赋值的兼得</li>
+<li>语句到表达式的转变（表达能力的增强）</li>
+</ol>
+</li>
+<li>Monad 式的类型安全错误处理</li>
+<li>用 TS 实现 match：类型的一层层抽象</li>
+<li>投入生产？原生的支持不够强大：编译器对分支覆盖的检查能力不足</li>
+</ol>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://stackoverflow.com/questions/36920427/how-is-match-implemented-in-a-language-like-rust">How is match implemented in a language like Rust?</a></li>
+<li><a href="https://www.quora.com/Why-is-pattern-matching-prevalent-only-in-functional-programming-languages">Why-is-pattern-matching-prevalent-only-in-functional-programming-languages</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Algebraic_data_type">Algebraic-data-type-wiki</a></li>
+<li><a href="https://www.typescriptlang.org/docs/handbook/2/functions.html#function-overloads">functions overload</a></li>
+</ul>
+
+        </div>
+        
+        <div class="my-4">
+    
+    <a href="/tags/typescript/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 mr-2 hover:text-eureka">#TypeScript</a>
+    
+    <a href="/tags/rust/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 mr-2 hover:text-eureka">#Rust</a>
+    
+</div>
+        
+        
+        
+
+
+        
+        
+        
+        
+<div class="flex flex-col md:flex-row md:justify-between -mx-2 mt-4 px-2 pt-4 border-t">
+    <div>
+        
+    </div>
+    <div class="md:text-right mt-4 md:mt-0">
+        
+        <span class="block font-bold">下一页</span>
+        <a href="/posts/rcore-camp-2022-lab4/" class="block">rCore Camp 2022 Lab4 记录</a>
+        
+    </div>
+</div>
+
+        
+
+
+
+    </div>
+    
+    <div class="col-span-2">
+        
+        
+        <div class="sticky top-16 z-10 hidden lg:block px-6 py-4  bg-primary-bg ">
+    <span class="text-lg font-semibold">本页内容</span>
+</div>
+<div class="sticky-toc hidden lg:block px-6 pb-6 ">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#模式匹配-pattern-matching">模式匹配 (Pattern Matching)</a>
+      <ul>
+        <li><a href="#是什么">是什么</a></li>
+        <li><a href="#好处在哪">好处在哪</a>
+          <ul>
+            <li><a href="#符合人类思考方式的设计">符合人类思考方式的设计</a></li>
+            <li><a href="#条件执行与提取的兼得">【条件执行】与【提取】的兼得</a></li>
+            <li><a href="#从语句到表达式-的转变">从语句到表达式 的转变</a></li>
+          </ul>
+        </li>
+        <li><a href="#性能有提升吗">性能有提升吗？</a></li>
+      </ul>
+    </li>
+    <li><a href="#rust-的-optiont-resultt-e-与-match">Rust 的 Option<T>, Result&lt;T, E&gt; 与 match</a>
+      <ul>
+        <li><a href="#optiont">Option<T></a></li>
+        <li><a href="#resultt-e">Result&lt;T, E&gt;</a></li>
+        <li><a href="#match">match</a></li>
+      </ul>
+    </li>
+    <li><a href="#optiont-in-ts">Option<T> in TS</a>
+      <ul>
+        <li><a href="#对原有-api-的安全封装">对原有 API 的安全封装</a></li>
+        <li><a href="#其他的方法">其他的方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#resultt-e-in-ts">Result&lt;T, E&gt; in TS</a></li>
+    <li><a href="#match-in-ts">match in TS</a>
+      <ul>
+        <li><a href="#实现">实现</a>
+          <ul>
+            <li><a href="#mapped">mapped</a></li>
+            <li><a href="#chained">chained</a></li>
+            <li><a href="#小结">小结</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#题外">题外</a>
+      <ul>
+        <li><a href="#为什么只广泛在函数式编程流行">为什么只广泛在函数式编程流行</a></li>
+        <li><a href="#ecmascript-里的进展">ECMAScript 里的进展</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        enableStickyToc();
+    });
+</script>
+        
+    </div>
+    
+
+    
+    
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+        hljs.initHighlightingOnLoad();
+    })
+</script>
+
+      </div>
+    </div>
+    
+  </main>
+  <footer class="pl-scrollbar">
+    <div class="w-full max-w-screen-xl mx-auto"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2020-2022 <a href="https://www.github.com/werifu/">Werifu</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+  </footer>
+</body>
+
+</html>

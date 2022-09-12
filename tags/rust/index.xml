@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rust on 秘密</title>
+    <link>/tags/rust/</link>
+    <description>Recent content in Rust on 秘密</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>&amp;copy; 2020-2022 &lt;a href=&#34;https://www.github.com/werifu/&#34;&gt;Werifu&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Mon, 12 Sep 2022 18:02:35 +0800</lastBuildDate><atom:link href="/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rusty Typescript -- Pattern Matching</title>
+      <link>/posts/rusty-typescript-pattern-matching/</link>
+      <pubDate>Mon, 12 Sep 2022 18:02:35 +0800</pubDate>
+      
+      <guid>/posts/rusty-typescript-pattern-matching/</guid>
+      <description>本文章内容：使用 TypeScript 实现 Rust 的部分模式匹配特性（match、Option、Result） 标题可以理解为《 Rust 味的 TypeScript 》 阅读须知： 无需 Rust 基础知识，也与 Rust 最难的内</description>
+    </item>
+    
+  </channel>
+</rss>
