@@ -58,7 +58,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
 
 <meta name="description"
-  content="https://dtolnay.github.io/rust-quiz 因为 Quiz 是乱序的，所以完成进度也是乱序的 Quiz 24：关于宏的 &lsquo;hygiene&rsquo; https://dtolnay.github.io/rust-quiz/24 What is the output of this Rust program? fn main() { let x: u8 = 1; const K: u8 = 2; macro_rules! m { () =&gt; { print!(&quot;{}{}&quot;, x, K); }; } { let x: u8 = 3; const K: u8 = 4; m!(); }">
+  content="做题记录 &amp; 扩展笔记">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -87,7 +87,7 @@
     },
     "headline": "Rust Quiz 记录 | 秘密","datePublished": "2022-10-19T23:30:23+08:00",
     "dateModified": "2022-10-19T23:30:23+08:00",
-    "wordCount":  430 ,
+    "wordCount":  1247 ,
     "author": {
         "@type": "Person",
         "name": ["werifu"]
@@ -100,7 +100,7 @@
             "url": "/images/icon.png"
         }
         },
-    "description": "https:\/\/dtolnay.github.io\/rust-quiz 因为 Quiz 是乱序的，所以完成进度也是乱序的 Quiz 24：关于宏的 \u0026lsquo;hygiene\u0026rsquo; https:\/\/dtolnay.github.io\/rust-quiz\/24 What is the output of this Rust program? fn main() { let x: u8 = 1; const K: u8 = 2; macro_rules! m { () =\u0026gt; { print!(\u0026quot;{}{}\u0026quot;, x, K); }; } { let x: u8 = 3; const K: u8 = 4; m!(); }"
+    "description": "做题记录 \u0026 扩展笔记"
 }
 </script><meta property="og:title" content="Rust Quiz 记录 | 秘密" />
 <meta property="og:type" content="article" />
@@ -113,9 +113,7 @@
 
 
 
-
-<meta property="og:description" content="https://dtolnay.github.io/rust-quiz 因为 Quiz 是乱序的，所以完成进度也是乱序的 Quiz 24：关于宏的 &lsquo;hygiene&rsquo; https://dtolnay.github.io/rust-quiz/24 What is the output of this Rust program? fn main() { let x: u8 = 1; const K: u8 = 2; macro_rules! m { () =&gt; { print!(&quot;{}{}&quot;, x, K); }; } { let x: u8 = 3; const K: u8 = 4; m!(); }" />
-
+<meta property="og:description" content="做题记录 &amp; 扩展笔记" />
 
 
 
@@ -234,7 +232,7 @@
     </div>
     <div class="mr-6 my-2">
         <i class="fas fa-clock mr-1"></i>
-        <span>1分钟阅读时长</span>
+        <span>3分钟阅读时长</span>
     </div>
     
     
@@ -248,7 +246,138 @@
         <div class="content">
             <p><a href="https://dtolnay.github.io/rust-quiz">https://dtolnay.github.io/rust-quiz</a></p>
 <p>因为 Quiz 是乱序的，所以完成进度也是乱序的</p>
-<h2 id="quiz-24关于宏的-hygiene">Quiz 24：关于宏的 &lsquo;hygiene&rsquo;</h2>
+<h2 id="quiz-5">Quiz #5:</h2>
+<p><a href="https://dtolnay.github.io/rust-quiz/5">https://dtolnay.github.io/rust-quiz/5</a></p>
+<p>What is the output of this Rust program?</p>
+<pre><code class="language-rust">trait Trait {
+    fn p(self);
+}
+
+impl&lt;T&gt; Trait for fn(T) {
+    fn p(self) {
+        print!(&quot;1&quot;);
+    }
+}
+
+impl&lt;T&gt; Trait for fn(&amp;T) {
+    fn p(self) {
+        print!(&quot;2&quot;);
+    }
+}
+
+fn f(_: u8) {}
+fn g(_: &amp;u8) {}
+
+fn main() {
+    let a: fn(_) = f;
+    let b: fn(_) = g;
+    let c: fn(&amp;_) = g;
+    a.p();
+    b.p();
+    c.p();
+}
+</code></pre>
+<h3 id="解答">解答</h3>
+<p>输出 <code>112</code></p>
+<p>其实难点就是 b 到底属于哪种类型，需要把第二个实现展开，<code>impl&lt;'a T&gt; Trait for fn(&amp;'a T)</code>，b 我们会推断 <code>_ = &amp;'x u8</code>，b 的类型应该是 <code>fn(&amp;'x u8)</code>，签名按照 fn(T) 来。</p>
+<h2 id="quiz-10-方法的覆盖">Quiz #10: 方法的覆盖</h2>
+<p><a href="https://dtolnay.github.io/rust-quiz/10">https://dtolnay.github.io/rust-quiz/10</a></p>
+<p>What is the output of this Rust program?</p>
+<pre><code class="language-rust">trait Trait {
+    fn f(&amp;self);
+}
+
+impl&lt;'a&gt; dyn Trait + 'a {
+    fn f(&amp;self) {
+        print!(&quot;1&quot;);
+    }
+}
+
+impl Trait for bool {
+    fn f(&amp;self) {
+        print!(&quot;2&quot;);
+    }
+}
+
+fn main() {
+    Trait::f(&amp;true);
+    Trait::f(&amp;true as &amp;dyn Trait);
+    &lt;_ as Trait&gt;::f(&amp;true);
+    &lt;_ as Trait&gt;::f(&amp;true as &amp;dyn Trait);
+    &lt;bool as Trait&gt;::f(&amp;true);
+    &lt;dyn Trait as Trait&gt;::f(&amp;true as &amp;dyn Trait);
+}
+</code></pre>
+<h3 id="解答-1">解答</h3>
+<p>输出 <code>222222</code></p>
+<p>为 bool 实现的方法会覆盖（shadow）掉内在的方法（inherent method），也就是 dyn Trait 那个。</p>
+<p>而现在 Rust 还没有方法去调用那个 dyn Trait，如果按下面的方式调用会报错</p>
+<pre><code class="language-rust">error[E0034]: multiple applicable items in scope
+  --&gt; questions/010.rs:18:5
+   |
+18 |     &lt;dyn Trait&gt;::f(&amp;true);
+   |     ^^^^^^^^^^^^^^ multiple `f` found
+   |
+note: candidate #1 is defined in an impl for the type `dyn Trait`
+  --&gt; questions/010.rs:6:5
+   |
+6  |     fn f(&amp;self) {
+   |     ^^^^^^^^^^^
+note: candidate #2 is defined in the trait `Trait`
+  --&gt; questions/010.rs:2:5
+   |
+2  |     fn f(&amp;self);
+   |     ^^^^^^^^^^^^
+   = help: to disambiguate the method call, write `Trait::f(...)` instead
+
+</code></pre>
+<h2 id="quiz-19-drop">Quiz #19: drop</h2>
+<p><a href="https://dtolnay.github.io/rust-quiz/19">https://dtolnay.github.io/rust-quiz/19</a></p>
+<p>What is the output of this Rust program?</p>
+<pre><code class="language-rust">struct S;
+
+impl Drop for S {
+    fn drop(&amp;mut self) {
+        print!(&quot;1&quot;);
+    }
+}
+
+fn main() {
+    let s = S;
+    let _ = s;
+    print!(&quot;2&quot;);
+}
+</code></pre>
+<h3 id="解答-2">解答</h3>
+<p>输出 <code>21</code></p>
+<p>比较简单，两个 let 只有一个 S 被创建了，第二个只是转移了所有权，在生命周期结束时调用 drop。</p>
+<h2 id="quiz-22-宏的参数">Quiz #22: 宏的参数</h2>
+<p><a href="https://dtolnay.github.io/rust-quiz/22">https://dtolnay.github.io/rust-quiz/22</a></p>
+<p>What is the output of this Rust program?</p>
+<pre><code class="language-rust">macro_rules! m {
+    ($a:tt) =&gt; { print!(&quot;1&quot;) };
+    ($a:tt $b:tt) =&gt; { print!(&quot;2&quot;) };
+    ($a:tt $b:tt $c:tt) =&gt; { print!(&quot;3&quot;) };
+    ($a:tt $b:tt $c:tt $d:tt) =&gt; { print!(&quot;4&quot;) };
+    ($a:tt $b:tt $c:tt $d:tt $e:tt) =&gt; { print!(&quot;5&quot;) };
+    ($a:tt $b:tt $c:tt $d:tt $e:tt $f:tt) =&gt; { print!(&quot;6&quot;) };
+    ($a:tt $b:tt $c:tt $d:tt $e:tt $f:tt $g:tt) =&gt; { print!(&quot;7&quot;) };
+}
+
+fn main() {
+    m!(-1);
+    m!(-1.);
+    m!(-1.0);
+    m!(-1.0e1);
+    m!(-1.0e-1);
+}
+</code></pre>
+<h3 id="解答-3">解答</h3>
+<p>输出 <code>22222</code></p>
+<p>tt 表示 token，这个宏的功能是按传入的 token 数分类。</p>
+<p>Rust 的编译器会把 <code>-</code> 单独看成一个负号，五个调用都是一个负号加一个数字。</p>
+<p><code>let x = -2.pow(2)</code> 会被解析成 <code>-(2.pow(2))</code> 而不是 <code>(-2).pow(2)</code></p>
+<h2 id="quiz-24-关于宏的-hygiene">Quiz #24: 关于宏的 &lsquo;hygiene&rsquo;</h2>
 <p><a href="https://dtolnay.github.io/rust-quiz/24">https://dtolnay.github.io/rust-quiz/24</a></p>
 <p>What is the output of this Rust program?</p>
 <pre><code class="language-rust">fn main() {
@@ -269,7 +398,7 @@
     }
 }
 </code></pre>
-<h3 id="解答">解答</h3>
+<h3 id="解答-4">解答</h3>
 <p>输出 <code>14</code></p>
 <p>对于宏而言有一个概念叫 hygiene，中文是【卫生】的意思，由【宏如何处理外部变量】来区分是否 hygiene</p>
 <p><a href="https://www.reddit.com/r/rust/comments/5v8r8f/so_what_are_hygienic_macros_anyway/">有一个 reddit 上对此的讨论</a>，摘抄一个回答：</p>
@@ -280,7 +409,46 @@
 <p>如果编译器不处理出现在宏里的变量名，而是等着直接展开（如 C 语言），那么这个应该算作不卫生，因为可能会出现外部变量命名为 a，而宏内使用了 a 变量，使用结果会因为外部变量命名不同而有变化。</p>
 <p>Rust 是门“部分卫生”的语言，会对一部分的外部变量进行处理。但是仅限本地变量，对 const 不会做处理（const 变量会被认为是个普通的单词而不是变量）。因此在这题里，Rust 会先把外边的 x 编进宏内，之后再进行展开，最终打印 <code>14</code>。</p>
 <p><a href="https://danielkeep.github.io/tlborm/book/mbe-min-hygiene.html">hygiene 相关的笔记</a></p>
-<p><img src="hygiene.png" alt="hygiene"></p>
+<h2 id="quiz-33-rangefull">Quiz #33: RangeFull</h2>
+<p><a href="https://dtolnay.github.io/rust-quiz/33">https://dtolnay.github.io/rust-quiz/33</a></p>
+<p>What is the output of this Rust program?</p>
+<pre><code class="language-rust">use std::ops::RangeFull;
+
+trait Trait {
+    fn method(&amp;self) -&gt; fn();
+}
+
+impl Trait for RangeFull {
+    fn method(&amp;self) -&gt; fn() {
+        print!(&quot;1&quot;);
+        || print!(&quot;3&quot;)
+    }
+}
+
+impl&lt;F: FnOnce() -&gt; T, T&gt; Trait for F {
+    fn method(&amp;self) -&gt; fn() {
+        print!(&quot;2&quot;);
+        || print!(&quot;4&quot;)
+    }
+}
+
+fn main() {
+    (|| .. .method())();
+}
+</code></pre>
+<h3 id="解答-5">解答</h3>
+<p>输出<code>24</code></p>
+<p>RangeFull 其实就是 <code>..</code>，是可以单独使用的，如下：</p>
+<pre><code class="language-rust">let arr = [0, 1, 2, 3, 4];
+assert_eq!(arr[ ..  ], [0, 1, 2, 3, 4]); // This is the `RangeFull`
+assert_eq!(arr[ .. 3], [0, 1, 2      ]);
+assert_eq!(arr[ ..=3], [0, 1, 2, 3   ]);
+assert_eq!(arr[1..  ], [   1, 2, 3, 4]);
+assert_eq!(arr[1.. 3], [   1, 2      ]);
+assert_eq!(arr[1..=3], [   1, 2, 3   ]);
+</code></pre>
+<p>但不能直接用于循环 <code>for i in ..</code></p>
+<p>这题只可能两种答案，<code>1</code> 或者 <code>24</code>，解析成 <code>|| ((..).method())</code>  就是 <code>1</code>，解析成 <code>(|| ..).method()</code> 就是 <code>24</code></p>
 
         </div>
         
@@ -340,9 +508,34 @@
 <div class="sticky-toc hidden lg:block px-6 pb-6 ">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#quiz-24关于宏的-hygiene">Quiz 24：关于宏的 &lsquo;hygiene&rsquo;</a>
+    <li><a href="#quiz-5">Quiz #5:</a>
       <ul>
         <li><a href="#解答">解答</a></li>
+      </ul>
+    </li>
+    <li><a href="#quiz-10-方法的覆盖">Quiz #10: 方法的覆盖</a>
+      <ul>
+        <li><a href="#解答-1">解答</a></li>
+      </ul>
+    </li>
+    <li><a href="#quiz-19-drop">Quiz #19: drop</a>
+      <ul>
+        <li><a href="#解答-2">解答</a></li>
+      </ul>
+    </li>
+    <li><a href="#quiz-22-宏的参数">Quiz #22: 宏的参数</a>
+      <ul>
+        <li><a href="#解答-3">解答</a></li>
+      </ul>
+    </li>
+    <li><a href="#quiz-24-关于宏的-hygiene">Quiz #24: 关于宏的 &lsquo;hygiene&rsquo;</a>
+      <ul>
+        <li><a href="#解答-4">解答</a></li>
+      </ul>
+    </li>
+    <li><a href="#quiz-33-rangefull">Quiz #33: RangeFull</a>
+      <ul>
+        <li><a href="#解答-5">解答</a></li>
       </ul>
     </li>
   </ul>

@@ -15,7 +15,7 @@
       <pubDate>Wed, 19 Oct 2022 23:30:23 +0800</pubDate>
       
       <guid>/posts/rust-quiz/</guid>
-      <description>https://dtolnay.github.io/rust-quiz 因为 Quiz 是乱序的，所以完成进度也是乱序的 Quiz 24：关于宏的 &amp;lsquo;hygiene&amp;rsquo; https://dtolnay.github.io/rust-quiz/24 What is the output of this Rust program? fn main() { let x: u8 = 1; const K: u8 = 2; macro_rules! m { () =&amp;gt; { print!(&amp;quot;{}{}&amp;quot;, x, K); }; } { let x: u8 = 3; const K: u8 = 4; m!(); }</description>
+      <description>https://dtolnay.github.io/rust-quiz 因为 Quiz 是乱序的，所以完成进度也是乱序的 Quiz #5: https://dtolnay.github.io/rust-quiz/5 What is the output of this Rust program? trait Trait { fn p(self); } impl&amp;lt;T&amp;gt; Trait for fn(T) { fn p(self) { print!(&amp;quot;1&amp;quot;); } } impl&amp;lt;T&amp;gt; Trait for fn(&amp;amp;T) { fn p(self) { print!(&amp;quot;2&amp;quot;); } } fn f(_: u8) {} fn g(_: &amp;amp;u8) {} fn main() { let a: fn(_) = f;</description>
     </item>
     
     <item>
