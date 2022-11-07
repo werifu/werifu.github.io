@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Note on 秘密</title>
+    <link>/tags/note/</link>
+    <description>Recent content in Note on 秘密</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>&amp;copy; 2020-2022 &lt;a href=&#34;https://www.github.com/werifu/&#34;&gt;Werifu&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Mon, 07 Nov 2022 22:41:10 +0800</lastBuildDate><atom:link href="/tags/note/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Note: Data Flow Analysis</title>
+      <link>/posts/static-analysis/</link>
+      <pubDate>Mon, 07 Nov 2022 22:41:10 +0800</pubDate>
+      
+      <guid>/posts/static-analysis/</guid>
+      <description>Preliminary 什么是 Input 和 Output States 程序是个状态机，在一个语句执行前后都应当有一个状态，保存着比如变量信息、上下文等等的内容，然后语句的执行其实就是状态机的一条边，改变了</description>
+    </item>
+    
+  </channel>
+</rss>
