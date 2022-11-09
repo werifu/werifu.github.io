@@ -8,9 +8,18 @@
     <language>zh</language>
     <copyright>&amp;copy; 2020-2022 &lt;a href=&#34;https://www.github.com/werifu/&#34;&gt;Werifu&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Mon, 07 Nov 2022 22:41:10 +0800</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 08 Nov 2022 22:26:17 +0800</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Note: Data Flow Analysis</title>
+      <title>Note: Data Flow Analysis - Foundations</title>
+      <link>/posts/data-flow--analysis-foundations/</link>
+      <pubDate>Tue, 08 Nov 2022 22:26:17 +0800</pubDate>
+      
+      <guid>/posts/data-flow--analysis-foundations/</guid>
+      <description>Iterative Algorithm 从更抽象的角度来审视我们的迭代算法，每个块（CFG 里的节点）都会有状态，那么整个程序里所有块能组成一个 k 维向量。 迭代每个节点的时候其实就是对 Block 作函</description>
+    </item>
+    
+    <item>
+      <title>Note: Data Flow Analysis - Applications</title>
       <link>/posts/static-analysis/</link>
       <pubDate>Mon, 07 Nov 2022 22:41:10 +0800</pubDate>
       

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html
+  lang="zh"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>Note: Data Flow Analysis - Foundations | 秘密</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.3" />
+<link rel="stylesheet" href="/css/eureka.min.c6ffe102c1e6b5a23c0250191fe25acb4c7cd5717a919d804a0781d56ca85f24f39ea04886173d30200f2f97c46b7ae5.css">
+<script defer src="/js/eureka.min.a3e627c430c1281e6e0f18283a36c9cd4ddd90b993c45656c2290b897d81d6b0753b8fd02dc595974e0b8afcb4e8e1ea.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&amp;family=Noto&#43;Serif&#43;SC:wght@400;600;700&amp;display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/rust.min.js"
+     crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/typescript.min.js"
+     crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/javascript.min.js"
+     crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/c.min.js"
+     crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/cpp.min.js"
+     crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/go.min.js"
+     crossorigin></script>
+<link rel="stylesheet" href="/css/highlightjs.min.2958991528e43eb6fc9b8c4f2b8e052f79c4010718e1d1e888a777620e9ee63021c2c57ec7417a3108019bb8c41943e6.css" media="print" onload="this.media='all';this.onload=null">
+
+
+<script defer type="text/javascript" src="/js/fontawesome.min.62367250f865fb431e8f98254d504ce92aa2a3c00e6cd4abecf076b04968c871718654c3184c818163cea55e9ca4de53.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="NJU 李樾 &amp; 谭添《软件分析》笔记 2">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"文章",
+      "item":"/posts/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"Note: Data Flow Analysis - Foundations",
+      "item":"/posts/data-flow--analysis-foundations/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/posts/data-flow--analysis-foundations/"
+    },
+    "headline": "Note: Data Flow Analysis - Foundations | 秘密","datePublished": "2022-11-08T22:26:17+08:00",
+    "dateModified": "2022-11-08T22:26:17+08:00",
+    "wordCount":  1739 ,
+    "author": {
+        "@type": "Person",
+        "name": ["werifu"]
+    },
+    "publisher": {
+        "@type": "Person",
+        "name": "Werifu",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "/images/icon.png"
+        }
+        },
+    "description": "NJU 李樾 \u0026 谭添《软件分析》笔记 2"
+}
+</script><meta property="og:title" content="Note: Data Flow Analysis - Foundations | 秘密" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="/images/icon.png">
+
+
+<meta property="og:url" content="/posts/data-flow--analysis-foundations/" />
+
+
+
+<meta property="og:description" content="NJU 李樾 &amp; 谭添《软件分析》笔记 2" />
+
+
+
+<meta property="og:locale" content="zh" />
+
+
+
+
+<meta property="og:site_name" content="秘密" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2022-11-08T22:26:17&#43;08:00" />
+
+
+<meta property="article:modified_time" content="2022-11-08T22:26:17&#43;08:00" />
+
+
+
+<meta property="article:section" content="posts" />
+
+
+<meta property="article:tag" content="Static Analysis" />
+
+
+
+
+
+<meta property="og:see_also" content="/posts/static-analysis/" />
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">秘密</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">About</a>
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">Posts</a>
+            <a href="/doujins/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">Doujins</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">浅色</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">深色</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">自动</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+  
+  
+  <div class="grid grid-cols-2 gap-4 lg:grid-cols-8 lg:pt-12">
+    <div
+      class=" bg-secondary-bg col-span-2 rounded px-6 py-8 lg:col-span-6"
+    >
+      <article class="prose">
+  <h1 class="mb-4">Note: Data Flow Analysis - Foundations</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2022-11-08</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>4分钟阅读时长</span>
+  </div>
+
+  
+
+  
+</div>
+
+
+  
+  
+
+  <h2 id="iterative-algorithm">Iterative Algorithm</h2>
+<p><img src="iter-algo-another-way.png" alt=""></p>
+<p>从更抽象的角度来审视我们的迭代算法，每个块（CFG 里的节点）都会有状态，那么整个程序里所有块能组成一个 k 维向量。</p>
+<p>迭代每个节点的时候其实就是对 Block 作函数转换。</p>
+<p>我们迭代的停止条件是【一次迭代后 tuple 没变】，其实就到达了不动点</p>
+<p><img src="fixed-point.png" alt=""></p>
+<p>不动点：</p>
+<blockquote>
+<p>数学上不动点的定义：
+$$ X = F(X) $$</p>
+</blockquote>
+<p>为什么标题叫 foundation：domain 并不止之前学的三种，我们可以分析更多的代码性质</p>
+<p>三个问题，后面会得到解决：</p>
+<ol>
+<li>
+<p>iter algo 一定能找到不动点吗？（算法一定会停下吗？）</p>
+<ol>
+<li>我们针对前面三种 domain 分析过，会停</li>
+<li>但是这是一个普遍的结论吗？对其他的 domain 呢</li>
+</ol>
+</li>
+<li>
+<p>如果一定能停，一定有唯一的不动点吗？</p>
+</li>
+<li>
+<p>什么时候能到达不动点？</p>
+</li>
+</ol>
+<h2 id="partial-order-偏序">Partial Order (偏序)</h2>
+<p>poset 偏序集</p>
+<p>满足下面三个要求的就是合法的偏序关系</p>
+<ul>
+<li>
+<p>自反 reflexivity</p>
+</li>
+<li>
+<p>反对称 antisymmetry</p>
+</li>
+<li>
+<p>传递 transitivity</p>
+</li>
+</ul>
+<p><img src="partial-order-def.png" alt=""></p>
+<p>例子1：</p>
+<p><strong>( integer, &lt;= )</strong> 是不是偏序集？</p>
+<ul>
+<li>性质都满足，是</li>
+</ul>
+<p>例子2：</p>
+<p><strong>( integer, &lt; )</strong> 是不是偏序集？</p>
+<ul>
+<li>不满足自反，不是</li>
+</ul>
+<p>为什么叫偏序？不是全部元素都能比较</p>
+<p><img src="partial-order-example4.png" alt=""></p>
+<p>（需要记住这个图，&lt;abc, 包含关系&gt; 组成的全格）</p>
+<h2 id="upper--lower-bounds-上下界">Upper &amp; Lower Bounds （上下界）</h2>
+<p><img src="upper-lower-bound.png" alt=""></p>
+<ul>
+<li>x 不一定在 S 里</li>
+</ul>
+<p><img src="lub-glb.png" alt=""></p>
+<ul>
+<li>最小上界 lub =&gt; join</li>
+<li>最大下界 glb =&gt; meet</li>
+</ul>
+<p><img src="2element.png" alt=""></p>
+<ul>
+<li>不是所有偏序集都有 lub 或者 glb</li>
+<li>如果 poset 有 lub 或者 glb，那么 lub 和 glb 一定是唯一的（用反对称性很容易证明：互相对同一个关系成立就一定是同一个）</li>
+</ul>
+<h2 id="lattice格">Lattice（格）</h2>
+<p><img src="lattice-def.png" alt=""></p>
+<p>poset 中每一对元素都存在最大下界和最小上界（大白话：两个元素都会 meet (∩) 和 join (∪) ）</p>
+<ul>
+<li>(integer, &lt;=) 是不是 lattice？
+<ul>
+<li>是，任意两个数可以 meet 和 join</li>
+</ul>
+</li>
+</ul>
+<h3 id="semilattice半格">Semilattice（半格）</h3>
+<p><img src="semilattice-def.png" alt=""></p>
+<ul>
+<li>P 里任意两个元素都有 lub 和 glb，就是半格</li>
+</ul>
+<h3 id="complete-lattice全格">Complete Lattice（全格）</h3>
+<p><img src="complete-lattice-def.png" alt=""></p>
+<ul>
+<li>任意 P 的子集都会有 lub 和 glb 就是全格</li>
+<li>(integer, &lt;=) 是不是 compete lattice？
+<ul>
+<li>否，整数集不符合（找不到最小的上界/最大的下界）</li>
+</ul>
+</li>
+</ul>
+<p><img src="top-bottom.png" alt=""></p>
+<ul>
+<li>每个有穷的格一定是完全格</li>
+<li>反命题为伪：{ [0,1]小数集, &lt; } 完全且无穷：任意子集都能找到一个上下限</li>
+</ul>
+<h3 id="product-lattice">Product Lattice</h3>
+<p><img src="product-lattice.png" alt=""></p>
+<ul>
+<li>每个 L 都是 complete，那么组成的 product lattice $L^n$ 也是 complete 的</li>
+</ul>
+<h2 id="data-flow-analysis-framework-via-lattice">Data Flow Analysis Framework via Lattice</h2>
+<p>其实是 semi，但是用 lattice 来表示更加方便</p>
+<p>定义一个 Data flow analysis 的框架：由 &lt;方向、格、转换函数&gt; 组成</p>
+<p><img src="framework.png" alt=""></p>
+<p>例子：</p>
+<p><img src="analysis-lattice.png" alt=""></p>
+<ul>
+<li>顺序是反过来的（ Block 的执行流跟格的方向）</li>
+<li>{a, b, c} 用 bit vector 表示就是 111, {} 就是 000</li>
+</ul>
+<p><img src="nature-of-analysis.png" alt=""></p>
+<p>Data flow analysis 的本质：在一个格上迭代一个 transfer、并不断 meet 和 join</p>
+<p>回答前面的问题：</p>
+<ol>
+<li>迭代算法一定能达到不动点吗
+<ol>
+<li>OUT never shrinks (monotonicity)</li>
+</ol>
+</li>
+<li>如果能，可能有多个不动点吗
+<ol>
+<li>可以</li>
+</ol>
+</li>
+<li>如果有多个不动点，能不能找到最好的（迭代次数最少）
+<ol>
+<li>可以</li>
+</ol>
+</li>
+</ol>
+<h3 id="monotonicity">Monotonicity</h3>
+<p><img src="monotonicity.png" alt=""></p>
+<p>不动点定理</p>
+<p><img src="fixed-point-theorem.png" alt=""></p>
+<ul>
+<li>全格、单调、有限 =&gt; 就能迭代出最优的不动点</li>
+<li>complete 不一定 finite</li>
+</ul>
+<p>求证:</p>
+<ol>
+<li>存在不动点</li>
+<li>迭代得到的不动点最小</li>
+</ol>
+<p>证明：</p>
+<ol>
+<li>fixed point exists</li>
+</ol>
+<p><img src="fixed-point-exists.png" alt=""></p>
+<ol start="2">
+<li>least fixed point</li>
+</ol>
+<p>数学归纳法: 假设 k 成立 + 证明初始成立 =&gt; 证明 k + 1 成立 =&gt; 定理成立</p>
+<p><img src="proof-least-fixed-point.png" alt=""></p>
+<p>证出来是 unique fixed point</p>
+<h2 id="relative-between-iter-algo--fixed-point-theorem">Relative between Iter Algo &amp; Fixed Point Theorem</h2>
+<p>迭代算法能不能关联上不动点定理？能关联上才能说这个迭代算法能找到最优的不动点。</p>
+<p>直觉上的证明：</p>
+<p><img src="relative.png" alt=""></p>
+<ol>
+<li>单调：OUT 不会 shrink (gen - kill 单调)</li>
+<li>有限：很显然，集合是有限的，集合的有限次幂也是</li>
+</ol>
+<p>多少次迭代能到达不动点？</p>
+<p><img src="height.png" alt=""></p>
+<ul>
+<li>最坏情况 k 个块 (nodes in CFG，在 example 的视角就是一个比特)、高度 h，最坏情况是 i = h * k 次迭代</li>
+</ul>
+<h2 id="may-and-must-analysis-a-lattice-view">May and Must Analysis, a Lattice View</h2>
+<h3 id="may">May</h3>
+<p><img src="may.png" alt=""></p>
+<p>在 Reaching Definition Analysis 里，1 是能 reach，0 是不能 reach，即在程序终点这个地方，有哪些定义是可能被用到的。</p>
+<p>我们从空集去找，就是我们从<strong>敢</strong>说程序里所有的定义都不会被消费到，显然是不对的，我们从不安全的一个状态去找到安全的一个点。</p>
+<p>注意 bottom 是 Basic Blocks 的顶点，也就是程序的开始</p>
+<p>一定会找到最小不动点，前面证明过了</p>
+<p><img src="may-lattice2.png" alt=""></p>
+<p>top 是最没用的（相当于整个程序里的定义全部都<strong>可能</strong>到达末尾，能到结束的定义都在里面，但是有部分并不会到，所以是安全的，做了一些多余的防范）</p>
+<h3 id="must">Must</h3>
+<p>May Analysis 是从错里面去改正，Must 是从对的里去找错，前者是 sound 的，后者是 complete 的。</p>
+<p><img src="must-lattice1.png" alt=""></p>
+<h2 id="how-precise-is-our-solution">How Precise is Our Solution</h2>
+<p>有些分支永远不会执行如 <code>if (false) </code>，我们依然认为这条分支里的数据是有用的，这样就造成了失真</p>
+<h3 id="meet-over-all-paths-solution-mop">Meet-Over-All-Paths Solution (MOP)</h3>
+<p>假设有个程序 P = Entry -&gt; S1 -&gt; S2 -&gt; &hellip; -&gt; Si</p>
+<p>$$ MOP[S_i] = ∪/∩ F_p(OUT[Entry]) $$</p>
+<p>MOP 会计算 data-flow 的值，然后把他们 meet / join</p>
+<p><img src="mop-vs-iter.png" alt=""></p>
+<ul>
+<li>之前的迭代算法是 bfs，一边 meet/join 一边走，MOP 是 dfs，把 path 走完再 meet/join</li>
+</ul>
+<h3 id="iter-algo-vs-mop">Iter Algo VS MOP</h3>
+<p><img src="mop-vs-iter-proof.png" alt=""></p>
+<ul>
+<li>谁更准：MOP</li>
+</ul>
+<p>什么时候等于？</p>
+<p><img src="f-distributive.png" alt=""></p>
+<ul>
+<li>F 有可分配性</li>
+<li>之前的三个分析都是可分配的</li>
+</ul>
+<h3 id="constant-propagation">Constant Propagation</h3>
+<p>作业：</p>
+<p><img src="cosntant-propagation.png" alt=""></p>
+<p><img src="constant-propagation-lattice.png" alt=""></p>
+<p>V 集合有三种类型的值：</p>
+<ul>
+<li>未定义（Undefined）</li>
+<li>某个具体值</li>
+<li>非常量（Not A Constant）</li>
+</ul>
+<p><img src="constant-propagation-transfer-fn.png" alt=""></p>
+<p><img src="mop-iter-truth.png" alt=""></p>
+<p>在上面的例子里，显然 MOP 更准。肉眼可见 c 是个常量，只看结果</p>
+<h2 id="worklist-algorithm">Worklist Algorithm</h2>
+<p>是对 Iterative Algorithm 的优化</p>
+<p>Iter Algo 的缺点：只要有一个 Block 发生变化，就要把全部都重新算一遍</p>
+<p><img src="worklist-algorithm.png" alt=""></p>
+<ul>
+<li>把发生变化的丢队列里，然后只计算需要更新的</li>
+</ul>
+
+</article>
+
+
+      
+        <div class="my-4">
+    
+    <a href="/tags/static-analysis/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 me-2 hover:text-eureka">#Static Analysis</a>
+    
+</div>
+      
+
+      
+
+
+
+      
+
+      
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">下一页</span>
+        <a href="/posts/static-analysis/" class="block">Note: Data Flow Analysis - Applications</a>
+      
+    </div>
+  </div>
+
+
+      
+
+
+
+  <script id="utterances" src="https://utteranc.es/client.js"
+            issue-term=pathname
+            repo=werifu/werifu.github.io
+              theme=preferred-color-scheme
+        crossorigin="anonymous"
+        async>
+</script>
+<script>
+    if (storageColorScheme == "Light") {
+      document.getElementById('utterances').setAttribute('theme', 'github-light')
+    } else if (storageColorScheme == "Dark") {
+      document.getElementById('utterances').setAttribute('theme', 'github-dark')
+    }
+</script>
+
+    </div>
+    
+      <div class="col-span-2">
+        
+        
+          <div
+  class="
+    bg-primary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>本页内容</h3>
+</div>
+<div
+  class="sticky-toc  hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#iterative-algorithm">Iterative Algorithm</a></li>
+    <li><a href="#partial-order-偏序">Partial Order (偏序)</a></li>
+    <li><a href="#upper--lower-bounds-上下界">Upper &amp; Lower Bounds （上下界）</a></li>
+    <li><a href="#lattice格">Lattice（格）</a>
+      <ul>
+        <li><a href="#semilattice半格">Semilattice（半格）</a></li>
+        <li><a href="#complete-lattice全格">Complete Lattice（全格）</a></li>
+        <li><a href="#product-lattice">Product Lattice</a></li>
+      </ul>
+    </li>
+    <li><a href="#data-flow-analysis-framework-via-lattice">Data Flow Analysis Framework via Lattice</a>
+      <ul>
+        <li><a href="#monotonicity">Monotonicity</a></li>
+      </ul>
+    </li>
+    <li><a href="#relative-between-iter-algo--fixed-point-theorem">Relative between Iter Algo &amp; Fixed Point Theorem</a></li>
+    <li><a href="#may-and-must-analysis-a-lattice-view">May and Must Analysis, a Lattice View</a>
+      <ul>
+        <li><a href="#may">May</a></li>
+        <li><a href="#must">Must</a></li>
+      </ul>
+    </li>
+    <li><a href="#how-precise-is-our-solution">How Precise is Our Solution</a>
+      <ul>
+        <li><a href="#meet-over-all-paths-solution-mop">Meet-Over-All-Paths Solution (MOP)</a></li>
+        <li><a href="#iter-algo-vs-mop">Iter Algo VS MOP</a></li>
+        <li><a href="#constant-propagation">Constant Propagation</a></li>
+      </ul>
+    </li>
+    <li><a href="#worklist-algorithm">Worklist Algorithm</a></li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+        
+      </div>
+    
+
+    
+    
+      <div
+        class=" bg-secondary-bg prose col-span-2 rounded p-6 lg:col-span-6"
+      >
+        <h3>相关</h3>
+        
+          <a href="/posts/static-analysis/" class="no-underline">Note: Data Flow Analysis - Applications</a>
+          <br />
+        
+      </div>
+    
+  </div>
+
+  
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        hljs.highlightAll();
+      });
+    </script>
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2020-2022 <a href="https://www.github.com/werifu/">Werifu</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>
