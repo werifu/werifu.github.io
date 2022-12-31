@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>牢骚 on 秘密</title>
+    <link>/tags/%E7%89%A2%E9%AA%9A/</link>
+    <description>Recent content in 牢骚 on 秘密</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>&amp;copy; 2020-2022 &lt;a href=&#34;https://www.github.com/werifu/&#34;&gt;Werifu&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Sat, 31 Dec 2022 20:29:34 +0800</lastBuildDate><atom:link href="/tags/%E7%89%A2%E9%AA%9A/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>写在2022年末</title>
+      <link>/posts/end-of-2022/</link>
+      <pubDate>Sat, 31 Dec 2022 20:29:34 +0800</pubDate>
+      
+      <guid>/posts/end-of-2022/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
