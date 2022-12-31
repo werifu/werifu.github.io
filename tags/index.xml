@@ -1,103 +1,90 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Tags on 秘密</title>
-    <link>/tags/</link>
-    <description>Recent content in Tags on 秘密</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh</language>
-    <copyright>&amp;copy; 2020-2022 &lt;a href=&#34;https://www.github.com/werifu/&#34;&gt;Werifu&lt;/a&gt;
-</copyright>
-    <lastBuildDate>Sat, 31 Dec 2022 20:29:34 +0800</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>牢骚</title>
-      <link>/tags/%E7%89%A2%E9%AA%9A/</link>
-      <pubDate>Sat, 31 Dec 2022 20:29:34 +0800</pubDate>
-      
-      <guid>/tags/%E7%89%A2%E9%AA%9A/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Note</title>
-      <link>/tags/note/</link>
-      <pubDate>Tue, 08 Nov 2022 22:26:17 +0800</pubDate>
-      
-      <guid>/tags/note/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Static Analysis</title>
-      <link>/tags/static-analysis/</link>
-      <pubDate>Tue, 08 Nov 2022 22:26:17 +0800</pubDate>
-      
-      <guid>/tags/static-analysis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rust</title>
-      <link>/tags/rust/</link>
-      <pubDate>Wed, 19 Oct 2022 23:30:23 +0800</pubDate>
-      
-      <guid>/tags/rust/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>TypeScript</title>
-      <link>/tags/typescript/</link>
-      <pubDate>Mon, 12 Sep 2022 18:02:35 +0800</pubDate>
-      
-      <guid>/tags/typescript/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>OS</title>
-      <link>/tags/os/</link>
-      <pubDate>Sat, 30 Jul 2022 00:29:54 +0800</pubDate>
-      
-      <guid>/tags/os/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>RiscV</title>
-      <link>/tags/riscv/</link>
-      <pubDate>Sat, 30 Jul 2022 00:29:54 +0800</pubDate>
-      
-      <guid>/tags/riscv/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>安全</title>
-      <link>/tags/%E5%AE%89%E5%85%A8/</link>
-      <pubDate>Thu, 28 Oct 2021 18:40:44 +0800</pubDate>
-      
-      <guid>/tags/%E5%AE%89%E5%85%A8/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>浏览器</title>
-      <link>/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/</link>
-      <pubDate>Thu, 28 Oct 2021 18:40:44 +0800</pubDate>
-      
-      <guid>/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>前端</title>
-      <link>/tags/%E5%89%8D%E7%AB%AF/</link>
-      <pubDate>Thu, 28 Oct 2021 18:40:44 +0800</pubDate>
-      
-      <guid>/tags/%E5%89%8D%E7%AB%AF/</guid>
-      <description></description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>Tags on 秘密</title>
+        <link>/tags/</link>
+        <description>Recent content in Tags on 秘密</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <lastBuildDate>Sat, 31 Dec 2022 20:29:34 +0800</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>牢骚</title>
+        <link>/tags/%E7%89%A2%E9%AA%9A/</link>
+        <pubDate>Sat, 31 Dec 2022 20:29:34 +0800</pubDate>
+        
+        <guid>/tags/%E7%89%A2%E9%AA%9A/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Note</title>
+        <link>/tags/note/</link>
+        <pubDate>Tue, 08 Nov 2022 22:26:17 +0800</pubDate>
+        
+        <guid>/tags/note/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Static Analysis</title>
+        <link>/tags/static-analysis/</link>
+        <pubDate>Tue, 08 Nov 2022 22:26:17 +0800</pubDate>
+        
+        <guid>/tags/static-analysis/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Rust</title>
+        <link>/tags/rust/</link>
+        <pubDate>Wed, 19 Oct 2022 23:30:23 +0800</pubDate>
+        
+        <guid>/tags/rust/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>TypeScript</title>
+        <link>/tags/typescript/</link>
+        <pubDate>Mon, 12 Sep 2022 18:02:35 +0800</pubDate>
+        
+        <guid>/tags/typescript/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>OS</title>
+        <link>/tags/os/</link>
+        <pubDate>Sat, 30 Jul 2022 00:29:54 +0800</pubDate>
+        
+        <guid>/tags/os/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>RiscV</title>
+        <link>/tags/riscv/</link>
+        <pubDate>Sat, 30 Jul 2022 00:29:54 +0800</pubDate>
+        
+        <guid>/tags/riscv/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>安全</title>
+        <link>/tags/%E5%AE%89%E5%85%A8/</link>
+        <pubDate>Thu, 28 Oct 2021 18:40:44 +0800</pubDate>
+        
+        <guid>/tags/%E5%AE%89%E5%85%A8/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>浏览器</title>
+        <link>/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/</link>
+        <pubDate>Thu, 28 Oct 2021 18:40:44 +0800</pubDate>
+        
+        <guid>/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>前端</title>
+        <link>/tags/%E5%89%8D%E7%AB%AF/</link>
+        <pubDate>Thu, 28 Oct 2021 18:40:44 +0800</pubDate>
+        
+        <guid>/tags/%E5%89%8D%E7%AB%AF/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
 </rss>

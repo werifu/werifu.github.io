@@ -1,31 +1,878 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Note on 秘密</title>
-    <link>/tags/note/</link>
-    <description>Recent content in Note on 秘密</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh</language>
-    <copyright>&amp;copy; 2020-2022 &lt;a href=&#34;https://www.github.com/werifu/&#34;&gt;Werifu&lt;/a&gt;
-</copyright>
-    <lastBuildDate>Tue, 08 Nov 2022 22:26:17 +0800</lastBuildDate><atom:link href="/tags/note/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Note: Data Flow Analysis - Foundations</title>
-      <link>/posts/data-flow--analysis-foundations/</link>
-      <pubDate>Tue, 08 Nov 2022 22:26:17 +0800</pubDate>
-      
-      <guid>/posts/data-flow--analysis-foundations/</guid>
-      <description>Iterative Algorithm 从更抽象的角度来审视我们的迭代算法，每个块（CFG 里的节点）都会有状态，那么整个程序里所有块能组成一个 k 维向量。 迭代每个节点的时候其实就是对 Block 作函</description>
-    </item>
-    
-    <item>
-      <title>Note: Data Flow Analysis - Applications</title>
-      <link>/posts/static-analysis/</link>
-      <pubDate>Mon, 07 Nov 2022 22:41:10 +0800</pubDate>
-      
-      <guid>/posts/static-analysis/</guid>
-      <description>Preliminary 什么是 Input 和 Output States 程序是个状态机，在一个语句执行前后都应当有一个状态，保存着比如变量信息、上下文等等的内容，然后语句的执行其实就是状态机的一条边，改变了</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>Note on 秘密</title>
+        <link>/tags/note/</link>
+        <description>Recent content in Note on 秘密</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <lastBuildDate>Tue, 08 Nov 2022 22:26:17 +0800</lastBuildDate><atom:link href="/tags/note/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Note: Data Flow Analysis - Foundations</title>
+        <link>/p/note-data-flow-analysis-foundations/</link>
+        <pubDate>Tue, 08 Nov 2022 22:26:17 +0800</pubDate>
+        
+        <guid>/p/note-data-flow-analysis-foundations/</guid>
+        <description>&lt;h2 id=&#34;iterative-algorithm&#34;&gt;Iterative Algorithm&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/iter-algo-another-way.png&#34;
+	width=&#34;947&#34;
+	height=&#34;710&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;133&#34;
+		data-flex-basis=&#34;320px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;从更抽象的角度来审视我们的迭代算法，每个块（CFG 里的节点）都会有状态，那么整个程序里所有块能组成一个 k 维向量。&lt;/p&gt;
+&lt;p&gt;迭代每个节点的时候其实就是对 Block 作函数转换。&lt;/p&gt;
+&lt;p&gt;我们迭代的停止条件是【一次迭代后 tuple 没变】，其实就到达了不动点&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/fixed-point.png&#34;
+	width=&#34;947&#34;
+	height=&#34;707&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;133&#34;
+		data-flex-basis=&#34;321px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;不动点：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;数学上不动点的定义：
+$$ X = F(X) $$&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;为什么标题叫 foundation：domain 并不止之前学的三种，我们可以分析更多的代码性质&lt;/p&gt;
+&lt;p&gt;三个问题，后面会得到解决：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;iter algo 一定能找到不动点吗？（算法一定会停下吗？）&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;我们针对前面三种 domain 分析过，会停&lt;/li&gt;
+&lt;li&gt;但是这是一个普遍的结论吗？对其他的 domain 呢&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果一定能停，一定有唯一的不动点吗？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;什么时候能到达不动点？&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;partial-order-偏序&#34;&gt;Partial Order (偏序)&lt;/h2&gt;
+&lt;p&gt;poset 偏序集&lt;/p&gt;
+&lt;p&gt;满足下面三个要求的就是合法的偏序关系&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;自反 reflexivity&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;反对称 antisymmetry&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;传递 transitivity&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/partial-order-def.png&#34;
+	width=&#34;939&#34;
+	height=&#34;260&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;361&#34;
+		data-flex-basis=&#34;866px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;例子1：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;( integer, &amp;lt;= )&lt;/strong&gt; 是不是偏序集？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;性质都满足，是&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;例子2：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;( integer, &amp;lt; )&lt;/strong&gt; 是不是偏序集？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;不满足自反，不是&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;为什么叫偏序？不是全部元素都能比较&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/partial-order-example4.png&#34;
+	width=&#34;916&#34;
+	height=&#34;389&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;235&#34;
+		data-flex-basis=&#34;565px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;（需要记住这个图，&amp;lt;abc, 包含关系&amp;gt; 组成的全格）&lt;/p&gt;
+&lt;h2 id=&#34;upper--lower-bounds-上下界&#34;&gt;Upper &amp;amp; Lower Bounds （上下界）&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/upper-lower-bound.png&#34;
+	width=&#34;834&#34;
+	height=&#34;167&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;499&#34;
+		data-flex-basis=&#34;1198px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;x 不一定在 S 里&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/lub-glb.png&#34;
+	width=&#34;922&#34;
+	height=&#34;199&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;463&#34;
+		data-flex-basis=&#34;1111px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;最小上界 lub =&amp;gt; join&lt;/li&gt;
+&lt;li&gt;最大下界 glb =&amp;gt; meet&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/2element.png&#34;
+	width=&#34;918&#34;
+	height=&#34;166&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;553&#34;
+		data-flex-basis=&#34;1327px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;不是所有偏序集都有 lub 或者 glb&lt;/li&gt;
+&lt;li&gt;如果 poset 有 lub 或者 glb，那么 lub 和 glb 一定是唯一的（用反对称性很容易证明：互相对同一个关系成立就一定是同一个）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;lattice格&#34;&gt;Lattice（格）&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/lattice-def.png&#34;
+	width=&#34;851&#34;
+	height=&#34;134&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;635&#34;
+		data-flex-basis=&#34;1524px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;poset 中每一对元素都存在最大下界和最小上界（大白话：两个元素都会 meet (∩) 和 join (∪) ）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(integer, &amp;lt;=) 是不是 lattice？
+&lt;ul&gt;
+&lt;li&gt;是，任意两个数可以 meet 和 join&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;semilattice半格&#34;&gt;Semilattice（半格）&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/semilattice-def.png&#34;
+	width=&#34;889&#34;
+	height=&#34;189&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;470&#34;
+		data-flex-basis=&#34;1128px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;P 里任意两个元素都有 lub 和 glb，就是半格&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;complete-lattice全格&#34;&gt;Complete Lattice（全格）&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/complete-lattice-def.png&#34;
+	width=&#34;856&#34;
+	height=&#34;121&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;707&#34;
+		data-flex-basis=&#34;1697px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;任意 P 的子集都会有 lub 和 glb 就是全格&lt;/li&gt;
+&lt;li&gt;(integer, &amp;lt;=) 是不是 compete lattice？
+&lt;ul&gt;
+&lt;li&gt;否，整数集不符合（找不到最小的上界/最大的下界）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/top-bottom.png&#34;
+	width=&#34;867&#34;
+	height=&#34;293&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;295&#34;
+		data-flex-basis=&#34;710px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每个有穷的格一定是完全格&lt;/li&gt;
+&lt;li&gt;反命题为伪：{ [0,1]小数集, &amp;lt; } 完全且无穷：任意子集都能找到一个上下限&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;product-lattice&#34;&gt;Product Lattice&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/product-lattice.png&#34;
+	width=&#34;967&#34;
+	height=&#34;352&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;274&#34;
+		data-flex-basis=&#34;659px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每个 L 都是 complete，那么组成的 product lattice $L^n$ 也是 complete 的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;data-flow-analysis-framework-via-lattice&#34;&gt;Data Flow Analysis Framework via Lattice&lt;/h2&gt;
+&lt;p&gt;其实是 semi，但是用 lattice 来表示更加方便&lt;/p&gt;
+&lt;p&gt;定义一个 Data flow analysis 的框架：由 &amp;lt;方向、格、转换函数&amp;gt; 组成&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/framework.png&#34;
+	width=&#34;819&#34;
+	height=&#34;279&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;293&#34;
+		data-flex-basis=&#34;704px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;例子：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/analysis-lattice.png&#34;
+	width=&#34;886&#34;
+	height=&#34;311&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;284&#34;
+		data-flex-basis=&#34;683px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;顺序是反过来的（ Block 的执行流跟格的方向）&lt;/li&gt;
+&lt;li&gt;{a, b, c} 用 bit vector 表示就是 111, {} 就是 000&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/nature-of-analysis.png&#34;
+	width=&#34;834&#34;
+	height=&#34;78&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;1069&#34;
+		data-flex-basis=&#34;2566px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Data flow analysis 的本质：在一个格上迭代一个 transfer、并不断 meet 和 join&lt;/p&gt;
+&lt;p&gt;回答前面的问题：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;迭代算法一定能达到不动点吗
+&lt;ol&gt;
+&lt;li&gt;OUT never shrinks (monotonicity)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;如果能，可能有多个不动点吗
+&lt;ol&gt;
+&lt;li&gt;可以&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;如果有多个不动点，能不能找到最好的（迭代次数最少）
+&lt;ol&gt;
+&lt;li&gt;可以&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;monotonicity&#34;&gt;Monotonicity&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/monotonicity.png&#34;
+	width=&#34;859&#34;
+	height=&#34;135&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;636&#34;
+		data-flex-basis=&#34;1527px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;不动点定理&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/fixed-point-theorem.png&#34;
+	width=&#34;871&#34;
+	height=&#34;316&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;275&#34;
+		data-flex-basis=&#34;661px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;全格、单调、有限 =&amp;gt; 就能迭代出最优的不动点&lt;/li&gt;
+&lt;li&gt;complete 不一定 finite&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;求证:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;存在不动点&lt;/li&gt;
+&lt;li&gt;迭代得到的不动点最小&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;证明：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;fixed point exists&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/fixed-point-exists.png&#34;
+	width=&#34;872&#34;
+	height=&#34;479&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;182&#34;
+		data-flex-basis=&#34;436px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;least fixed point&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;数学归纳法: 假设 k 成立 + 证明初始成立 =&amp;gt; 证明 k + 1 成立 =&amp;gt; 定理成立&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/proof-least-fixed-point.png&#34;
+	width=&#34;860&#34;
+	height=&#34;614&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;140&#34;
+		data-flex-basis=&#34;336px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;证出来是 unique fixed point&lt;/p&gt;
+&lt;h2 id=&#34;relative-between-iter-algo--fixed-point-theorem&#34;&gt;Relative between Iter Algo &amp;amp; Fixed Point Theorem&lt;/h2&gt;
+&lt;p&gt;迭代算法能不能关联上不动点定理？能关联上才能说这个迭代算法能找到最优的不动点。&lt;/p&gt;
+&lt;p&gt;直觉上的证明：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/relative.png&#34;
+	width=&#34;948&#34;
+	height=&#34;694&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;136&#34;
+		data-flex-basis=&#34;327px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;单调：OUT 不会 shrink (gen - kill 单调)&lt;/li&gt;
+&lt;li&gt;有限：很显然，集合是有限的，集合的有限次幂也是&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;多少次迭代能到达不动点？&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/height.png&#34;
+	width=&#34;899&#34;
+	height=&#34;345&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;260&#34;
+		data-flex-basis=&#34;625px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;最坏情况 k 个块 (nodes in CFG，在 example 的视角就是一个比特)、高度 h，最坏情况是 i = h * k 次迭代&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;may-and-must-analysis-a-lattice-view&#34;&gt;May and Must Analysis, a Lattice View&lt;/h2&gt;
+&lt;h3 id=&#34;may&#34;&gt;May&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/may.png&#34;
+	width=&#34;432&#34;
+	height=&#34;682&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;63&#34;
+		data-flex-basis=&#34;152px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;在 Reaching Definition Analysis 里，1 是能 reach，0 是不能 reach，即在程序终点这个地方，有哪些定义是可能被用到的。&lt;/p&gt;
+&lt;p&gt;我们从空集去找，就是我们从&lt;strong&gt;敢&lt;/strong&gt;说程序里所有的定义都不会被消费到，显然是不对的，我们从不安全的一个状态去找到安全的一个点。&lt;/p&gt;
+&lt;p&gt;注意 bottom 是 Basic Blocks 的顶点，也就是程序的开始&lt;/p&gt;
+&lt;p&gt;一定会找到最小不动点，前面证明过了&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/may-lattice2.png&#34;
+	width=&#34;472&#34;
+	height=&#34;675&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;69&#34;
+		data-flex-basis=&#34;167px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;top 是最没用的（相当于整个程序里的定义全部都&lt;strong&gt;可能&lt;/strong&gt;到达末尾，能到结束的定义都在里面，但是有部分并不会到，所以是安全的，做了一些多余的防范）&lt;/p&gt;
+&lt;h3 id=&#34;must&#34;&gt;Must&lt;/h3&gt;
+&lt;p&gt;May Analysis 是从错里面去改正，Must 是从对的里去找错，前者是 sound 的，后者是 complete 的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/must-lattice1.png&#34;
+	width=&#34;498&#34;
+	height=&#34;704&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;70&#34;
+		data-flex-basis=&#34;169px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;how-precise-is-our-solution&#34;&gt;How Precise is Our Solution&lt;/h2&gt;
+&lt;p&gt;有些分支永远不会执行如 &lt;code&gt;if (false) &lt;/code&gt;，我们依然认为这条分支里的数据是有用的，这样就造成了失真&lt;/p&gt;
+&lt;h3 id=&#34;meet-over-all-paths-solution-mop&#34;&gt;Meet-Over-All-Paths Solution (MOP)&lt;/h3&gt;
+&lt;p&gt;假设有个程序 P = Entry -&amp;gt; S1 -&amp;gt; S2 -&amp;gt; &amp;hellip; -&amp;gt; Si&lt;/p&gt;
+&lt;p&gt;$$ MOP[S_i] = ∪/∩ F_p(OUT[Entry]) $$&lt;/p&gt;
+&lt;p&gt;MOP 会计算 data-flow 的值，然后把他们 meet / join&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/mop-vs-iter.png&#34;
+	width=&#34;922&#34;
+	height=&#34;666&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;138&#34;
+		data-flex-basis=&#34;332px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;之前的迭代算法是 bfs，一边 meet/join 一边走，MOP 是 dfs，把 path 走完再 meet/join&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;iter-algo-vs-mop&#34;&gt;Iter Algo VS MOP&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/mop-vs-iter-proof.png&#34;
+	width=&#34;929&#34;
+	height=&#34;482&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;192&#34;
+		data-flex-basis=&#34;462px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;谁更准：MOP&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;什么时候等于？&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/f-distributive.png&#34;
+	width=&#34;875&#34;
+	height=&#34;120&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;729&#34;
+		data-flex-basis=&#34;1750px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;F 有可分配性&lt;/li&gt;
+&lt;li&gt;之前的三个分析都是可分配的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;constant-propagation&#34;&gt;Constant Propagation&lt;/h3&gt;
+&lt;p&gt;作业：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/cosntant-propagation.png&#34;
+	width=&#34;937&#34;
+	height=&#34;539&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;173&#34;
+		data-flex-basis=&#34;417px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/constant-propagation-lattice.png&#34;
+	width=&#34;899&#34;
+	height=&#34;648&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;138&#34;
+		data-flex-basis=&#34;332px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;V 集合有三种类型的值：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;未定义（Undefined）&lt;/li&gt;
+&lt;li&gt;某个具体值&lt;/li&gt;
+&lt;li&gt;非常量（Not A Constant）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/constant-propagation-transfer-fn.png&#34;
+	width=&#34;960&#34;
+	height=&#34;487&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;197&#34;
+		data-flex-basis=&#34;473px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/mop-iter-truth.png&#34;
+	width=&#34;921&#34;
+	height=&#34;342&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;269&#34;
+		data-flex-basis=&#34;646px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;在上面的例子里，显然 MOP 更准。肉眼可见 c 是个常量，只看结果&lt;/p&gt;
+&lt;h2 id=&#34;worklist-algorithm&#34;&gt;Worklist Algorithm&lt;/h2&gt;
+&lt;p&gt;是对 Iterative Algorithm 的优化&lt;/p&gt;
+&lt;p&gt;Iter Algo 的缺点：只要有一个 Block 发生变化，就要把全部都重新算一遍&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-foundations/worklist-algorithm.png&#34;
+	width=&#34;884&#34;
+	height=&#34;659&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;134&#34;
+		data-flex-basis=&#34;321px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;把发生变化的丢队列里，然后只计算需要更新的&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>Note: Data Flow Analysis - Applications</title>
+        <link>/p/note-data-flow-analysis-applications/</link>
+        <pubDate>Mon, 07 Nov 2022 22:41:10 +0800</pubDate>
+        
+        <guid>/p/note-data-flow-analysis-applications/</guid>
+        <description>&lt;h2 id=&#34;preliminary&#34;&gt;Preliminary&lt;/h2&gt;
+&lt;h3 id=&#34;什么是-input-和-output-states&#34;&gt;什么是 Input 和 Output States&lt;/h3&gt;
+&lt;p&gt;程序是个状态机，在一个语句执行前后都应当有一个状态，保存着比如变量信息、上下文等等的内容，然后语句的执行其实就是状态机的一条边，改变了程序的状态&lt;/p&gt;
+&lt;p&gt;对于一个 Basic Block 而言，执行流不过以下三种：1 to 1, 1 to n, n to 1&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-applications/in-out-states.png&#34;
+	width=&#34;571&#34;
+	height=&#34;273&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;209&#34;
+		data-flex-basis=&#34;501px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;reaching-definition-analysis&#34;&gt;Reaching Definition Analysis&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-applications/rda-def.png&#34;
+	width=&#34;610&#34;
+	height=&#34;95&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;642&#34;
+		data-flex-basis=&#34;1541px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;rda 能确定一个在 program point p 时的定义 D 在 program point q 是否有效的，即这个 D 里定义的变量 v 能不能在 q 时被安全地使用。如果有一条 path 能让 D 能够 reach 到 q，那么在 q 点使用 v 是安全的（即能够用到在 p 点定义的 v）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-applications/rda-fail.png&#34;
+	width=&#34;332&#34;
+	height=&#34;278&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;119&#34;
+		data-flex-basis=&#34;286px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;上图里，v 在 p -&amp;gt; q 的路径上被重新定义了，说明我们无法在 q 点之后消费到 p 点定义的 v，我们说 definition d 在 q 点是无效的&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;应用：可以判断用于变量是否被初始化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;algorithm&#34;&gt;Algorithm&lt;/h3&gt;
+&lt;p&gt;使用 forward analysis，从头开始分析&lt;/p&gt;
+&lt;p&gt;公式：&lt;/p&gt;
+&lt;p&gt;$$ OUT[B] = gen[B] ∪ (IN[B] - kill[B])$$
+$$ IN[B] = ∪ OUT[P] $$&lt;/p&gt;
+&lt;p&gt;其中 P 是 B 的所有前驱块&lt;/p&gt;
+&lt;p&gt;gen[B] 是在 B 中的定义，比如:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;B: &lt;code&gt;D1: m = a; D2: n = b;&lt;/code&gt; 则 gen[B] == {D1, D2}&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;kill[B] 是在其他块中会被 B 里定义所覆盖的定义，比如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;B1: &lt;code&gt;D1: m = a&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;B2: &lt;code&gt;D2: m = b&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;那么 kill[B1] == {D2}&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;算法伪代码如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-applications/algo-rda.png&#34;
+	width=&#34;923&#34;
+	height=&#34;673&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;137&#34;
+		data-flex-basis=&#34;329px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;算法脑跑，要点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;结束条件是所有 OUT 在上次迭代里不变&lt;/li&gt;
+&lt;li&gt;May Analysis，即 sound 的，可能误报但不会漏报，有可能被覆盖，但可能在某些 path 里并不会被覆盖&lt;/li&gt;
+&lt;li&gt;算法一定会停下：因为 OUT 的大小非减，而有明确的上界（即定义的全集，在 bit vector 里就是全 1），因此一定会收敛，停下的点叫不动点 (fixed point)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-applications/rda-example.png&#34;
+	width=&#34;899&#34;
+	height=&#34;691&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;130&#34;
+		data-flex-basis=&#34;312px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;live-variables-analysis&#34;&gt;Live Variables Analysis&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;/live_variables_analysis.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;LVA 能判断 &lt;strong&gt;变量 v&lt;/strong&gt; 能不能从程序点 p 开始沿着 CFG 路径被使用，如果能，说明 v 在 p 点是活着的，否则是死的。&lt;/p&gt;
+&lt;p&gt;对于一个死变量，说明以后不会被 use 到，用于资源分配的优化：寄存器分配策略 =&amp;gt; 优先干死 dead value&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/lva_graph.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;分析的是变量&lt;/li&gt;
+&lt;li&gt;要求 v 在被使用前不能被再次定义&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;algorithm-1&#34;&gt;Algorithm&lt;/h3&gt;
+&lt;p&gt;使用 backward analysis 更方便，我们从程序结束的地方开始往前分析，得到变量在各个 program point 时的存活状态（即是否在 p 点后面会被使用）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/cfg-lva.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;如上图，S 是 B 的后继块，即有 B -&amp;gt; S1, B -&amp;gt; S2 等等&lt;/p&gt;
+&lt;p&gt;IN[B], OUT[B] 表示&lt;strong&gt;存活变量的集合&lt;/strong&gt;，则有以下公式&lt;/p&gt;
+&lt;p&gt;$$ OUT[B] = ∪ IN[S] $$
+$$ IN[B] = use[B] ∪ (OUT[B] - def[B]) $$&lt;/p&gt;
+&lt;p&gt;其中 use[B] 的元素是在 B 中（在定义前）被使用的变量，比如:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;B:  &lt;code&gt;m = k; n = j&lt;/code&gt; ，use[B] == {k, j}&lt;/li&gt;
+&lt;li&gt;B: &lt;code&gt;m = k; n = m - 1&lt;/code&gt; ，use[B] == {k}，m 不算在里面，因为其是在 B 里定义后被使用的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;def[B] 的元素是在 B 中被定义的变量，比如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;B: &lt;code&gt;m = k; n = j&lt;/code&gt;，def[B] == {m, n}&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;公式里的 OUT[B] 很好理解，在即将进入 S 块时还活着的，一定在离开 B 时也活着，所以取并。&lt;/p&gt;
+&lt;p&gt;而 IN[B] 首先考虑的是在 B 里被使用的变量（不能是 B 里定义并使用）在进入 B 时一定活着；然后如果有一个变量在离开 B 时还活着，但是这个变量又不是在 B 里被定义的，那么一定是从上一个块传进来的，所以我们还要加上 OUT[B] - def[B]。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-applications/lva-algorithm.png&#34;
+	width=&#34;915&#34;
+	height=&#34;676&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;135&#34;
+		data-flex-basis=&#34;324px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;算法自己脑跑一遍，一些要点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;集合的表示方式使用 bit vector 的方式，给每个变量赋予一位的大小，1 表示存活，0 表示死亡。&lt;/li&gt;
+&lt;li&gt;LVA 是 May Analysis，即 sound 的，可能误报但不会漏报（对某条 path A，可能某个变量 a 一直不会用到，但是在 path B 里 a 被用到了，那么我们认为分叉到 A 和 B 前的交点 a 应该是活着的，尽管代码可能不跑 B）&lt;/li&gt;
+&lt;li&gt;结束条件是在上一次迭代里对所有 Basic Block B，IN[B] 都没变&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-applications/lva-sample.png&#34;
+	width=&#34;626&#34;
+	height=&#34;660&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;94&#34;
+		data-flex-basis=&#34;227px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;available-expression-analysis&#34;&gt;Available Expression Analysis&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-applications/aea-def.png&#34;
+	width=&#34;957&#34;
+	height=&#34;173&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;553&#34;
+		data-flex-basis=&#34;1327px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;AEA 能判断一个表达式在 program point p 是不是有效的&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;x op y&lt;/code&gt; 在 p 点有效的成立条件：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;从起点开始所有到 p 的 path 都要经过 &lt;code&gt;x op y&lt;/code&gt; 的值&lt;/li&gt;
+&lt;li&gt;没有重新定义 &lt;code&gt;x op y&lt;/code&gt; 里的变量（x 或者 y）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;AEA 关注的是 expression&lt;/strong&gt;，可以用于优化：对所有 path，如果某个表达式一直出现而且没变，就可以直接复用之前的结果，节省计算&lt;/p&gt;
+&lt;p&gt;AEA 使用的是 forward analysis，公式：&lt;/p&gt;
+&lt;p&gt;$$ OUT[B] = gen[B] ∪ (IN[B] - kill[B]) $$
+$$ IN[B] = ∩ OUT[P] $$&lt;/p&gt;
+&lt;p&gt;P 是 B 的前驱，其中对 gen[B] 与 kill[B] 的计算方法如下：
+&lt;img src=&#34;/p/note-data-flow-analysis-applications/aea-rule.png&#34;
+	width=&#34;851&#34;
+	height=&#34;133&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;639&#34;
+		data-flex-basis=&#34;1535px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;gen[B] 就是 B 里出现的 &lt;code&gt;x op y&lt;/code&gt; 表达式的集合&lt;/li&gt;
+&lt;li&gt;kill[B] 是对 IN[B] 里表达式变量成员有做重定义的表达式的集合&lt;/li&gt;
+&lt;li&gt;注意 IN[B] 是对前驱块 OUT 的交集，因为要求所有 path 都经过（这样才能达到 safe 的要求）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;再比如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-applications/aea-rule-example1.png&#34;
+	width=&#34;432&#34;
+	height=&#34;194&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;222&#34;
+		data-flex-basis=&#34;534px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;a 被重定义了，因此 kill[B] 就是 IN 中有变量被重定义的表达式，即 kill[B] == {a+b}，而 IN[B] - kill[B] == {}&lt;/p&gt;
+&lt;h3 id=&#34;algorithm-2&#34;&gt;Algorithm&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-applications/algo-aea.png&#34;
+	width=&#34;927&#34;
+	height=&#34;681&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;136&#34;
+		data-flex-basis=&#34;326px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;下面的例子脑跑，要点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;must: 需要 safety，所以必须 under-approximation，不能误报&lt;/li&gt;
+&lt;li&gt;结束条件是 OUT 不变&lt;/li&gt;
+&lt;li&gt;entry 初始化为空，而其余的都初始化 All，因为要取交集，如果以空开局就全0了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-applications/aea-example.png&#34;
+	width=&#34;622&#34;
+	height=&#34;670&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;92&#34;
+		data-flex-basis=&#34;222px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;comparison&#34;&gt;Comparison&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;/p/note-data-flow-analysis-applications/comparison.png&#34;
+	width=&#34;965&#34;
+	height=&#34;700&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;137&#34;
+		data-flex-basis=&#34;330px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;三种分析针对三种不同的集合（定义集合、变量集合、表达式集合）&lt;/li&gt;
+&lt;li&gt;Transfer 核心其实都是一样的，只是 LVA 是 backward analysis，所以把 IN 反过来计算&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

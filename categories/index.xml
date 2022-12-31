@@ -1,40 +1,34 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Categories on 秘密</title>
-    <link>/categories/</link>
-    <description>Recent content in Categories on 秘密</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh</language>
-    <copyright>&amp;copy; 2020-2022 &lt;a href=&#34;https://www.github.com/werifu/&#34;&gt;Werifu&lt;/a&gt;
-</copyright>
-    <lastBuildDate>Sat, 31 Dec 2022 20:29:34 +0800</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>年终总结</title>
-      <link>/categories/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/</link>
-      <pubDate>Sat, 31 Dec 2022 20:29:34 +0800</pubDate>
-      
-      <guid>/categories/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>NJU 静态分析</title>
-      <link>/categories/nju-%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90/</link>
-      <pubDate>Tue, 08 Nov 2022 22:26:17 +0800</pubDate>
-      
-      <guid>/categories/nju-%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>秘封俱楽部</title>
-      <link>/categories/%E7%A7%98%E5%B0%81%E4%BF%B1%E6%A5%BD%E9%83%A8/</link>
-      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/%E7%A7%98%E5%B0%81%E4%BF%B1%E6%A5%BD%E9%83%A8/</guid>
-      <description></description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>Categories on 秘密</title>
+        <link>/categories/</link>
+        <description>Recent content in Categories on 秘密</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <lastBuildDate>Sat, 31 Dec 2022 20:29:34 +0800</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>年终总结</title>
+        <link>/categories/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/</link>
+        <pubDate>Sat, 31 Dec 2022 20:29:34 +0800</pubDate>
+        
+        <guid>/categories/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>NJU 静态分析</title>
+        <link>/categories/nju-%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90/</link>
+        <pubDate>Tue, 08 Nov 2022 22:26:17 +0800</pubDate>
+        
+        <guid>/categories/nju-%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>rCoreCamp2022</title>
+        <link>/categories/rcorecamp2022/</link>
+        <pubDate>Sat, 30 Jul 2022 00:29:54 +0800</pubDate>
+        
+        <guid>/categories/rcorecamp2022/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
 </rss>
