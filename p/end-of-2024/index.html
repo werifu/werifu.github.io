@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='NJU 李樾 &amp; 谭添《软件分析》笔记 2'>
-<title>Note: Data Flow Analysis - Foundations</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='2024 年终总结： 菜鸟勇者新上路与难求的IF线'>
+<title>End of 2024</title>
 
-<link rel='canonical' href='/p/note-data-flow-analysis-foundations/'>
+<link rel='canonical' href='/p/end-of-2024/'>
 
-<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='Note: Data Flow Analysis - Foundations'>
-<meta property='og:description' content='NJU 李樾 &amp; 谭添《软件分析》笔记 2'>
-<meta property='og:url' content='/p/note-data-flow-analysis-foundations/'>
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='End of 2024'>
+<meta property='og:description' content='2024 年终总结： 菜鸟勇者新上路与难求的IF线'>
+<meta property='og:url' content='/p/end-of-2024/'>
 <meta property='og:site_name' content='秘密'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Static Analysis' /><meta property='article:tag' content='Note' /><meta property='article:published_time' content='2022-11-08T22:26:17&#43;08:00'/><meta property='article:modified_time' content='2022-11-08T22:26:17&#43;08:00'/>
-<meta name="twitter:title" content="Note: Data Flow Analysis - Foundations">
-<meta name="twitter:description" content="NJU 李樾 &amp; 谭添《软件分析》笔记 2">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-12-31T19:49:50-05:00'/><meta property='article:modified_time' content='2024-12-31T19:49:50-05:00'/><meta property='og:image' content='/p/end-of-2024/cover.jpeg' />
+<meta name="twitter:title" content="End of 2024">
+<meta name="twitter:description" content="2024 年终总结： 菜鸟勇者新上路与难求的IF线"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='/p/end-of-2024/cover.jpeg' />
     <link rel="shortcut icon" href="https://s3.bmp.ovh/imgs/2022/05/28/7745084c66c1e1de.png" />
 
     </head>
@@ -280,15 +281,27 @@
     
 
             <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/p/end-of-2024/">
+                <img src="/p/end-of-2024/cover_huab7da664ee7c45c7e3b110044d9428c8_168714_800x0_resize_q75_box.jpeg"
+                        srcset="/p/end-of-2024/cover_huab7da664ee7c45c7e3b110044d9428c8_168714_800x0_resize_q75_box.jpeg 800w, /p/end-of-2024/cover_huab7da664ee7c45c7e3b110044d9428c8_168714_1600x0_resize_q75_box.jpeg 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post End of 2024" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     
     <header class="article-category">
         
-            <a href="/categories/nju-%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90/" >
-                NJU 静态分析
+            <a href="/categories/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" >
+                年终总结
             </a>
         
     </header>
@@ -296,12 +309,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/note-data-flow-analysis-foundations/">Note: Data Flow Analysis - Foundations</a>
+            <a href="/p/end-of-2024/">End of 2024</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            NJU 李樾 &amp; 谭添《软件分析》笔记 2
+            2024 年终总结： 菜鸟勇者新上路与难求的IF线
         </h3>
         
     </div>
@@ -322,7 +335,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Nov 08, 2022</time>
+                <time class="article-time--published">Dec 31, 2024</time>
             </div>
         
 
@@ -337,7 +350,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 4 分钟
+                    阅读时长: 5 分钟
                 </time>
             </div>
         
@@ -352,583 +365,125 @@
     <section class="article-content">
     
     
-    <h2 id="iterative-algorithm">Iterative Algorithm</h2>
-<p><img src="/p/note-data-flow-analysis-foundations/iter-algo-another-way.png"
-	width="947"
-	height="710"
+    <p>惊觉已经快两年没有更新博客，其实去年的年终总结在旧历新年才在空间/朋友圈发表，如果有机会再补到博客上来（大概率不会有了吧）。</p>
+<p>但还是从去年的新年愿望讲起！</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 多跑日系 live：没太多遗憾（唯一的遗憾是去年就知道去不成的上海THO）</li>
+<li><input disabled="" type="checkbox"> 多画画：这是真没画，感觉燃尽了</li>
+<li><input checked="" disabled="" type="checkbox"> 平安即是喜乐：今年家人都很健康！不算衰老的话</li>
+<li><input disabled="" type="checkbox"> 当上合格的 researcher：失败了一两回，越做越觉得自己水平太差了…</li>
+<li><input checked="" disabled="" type="checkbox"> 在异国他乡找到新乐子：对料理的认识和实践水平都提高了不少，而且有更多发挥的想法了；买了一台电钢，但是热情好像有点不够强（</li>
+<li><input disabled="" type="checkbox"> 五年签：天公不作美，一年签也是大概率的没办法事件</li>
+</ul>
+<p>对于完不成愿望这件事已经习以为常了 XD，只会在年终的时候小小地拍拍大腿后悔一下。今年总的来说非常开心，从各种地方获得了很多情绪价值和新的认知，在很多新的冒险中，我仍是一个菜鸟勇者，还会时不时进入幻想时间，脑补那不存在的 IF 线。</p>
+<p>今年从二月开始跑 live 直到 8 月前往美国前一周还在跑：</p>
+<ul>
+<li>广州：花碳、Angela、やなぎなぎ、JO⭐️STAR</li>
+<li>深圳：Reol</li>
+<li>上海：伊藤香奈子&amp;彩音、TRUE、Raise A Suilen、Roselia</li>
+<li>名古屋：Ave Mujica</li>
+</ul>
+<p>从 19 年 8 月自己去上海 THO 后，我应该就已经成为一个日音 live 爱好者了，如果没有 COVID 的话我想疯狂的 live 年只会提前到来。今年真正地成为了邦邦腐乳，最喜欢的现场一定是 RAS 与 Roselia。Mujica 的话，虽然歌非常喜欢，但我可能还是更想看摘面具带 MC 版本的现场，可惜鸡狗对邦不会有我了。以及确实真的 GO 了一整年，太有魅力了 MyGO，更幸运的是有人陪我一起 GO。</p>
+<p>今年因为 live 我与旧友又紧密联系在一起、有了新的常驻水群、认识了重要的人，以及锚定 live 的时间又安排了十来天的日本旅行，香港-&gt;名古屋-&gt;大阪-&gt;京都-&gt;宇治-&gt;奈良-&gt;东京-&gt;香港。这趟日本之旅让我觉得这么多年学的二次元日语有点用，在跟人交流方面或许还比英语顺畅（对了 23 年 12 月的 N1 最终也精准压线(100/180)飘过了）可以在旅途中充当队内带队大爹役（</p>
+<p>旅程最核心的体验：Mujica 2nd、京都漫步、宇治巡礼、翻二手垃圾。感慨关西比关东好玩，非常享受在鸭川边散步的体验，以及在宇治感受北宇治众人在此生活的场景。</p>
+<p><img src="/p/end-of-2024/kamokawa.jpeg"
+	width="1280"
+	height="720"
 	
 	loading="lazy"
 	
+		alt="鸭川边的苍鹭"
+	
 	
 		class="gallery-image" 
-		data-flex-grow="133"
-		data-flex-basis="320px"
+		data-flex-grow="177"
+		data-flex-basis="426px"
 	
 ></p>
-<p>从更抽象的角度来审视我们的迭代算法，每个块（CFG 里的节点）都会有状态，那么整个程序里所有块能组成一个 k 维向量。</p>
-<p>迭代每个节点的时候其实就是对 Block 作函数转换。</p>
-<p>我们迭代的停止条件是【一次迭代后 tuple 没变】，其实就到达了不动点</p>
-<p><img src="/p/note-data-flow-analysis-foundations/fixed-point.png"
-	width="947"
-	height="707"
+<p><img src="/p/end-of-2024/kumiko-bench.jpeg"
+	width="1280"
+	height="720"
 	
 	loading="lazy"
 	
+		alt="久美子椅"
+	
 	
 		class="gallery-image" 
-		data-flex-grow="133"
-		data-flex-basis="321px"
+		data-flex-grow="177"
+		data-flex-basis="426px"
 	
 ></p>
-<p>不动点：</p>
+<p>对京吹3结局有意见不假，但宇治依然是我top1巡礼目标，依然是我心中最伟大的群像动画，有朋友同我一起巡礼，分享见闻更是一件幸事。我最爱常聊的小团体似乎大多都有个这样的特征：一起出去旅行过。不知道是什么原理，但似乎线下短期相处就是能保持联系的欲望，而且可以持续数年之久，可能每天聊天内容不过一些没营养的互联网 meme，但就没腻过。</p>
+<p>去日本之前的另一个长旅途是从香港出发去上海看live、去北京见同学+面签、去武汉见同学的行程，原本是写在 Arc 浏览器里的笔记，这里就直接贴出来了。我觉得 Arc Easels 是个很好的笔记载体，跟 telegraph 有得一拼。</p>
+<ul>
+<li><a class="link" href="https://arc.net/e/2BFB37D6-9D4C-490A-8CF5-EEB0E7C1E45D"  target="_blank" rel="noopener"
+    >Ep1</a> 去上海</li>
+<li><a class="link" href="https://arc.net/e/39575373-B4DF-48BD-B6FF-D0769E7B71A7"  target="_blank" rel="noopener"
+    >Ep2</a> 看RAS</li>
+<li><a class="link" href="https://arc.net/e/0A492EC0-89E4-4C53-80F1-1E45FBDE3F22"  target="_blank" rel="noopener"
+    >Ep3</a> 去北京</li>
+<li><a class="link" href="https://arc.net/e/20052588-9132-425B-884C-BEFBE5DA5BCB"  target="_blank" rel="noopener"
+    >Ep4</a> 去武汉</li>
+</ul>
+<p>旅途的末尾写了一段话我现在依然觉得很喜欢：</p>
 <blockquote>
-<p>数学上不动点的定义：
-$$ X = F(X) $$</p>
+<p>旅途又见到了很多朋友，即是再会又是告别，此次一别不知何时相见。</p>
+<p>一直觉得自己是个很活在过去的人，却总是在尝试开启新的体验，不知什么时候才有落地的一天，在这之前先享受每一段冒险吧</p>
 </blockquote>
-<p>为什么标题叫 foundation：domain 并不止之前学的三种，我们可以分析更多的代码性质</p>
-<p>三个问题，后面会得到解决：</p>
-<ol>
-<li>
-<p>iter algo 一定能找到不动点吗？（算法一定会停下吗？）</p>
-<ol>
-<li>我们针对前面三种 domain 分析过，会停</li>
-<li>但是这是一个普遍的结论吗？对其他的 domain 呢</li>
-</ol>
-</li>
-<li>
-<p>如果一定能停，一定有唯一的不动点吗？</p>
-</li>
-<li>
-<p>什么时候能到达不动点？</p>
-</li>
-</ol>
-<h2 id="partial-order-偏序">Partial Order (偏序)</h2>
-<p>poset 偏序集</p>
-<p>满足下面三个要求的就是合法的偏序关系</p>
+<p>八月去上海特种看 Roselia 的旅途更是菜鸟勇者今年最珍视的一番の宝物，属于鼠鼠的科幻故事。</p>
+<p><img src="/p/end-of-2024/chinatu.jpeg"
+	width="576"
+	height="1280"
+	
+	loading="lazy"
+	
+		alt="From 青之箱"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="45"
+		data-flex-basis="108px"
+	
+></p>
+<p>对这两页非常有触动😭可靠的千夏学姐在一个研究生的视角里实际上已经是个小妹妹了，然而大人也有如此的烦恼，却已经没有人可以排解了，道理都懂，实践都寄，这就是人生的不圆满啊。</p>
+<p>当回俳句仙人：回忆入心头，异乡生根虽不愁，IF线难求。</p>
+<p>来美国前的故事就是这样，这不是一个悲剧，而是追求的一段漫长的新冒险。</p>
+<p>第一个学期的节奏只能用惭愧来形容，不像是网上渲染的艰苦 PhD 生活，正是因为过得太滋润了才心生惭愧……觉得自己 self-motivation 不到位，老板人也很好。在 PL researcher 这条路上感觉今年并没有迈出多大的步伐，被毙了一个项目的时候才觉得原来自己的想法那么稚嫩且准备不周。老板常常鼓励我说博一这样不要紧，然而心里还是会感到失落。不过这些大概率都是一个 PhD 学生的必经之路啦 XD。 已经学会自我排解，短期内 mental health 应该还不成问题。</p>
+<p>系里真是仙之人兮列如麻啊，认识了很多强大的前辈，可以学到很多。</p>
+<p>来美国前担心的二次元问题感觉白担心了，除了没 live，在中文圈子内别的好像跟国内一点区别都没有…加入的群跟以前的 ACG 相关群聊一模一样（指搬屎），能聊的人也很多。顶着时差与人日夜颠倒聊天也是很有趣的体验，每天醒来一看十几二十条消息n个话题会在心里暗喜，一天的愉悦由此开始。</p>
+<p>还成为了 MyGO 车主 XD。美国农村的生活就是一切目的地均开车，开始慢慢享受开车的过程了。</p>
+<p><img src="/p/end-of-2024/mygo-car.jpeg"
+	width="1280"
+	height="720"
+	
+	loading="lazy"
+	
+		alt="MyGO车主"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<p>在美国捣鼓料理的体验反而比在香港时更加完善（即使是个蚊香炉），可能因为在 HK 只住一年从而在工具上不敢花大手笔，在这里我可以尽情购入巨量香料与炊具，学习世界各地的菜谱，尝试复刻在餐馆吃过的美食。或许条件成熟我会在这个赛道赚米？（纯幻想时间）</p>
+<p>买了一台电钢，学会弹的第一首曲子是简化的《鞑靼人舞曲》（江湖称南中处刑曲）。上了一学期的课。但是发现已经快一个月没弹了，即日起恢复，这次不能再三分钟热度了……</p>
+<h2 id="新年许愿">新年许愿！</h2>
+<p>纯命数有定的：</p>
 <ul>
-<li>
-<p>自反 reflexivity</p>
-</li>
-<li>
-<p>反对称 antisymmetry</p>
-</li>
-<li>
-<p>传递 transitivity</p>
-</li>
+<li><input disabled="" type="checkbox"> 让我能回家的签证形势</li>
+<li><input disabled="" type="checkbox"> 迷之话题的进一步发展</li>
+<li><input disabled="" type="checkbox"> 平安即是喜乐（今年发觉爷爷奶奶已经加速衰老了，爷爷更是直言难以活着等到我毕业，听到这话的时候内心其实有巨大波澜）</li>
 </ul>
-<p><img src="/p/note-data-flow-analysis-foundations/partial-order-def.png"
-	width="939"
-	height="260"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="361"
-		data-flex-basis="866px"
-	
-></p>
-<p>例子1：</p>
-<p><strong>( integer, &lt;= )</strong> 是不是偏序集？</p>
+<p>或许可以争取的：</p>
 <ul>
-<li>性质都满足，是</li>
-</ul>
-<p>例子2：</p>
-<p><strong>( integer, &lt; )</strong> 是不是偏序集？</p>
-<ul>
-<li>不满足自反，不是</li>
-</ul>
-<p>为什么叫偏序？不是全部元素都能比较</p>
-<p><img src="/p/note-data-flow-analysis-foundations/partial-order-example4.png"
-	width="916"
-	height="389"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="235"
-		data-flex-basis="565px"
-	
-></p>
-<p>（需要记住这个图，&lt;abc, 包含关系&gt; 组成的全格）</p>
-<h2 id="upper--lower-bounds-上下界">Upper &amp; Lower Bounds （上下界）</h2>
-<p><img src="/p/note-data-flow-analysis-foundations/upper-lower-bound.png"
-	width="834"
-	height="167"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="499"
-		data-flex-basis="1198px"
-	
-></p>
-<ul>
-<li>x 不一定在 S 里</li>
-</ul>
-<p><img src="/p/note-data-flow-analysis-foundations/lub-glb.png"
-	width="922"
-	height="199"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="463"
-		data-flex-basis="1111px"
-	
-></p>
-<ul>
-<li>最小上界 lub =&gt; join</li>
-<li>最大下界 glb =&gt; meet</li>
-</ul>
-<p><img src="/p/note-data-flow-analysis-foundations/2element.png"
-	width="918"
-	height="166"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="553"
-		data-flex-basis="1327px"
-	
-></p>
-<ul>
-<li>不是所有偏序集都有 lub 或者 glb</li>
-<li>如果 poset 有 lub 或者 glb，那么 lub 和 glb 一定是唯一的（用反对称性很容易证明：互相对同一个关系成立就一定是同一个）</li>
-</ul>
-<h2 id="lattice格">Lattice（格）</h2>
-<p><img src="/p/note-data-flow-analysis-foundations/lattice-def.png"
-	width="851"
-	height="134"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="635"
-		data-flex-basis="1524px"
-	
-></p>
-<p>poset 中每一对元素都存在最大下界和最小上界（大白话：两个元素都会 meet (∩) 和 join (∪) ）</p>
-<ul>
-<li>(integer, &lt;=) 是不是 lattice？
-<ul>
-<li>是，任意两个数可以 meet 和 join</li>
-</ul>
-</li>
-</ul>
-<h3 id="semilattice半格">Semilattice（半格）</h3>
-<p><img src="/p/note-data-flow-analysis-foundations/semilattice-def.png"
-	width="889"
-	height="189"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="470"
-		data-flex-basis="1128px"
-	
-></p>
-<ul>
-<li>P 里任意两个元素都有 lub 和 glb，就是半格</li>
-</ul>
-<h3 id="complete-lattice全格">Complete Lattice（全格）</h3>
-<p><img src="/p/note-data-flow-analysis-foundations/complete-lattice-def.png"
-	width="856"
-	height="121"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="707"
-		data-flex-basis="1697px"
-	
-></p>
-<ul>
-<li>任意 P 的子集都会有 lub 和 glb 就是全格</li>
-<li>(integer, &lt;=) 是不是 compete lattice？
-<ul>
-<li>否，整数集不符合（找不到最小的上界/最大的下界）</li>
-</ul>
-</li>
-</ul>
-<p><img src="/p/note-data-flow-analysis-foundations/top-bottom.png"
-	width="867"
-	height="293"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="295"
-		data-flex-basis="710px"
-	
-></p>
-<ul>
-<li>每个有穷的格一定是完全格</li>
-<li>反命题为伪：{ [0,1]小数集, &lt; } 完全且无穷：任意子集都能找到一个上下限</li>
-</ul>
-<h3 id="product-lattice">Product Lattice</h3>
-<p><img src="/p/note-data-flow-analysis-foundations/product-lattice.png"
-	width="967"
-	height="352"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="274"
-		data-flex-basis="659px"
-	
-></p>
-<ul>
-<li>每个 L 都是 complete，那么组成的 product lattice $L^n$ 也是 complete 的</li>
-</ul>
-<h2 id="data-flow-analysis-framework-via-lattice">Data Flow Analysis Framework via Lattice</h2>
-<p>其实是 semi，但是用 lattice 来表示更加方便</p>
-<p>定义一个 Data flow analysis 的框架：由 &lt;方向、格、转换函数&gt; 组成</p>
-<p><img src="/p/note-data-flow-analysis-foundations/framework.png"
-	width="819"
-	height="279"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="293"
-		data-flex-basis="704px"
-	
-></p>
-<p>例子：</p>
-<p><img src="/p/note-data-flow-analysis-foundations/analysis-lattice.png"
-	width="886"
-	height="311"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="284"
-		data-flex-basis="683px"
-	
-></p>
-<ul>
-<li>顺序是反过来的（ Block 的执行流跟格的方向）</li>
-<li>{a, b, c} 用 bit vector 表示就是 111, {} 就是 000</li>
-</ul>
-<p><img src="/p/note-data-flow-analysis-foundations/nature-of-analysis.png"
-	width="834"
-	height="78"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="1069"
-		data-flex-basis="2566px"
-	
-></p>
-<p>Data flow analysis 的本质：在一个格上迭代一个 transfer、并不断 meet 和 join</p>
-<p>回答前面的问题：</p>
-<ol>
-<li>迭代算法一定能达到不动点吗
-<ol>
-<li>OUT never shrinks (monotonicity)</li>
-</ol>
-</li>
-<li>如果能，可能有多个不动点吗
-<ol>
-<li>可以</li>
-</ol>
-</li>
-<li>如果有多个不动点，能不能找到最好的（迭代次数最少）
-<ol>
-<li>可以</li>
-</ol>
-</li>
-</ol>
-<h3 id="monotonicity">Monotonicity</h3>
-<p><img src="/p/note-data-flow-analysis-foundations/monotonicity.png"
-	width="859"
-	height="135"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="636"
-		data-flex-basis="1527px"
-	
-></p>
-<p>不动点定理</p>
-<p><img src="/p/note-data-flow-analysis-foundations/fixed-point-theorem.png"
-	width="871"
-	height="316"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="275"
-		data-flex-basis="661px"
-	
-></p>
-<ul>
-<li>全格、单调、有限 =&gt; 就能迭代出最优的不动点</li>
-<li>complete 不一定 finite</li>
-</ul>
-<p>求证:</p>
-<ol>
-<li>存在不动点</li>
-<li>迭代得到的不动点最小</li>
-</ol>
-<p>证明：</p>
-<ol>
-<li>fixed point exists</li>
-</ol>
-<p><img src="/p/note-data-flow-analysis-foundations/fixed-point-exists.png"
-	width="872"
-	height="479"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="182"
-		data-flex-basis="436px"
-	
-></p>
-<ol start="2">
-<li>least fixed point</li>
-</ol>
-<p>数学归纳法: 假设 k 成立 + 证明初始成立 =&gt; 证明 k + 1 成立 =&gt; 定理成立</p>
-<p><img src="/p/note-data-flow-analysis-foundations/proof-least-fixed-point.png"
-	width="860"
-	height="614"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="140"
-		data-flex-basis="336px"
-	
-></p>
-<p>证出来是 unique fixed point</p>
-<h2 id="relative-between-iter-algo--fixed-point-theorem">Relative between Iter Algo &amp; Fixed Point Theorem</h2>
-<p>迭代算法能不能关联上不动点定理？能关联上才能说这个迭代算法能找到最优的不动点。</p>
-<p>直觉上的证明：</p>
-<p><img src="/p/note-data-flow-analysis-foundations/relative.png"
-	width="948"
-	height="694"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="136"
-		data-flex-basis="327px"
-	
-></p>
-<ol>
-<li>单调：OUT 不会 shrink (gen - kill 单调)</li>
-<li>有限：很显然，集合是有限的，集合的有限次幂也是</li>
-</ol>
-<p>多少次迭代能到达不动点？</p>
-<p><img src="/p/note-data-flow-analysis-foundations/height.png"
-	width="899"
-	height="345"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="260"
-		data-flex-basis="625px"
-	
-></p>
-<ul>
-<li>最坏情况 k 个块 (nodes in CFG，在 example 的视角就是一个比特)、高度 h，最坏情况是 i = h * k 次迭代</li>
-</ul>
-<h2 id="may-and-must-analysis-a-lattice-view">May and Must Analysis, a Lattice View</h2>
-<h3 id="may">May</h3>
-<p><img src="/p/note-data-flow-analysis-foundations/may.png"
-	width="432"
-	height="682"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="63"
-		data-flex-basis="152px"
-	
-></p>
-<p>在 Reaching Definition Analysis 里，1 是能 reach，0 是不能 reach，即在程序终点这个地方，有哪些定义是可能被用到的。</p>
-<p>我们从空集去找，就是我们从<strong>敢</strong>说程序里所有的定义都不会被消费到，显然是不对的，我们从不安全的一个状态去找到安全的一个点。</p>
-<p>注意 bottom 是 Basic Blocks 的顶点，也就是程序的开始</p>
-<p>一定会找到最小不动点，前面证明过了</p>
-<p><img src="/p/note-data-flow-analysis-foundations/may-lattice2.png"
-	width="472"
-	height="675"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="69"
-		data-flex-basis="167px"
-	
-></p>
-<p>top 是最没用的（相当于整个程序里的定义全部都<strong>可能</strong>到达末尾，能到结束的定义都在里面，但是有部分并不会到，所以是安全的，做了一些多余的防范）</p>
-<h3 id="must">Must</h3>
-<p>May Analysis 是从错里面去改正，Must 是从对的里去找错，前者是 sound 的，后者是 complete 的。</p>
-<p><img src="/p/note-data-flow-analysis-foundations/must-lattice1.png"
-	width="498"
-	height="704"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="70"
-		data-flex-basis="169px"
-	
-></p>
-<h2 id="how-precise-is-our-solution">How Precise is Our Solution</h2>
-<p>有些分支永远不会执行如 <code>if (false) </code>，我们依然认为这条分支里的数据是有用的，这样就造成了失真</p>
-<h3 id="meet-over-all-paths-solution-mop">Meet-Over-All-Paths Solution (MOP)</h3>
-<p>假设有个程序 P = Entry -&gt; S1 -&gt; S2 -&gt; &hellip; -&gt; Si</p>
-<p>$$ MOP[S_i] = ∪/∩ F_p(OUT[Entry]) $$</p>
-<p>MOP 会计算 data-flow 的值，然后把他们 meet / join</p>
-<p><img src="/p/note-data-flow-analysis-foundations/mop-vs-iter.png"
-	width="922"
-	height="666"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="138"
-		data-flex-basis="332px"
-	
-></p>
-<ul>
-<li>之前的迭代算法是 bfs，一边 meet/join 一边走，MOP 是 dfs，把 path 走完再 meet/join</li>
-</ul>
-<h3 id="iter-algo-vs-mop">Iter Algo VS MOP</h3>
-<p><img src="/p/note-data-flow-analysis-foundations/mop-vs-iter-proof.png"
-	width="929"
-	height="482"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="192"
-		data-flex-basis="462px"
-	
-></p>
-<ul>
-<li>谁更准：MOP</li>
-</ul>
-<p>什么时候等于？</p>
-<p><img src="/p/note-data-flow-analysis-foundations/f-distributive.png"
-	width="875"
-	height="120"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="729"
-		data-flex-basis="1750px"
-	
-></p>
-<ul>
-<li>F 有可分配性</li>
-<li>之前的三个分析都是可分配的</li>
-</ul>
-<h3 id="constant-propagation">Constant Propagation</h3>
-<p>作业：</p>
-<p><img src="/p/note-data-flow-analysis-foundations/cosntant-propagation.png"
-	width="937"
-	height="539"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="173"
-		data-flex-basis="417px"
-	
-></p>
-<p><img src="/p/note-data-flow-analysis-foundations/constant-propagation-lattice.png"
-	width="899"
-	height="648"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="138"
-		data-flex-basis="332px"
-	
-></p>
-<p>V 集合有三种类型的值：</p>
-<ul>
-<li>未定义（Undefined）</li>
-<li>某个具体值</li>
-<li>非常量（Not A Constant）</li>
-</ul>
-<p><img src="/p/note-data-flow-analysis-foundations/constant-propagation-transfer-fn.png"
-	width="960"
-	height="487"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="197"
-		data-flex-basis="473px"
-	
-></p>
-<p><img src="/p/note-data-flow-analysis-foundations/mop-iter-truth.png"
-	width="921"
-	height="342"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="269"
-		data-flex-basis="646px"
-	
-></p>
-<p>在上面的例子里，显然 MOP 更准。肉眼可见 c 是个常量，只看结果</p>
-<h2 id="worklist-algorithm">Worklist Algorithm</h2>
-<p>是对 Iterative Algorithm 的优化</p>
-<p>Iter Algo 的缺点：只要有一个 Block 发生变化，就要把全部都重新算一遍</p>
-<p><img src="/p/note-data-flow-analysis-foundations/worklist-algorithm.png"
-	width="884"
-	height="659"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="134"
-		data-flex-basis="321px"
-	
-></p>
-<ul>
-<li>把发生变化的丢队列里，然后只计算需要更新的</li>
+<li><input disabled="" type="checkbox"> 建立良好且有效率的 work life balance（=提高专注工作时间）</li>
+<li><input disabled="" type="checkbox"> 0 paper 的突破</li>
+<li><input disabled="" type="checkbox"> 养成弹琴的习惯</li>
+<li><input disabled="" type="checkbox"> 画点同人（好像这几年都许了这个愿望，但是都失败了，2025 能有不一样吗）</li>
+<li><input disabled="" type="checkbox"> 自驾远征见网友</li>
+<li><input disabled="" type="checkbox"> 实习的面试（也得等有论文……）</li>
 </ul>
 
 </section>
@@ -936,14 +491,6 @@ $$ X = F(X) $$</p>
 
     <footer class="article-footer">
     
-    <section class="article-tags">
-        
-            <a href="/tags/static-analysis/">Static Analysis</a>
-        
-            <a href="/tags/note/">Note</a>
-        
-    </section>
-
 
     
     <section class="article-copyright">
@@ -996,13 +543,24 @@ $$ X = F(X) $$</p>
         <div class="flex article-list--tile">
             
                 
-<article class="">
-    <a href="/p/note-data-flow-analysis-applications/">
+<article class="has-image">
+    <a href="/p/%E5%86%99%E5%9C%A82022%E5%B9%B4%E6%9C%AB/">
         
+        
+            <div class="article-image">
+                <img src="/p/%E5%86%99%E5%9C%A82022%E5%B9%B4%E6%9C%AB/20221231225829.6c4e2e4256987d26275823f8e6ae0cdb_hu42dac3001980353f2005382bccb3c8c2_1201779_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 写在2022年末"
+                        
+                        data-hash="md5-bE4uQlaYfSYnWCP45q4M2w==">
+                
+            </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Note: Data Flow Analysis - Applications</h2>
+            <h2 class="article-title">写在2022年末</h2>
         </div>
     </a>
 </article>
