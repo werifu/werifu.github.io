@@ -8,24 +8,22 @@
 #import "lib/template.typ": *
 
 // Your name — bolded automatically wherever it appears in author lists.
-#let me = "Alex Morgan"
+#let me = "Siyu Chen | 陈思宇"
 
 #show: homepage.with(
   name: me,
-  role: "Ph.D. Candidate in Computer Science",
-  affiliation: [#link("https://example.edu")[Example University] · Machine Learning Group],
-  avatar: "assets/profile.svg",
-  description: "Alex Morgan is a PhD candidate in Computer Science working on machine "
-    + "learning, natural language processing, and AI for science.",
+  role: "Ph.D. Student in Electrical and Computer Engineering",
+  affiliation: [Purdue University · PurPL],
+  avatar: "assets/portrait2.png",
+  // description: "Alex Morgan is a PhD candidate in Computer Science working on machine "
+  //   + "learning, natural language processing, and AI for science.",
   // Contact / profile links. Drop any you don't use; `kind` picks the icon.
   // Available kinds: email, scholar, github, orcid, linkedin, twitter, cv, website
   links: (
-    (kind: "email",    url: "mailto:alex.morgan@example.edu"),
-    (kind: "scholar",  url: "https://scholar.google.com/citations?user=XXXXXXXX"),
-    (kind: "github",   url: "https://github.com/alexmorgan"),
-    (kind: "orcid",    url: "https://orcid.org/0000-0000-0000-0000"),
-    (kind: "linkedin", url: "https://www.linkedin.com/in/alexmorgan"),
-    (kind: "cv",       url: "assets/cv.pdf"),
+    (kind: "email", url: "mailto:chen5216@purdue.edu"),
+    // (kind: "scholar", url: "https://scholar.google.com/citations?user=XXXXXXXX"),
+    (kind: "github", url: "https://github.com/alexmorgan"),
+    (kind: "linkedin", url: "https://www.linkedin.com/in/siyu-chen-88059224a/"),
   ),
   // Sticky in-page navigation (label, anchor).
   nav: (
@@ -41,30 +39,12 @@
 // =============================================================================
 #section(id: "about", title: "About")[
   #lead[
-    I am a Ph.D. candidate in the #link("https://example.edu")[Department of Computer
-    Science] at Example University, advised by #link("https://example.edu")[Prof. Jamie
-    Lee]. My research builds *reliable and interpretable* machine-learning systems for
-    language and scientific discovery.
+    I'm currently a Ph.D. student in the Department of Electrical and Computer Engineering (ECE) at Purdue University, advised by Prof. Jingbo Wang.
   ]
 
-  Previously I received my B.S. in Computer Science from Example State University
-  (2021), where I worked on probabilistic models with Prof. Robin Patel. In summer
-  2024 I interned at Example Research, working on retrieval-augmented language models.
+  Before I joined Purdue in Fall 2024, I obtained my MSc from Hong Kong University of Science and Technology (HKUST) in 2024 and my B.S from Huazhong University of Science and Technology (HUST) in 2023.
 
-  My current research focuses on three questions:
-
-  - *Reliability* — how can we know when a model is wrong, and make it abstain?
-  - *Interpretability* — what internal structure explains a model's predictions?
-  - *Scientific ML* — how do we couple learned models with physical constraints,
-    e.g. enforcing $nabla dot bold(u) = 0$ in learned fluid simulators?
-
-  #tags((
-    "Machine Learning",
-    "Natural Language Processing",
-    "Interpretability",
-    "Uncertainty Quantification",
-    "AI for Science",
-  ))
+  My research interest widely sits at Software Engineering and Formal Methods. In particular, my vision is to help developers build reliable and efficient systems with better development experience. Currently, I'm interested in how we can improve the reliability and auditability of AI-written software.
 ]
 
 // =============================================================================
@@ -72,10 +52,7 @@
 // =============================================================================
 #section(id: "news", title: "News")[
   #news((
-    (date: "Jun 2026", body: [Our paper on calibrated retrieval was accepted to *NeurIPS 2026*.]),
-    (date: "Apr 2026", body: [Gave an invited talk at the Example Workshop on Trustworthy ML.]),
-    (date: "Jan 2026", body: [Started a research internship at #link("https://example.com")[Example Research].]),
-    (date: "Sep 2025", body: [Received the Example University Graduate Fellowship.]),
+    (date: "Jul 2026", body: [Our paper about conflcit extraction in probabilistic Datalog was accepted to *ASE 2026*.]),
   ))
 ]
 
@@ -86,24 +63,10 @@
 // =============================================================================
 #let my-publications = (
   (
-    title: "Calibrated Retrieval-Augmented Generation for Reliable Question Answering",
-    authors: ("Alex Morgan", "Jamie Lee", "Sam Rivera"),
-    venue: [#emph[Advances in Neural Information Processing Systems (NeurIPS)], 2026],
-    badge: "Spotlight",
-    links: (("PDF", "#"), ("arXiv", "#"), ("Code", "#"), ("BibTeX", "#")),
-  ),
-  (
-    title: "Probing Latent Structure in Transformer Language Models",
-    authors: ("Sam Rivera", "Alex Morgan", "Jamie Lee"),
-    venue: [#emph[Association for Computational Linguistics (ACL)], 2025],
-    links: (("PDF", "#"), ("arXiv", "#"), ("Code", "#")),
-  ),
-  (
-    title: "Physics-Constrained Neural Operators for Incompressible Flow",
-    authors: ("Alex Morgan", "Robin Patel"),
-    venue: [#emph[International Conference on Machine Learning (ICML)], 2024],
-    badge: "Oral",
-    links: (("PDF", "#"), ("Project", "#")),
+    title: "Conflict Extraction in Probabilistic Datalog Analyses",
+    authors: (underline("Siyu Chen"), "Chungha Sung", "Xuyang Li", "Jingbo Wang"),
+    venue: [#emph[ASE], 2026],
+    links: (("arXiv", "https://arxiv.org/pdf/2608.10755"), ("Artifact", "https://zenodo.org/records/21776435")),
   ),
 )
 
@@ -115,11 +78,10 @@
 //  TEACHING
 // =============================================================================
 #section(id: "teaching", title: "Teaching & Service")[
-  *Teaching Assistant*, Example University
-  - CS 229 — Machine Learning (Fall 2025, Fall 2024)
-  - CS 101 — Introduction to Programming (Spring 2024)
+  *Teaching Assistant*, Purdue University
+  - ECE 26400, Advanced C Programming, Spring 2026
+  - ECE 59500, Applied Algorithm, Fall 2025
 
   *Service*
-  - Reviewer: NeurIPS, ICML, ACL (2024–present)
-  - Organizer, Departmental ML Reading Group (2023–present)
+  - Artifact Evaluation: TACAS 2025
 ]

@@ -129,7 +129,7 @@
   name: "",
   role: "",
   affiliation: none,   // content (may contain a link)
-  avatar: none,        // relative path, e.g. "assets/profile.svg"
+  avatar: none,        // image file, e.g. "assets/profile.svg" (embedded in HTML)
   description: "",
   links: (),           // array of (kind, url[, label])
   nav: (),             // array of (label, href)
@@ -152,9 +152,9 @@
   // Header: avatar + identity + contact links.
   html.elem("header", attrs: (class: "site-header"), {
     if avatar != none {
-      html.elem("img", attrs: (
-        class: "avatar", src: avatar, alt: name, width: "132", height: "132",
-      ))
+      // Use Typst's image element so HTML export embeds the image as a data URI.
+      // A plain <img src="assets/…"> is not served by `typst watch` and 404s.
+      html.elem("div", attrs: (class: "avatar"), image("/" + avatar, alt: name))
     }
     html.elem("div", attrs: (class: "identity"), {
       html.elem("h1", name)
