@@ -174,7 +174,7 @@
   if nav.len() > 0 {
     html.elem(
       "nav",
-      attrs: (class: "site-nav"),
+      attrs: (class: "site-nav", "aria-label": "Primary navigation"),
       nav.map(item => html.elem("a", attrs: (href: item.at(1)), item.at(0))).join(),
     )
   }

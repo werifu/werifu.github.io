@@ -14,9 +14,9 @@
   name: me,
   role: "Ph.D. Student in Electrical and Computer Engineering",
   affiliation: [Purdue University · PurPL],
-  avatar: "assets/portrait2.png",
-  // description: "Alex Morgan is a PhD candidate in Computer Science working on machine "
-  //   + "learning, natural language processing, and AI for science.",
+  avatar: "assets/portrait.png",
+  description: "Siyu Chen is a Ph.D. student at Purdue University working on "
+    + "software engineering, formal methods, and reliable AI-written software.",
   // Contact / profile links. Drop any you don't use; `kind` picks the icon.
   // Available kinds: email, scholar, github, orcid, linkedin, twitter, cv, website
   links: (
@@ -31,6 +31,7 @@
     ("News", "#news"),
     ("Publications", "#publications"),
     ("Teaching", "#teaching"),
+    ("Service", "#service"),
   ),
 )
 
@@ -38,9 +39,8 @@
 //  ABOUT
 // =============================================================================
 #section(id: "about", title: "About")[
-  #lead[
-    I'm currently a Ph.D. student in the Department of Electrical and Computer Engineering (ECE) at Purdue University, advised by Prof. Jingbo Wang.
-  ]
+
+  I'm currently a Ph.D. student in the Department of Electrical and Computer Engineering (ECE) at Purdue University, advised by Prof. Jingbo Wang.
 
   Before I joined Purdue in Fall 2024, I obtained my MSc from Hong Kong University of Science and Technology (HKUST) in 2024 and my B.S from Huazhong University of Science and Technology (HUST) in 2023.
 
@@ -77,11 +77,19 @@
 // =============================================================================
 //  TEACHING
 // =============================================================================
-#section(id: "teaching", title: "Teaching & Service")[
+#section(id: "teaching", title: "Teaching")[
   *Teaching Assistant*, Purdue University
   - ECE 26400, Advanced C Programming, Spring 2026
   - ECE 59500, Applied Algorithm, Fall 2025
+]
 
+// =============================================================================
+//  SERVICE
+// =============================================================================
+#section(id: "service", title: "Service")[
   *Service*
   - Artifact Evaluation: TACAS 2025
 ]
+
+
+
