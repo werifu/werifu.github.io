@@ -19,8 +19,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      TYPST_VERSION: "0.15.0"   # keep in sync with your local Typst version
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,9 +26,15 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
-      - name: Install Typst ${{ env.TYPST_VERSION }}
+      # Single source of truth for the Typst version is .typst-version.
+      # Refresh it locally with `./build.sh sync-version`, then commit.
+      - name: Read pinned Typst version
+        id: typst
+        run: echo "version=$(cat .typst-version)" >> "$GITHUB_OUTPUT"
+
+      - name: Install Typst ${{ steps.typst.outputs.version }}
         run: |
-          curl -fsSL "https://github.com/typst/typst/releases/download/v${TYPST_VERSION}/typst-x86_64-unknown-linux-musl.tar.xz" | tar -xJ
+          curl -fsSL "https://github.com/typst/typst/releases/download/v${{ steps.typst.outputs.version }}/typst-x86_64-unknown-linux-musl.tar.xz" | tar -xJ
           echo "${PWD}/typst-x86_64-unknown-linux-musl" >> "${GITHUB_PATH}"
 
       - name: Build site
