@@ -23,7 +23,7 @@
   links: (
     (kind: "email", url: "mailto:chen5216@purdue.edu"),
     // (kind: "scholar", url: "https://scholar.google.com/citations?user=XXXXXXXX"),
-    (kind: "github", url: "https://github.com/alexmorgan"),
+    (kind: "github", url: "https://github.com/werifu"),
     (kind: "linkedin", url: "https://www.linkedin.com/in/siyu-chen-88059224a/"),
   ),
   // Sticky in-page navigation (label, anchor).
