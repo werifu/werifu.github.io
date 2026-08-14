@@ -25,4 +25,6 @@ if [ "$1" = "sync-version" ]; then
 fi
 
 typst compile --features html index.typ index.html
+# Inject the favicon into <head> (Typst's HTML export cannot place <link> there).
+perl -pi -e 's{<head>}{<head><link rel="icon" type="image/png" href="assets/favicon.png">}' index.html
 echo "Built index.html  (open it in a browser, or run './build.sh watch' for live preview)"

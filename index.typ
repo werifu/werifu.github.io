@@ -13,7 +13,6 @@
 #show: homepage.with(
   name: me,
   title: "Siyu's Homepage",
-  favicon: "https://s3.bmp.ovh/imgs/2022/05/28/7745084c66c1e1de.png",
   role: "Ph.D. Student in Electrical and Computer Engineering",
   affiliation: [Purdue University · PurPL],
   avatar: "assets/portrait.png",
