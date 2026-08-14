@@ -12,6 +12,7 @@
 
 #show: homepage.with(
   name: me,
+  title: "Siyu's Homepage",
   role: "Ph.D. Student in Electrical and Computer Engineering",
   affiliation: [Purdue University · PurPL],
   avatar: "assets/portrait.png",

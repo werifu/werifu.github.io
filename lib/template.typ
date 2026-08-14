@@ -128,6 +128,7 @@
 #let homepage(
   name: "",
   role: "",
+  title: none,         // browser-tab <title>; defaults to "name · role"
   affiliation: none,   // content (may contain a link)
   avatar: none,        // image file, e.g. "assets/profile.svg" (embedded in HTML)
   description: "",
@@ -137,7 +138,7 @@
   body,
 ) = {
   set document(
-    title: name + if role != "" { " · " + role } else { "" },
+    title: if title != none { title } else { name + if role != "" { " · " + role } else { "" } },
     author: name,
     description: description,
   )
