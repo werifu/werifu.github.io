@@ -129,6 +129,7 @@
   name: "",
   role: "",
   title: none,         // browser-tab <title>; defaults to "name · role"
+  favicon: none,       // browser-tab icon URL (or data URI) → <link rel="icon">
   affiliation: none,   // content (may contain a link)
   avatar: none,        // image file, e.g. "assets/profile.svg" (embedded in HTML)
   description: "",
@@ -143,6 +144,12 @@
     description: description,
   )
   set text(lang: "en")
+
+  // Browser-tab icon (favicon). Emitted in the body; browsers scan the whole
+  // document for <link rel="icon">, so it still takes effect in the tab.
+  if favicon != none {
+    html.elem("link", attrs: (rel: "icon", type: "image/png", href: favicon))
+  }
 
   // Inline the stylesheet (+ optional accent override).
   html.elem("style", site-css)
